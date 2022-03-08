@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { IFormInputs } from "../helper/interface";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions/user_actions";
-import { Form, Input, SubmitButton, SubmitInput } from "../helper/lib";
+import { Form, Input, Label, SubmitButton, SubmitInput } from "../helper/lib";
 import { emailRex, rex, stringRex } from "../helper/utils";
 import {
   ErrorMessageComponent,
@@ -12,6 +12,8 @@ import {
   LabelComponent,
   TitleComponent,
 } from "../helper/helperComponent";
+import { RootState } from "../store";
+import { LoadingView } from "../components/LoadingView";
 
 export const RegisterPage = (): JSX.Element => {
   const {
@@ -25,11 +27,11 @@ export const RegisterPage = (): JSX.Element => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  //const userRegister = useSelector((state) => state.userRegister);
-  //const { loading, error, userInfo } = userRegister;
-  //const redirect = location.search ? location.search.split("=")[1] : "/";
+  const userRegister = useSelector((state: RootState) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  //console.log(loading, error);
+  console.log(loading, error, redirect);
 
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
@@ -45,71 +47,81 @@ export const RegisterPage = (): JSX.Element => {
     };
   }, [body]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);*/
+  }, [history, userInfo, redirect]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <TitleComponent title={"Registration"} />
-      <LabelComponent label={"First Name"} />
-      <InputComponent
-        placeholder={"enter your first name"}
-        register={register}
-        registerValue={"firstName"}
-        pattern={stringRex}
-        message={"This input is string only."}
-      />
-      <ErrorMessageComponent name={"firstName"} errors={errors} />
+    <>
+      {loading ? (
+        <LoadingView
+          title={"Loading ..."}
+          body={"We are processing the requested work."}
+        />
+      ) : (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <TitleComponent title={"Registration"} />
+          <LabelComponent label={"First Name"} />
+          <InputComponent
+            placeholder={"enter your first name"}
+            register={register}
+            registerValue={"firstName"}
+            pattern={stringRex}
+            message={"This input is string only."}
+          />
+          <ErrorMessageComponent name={"firstName"} errors={errors} />
 
-      <LabelComponent label={"Last Name"} />
-      <InputComponent
-        placeholder={"enter your last name"}
-        register={register}
-        registerValue={"lastName"}
-        pattern={stringRex}
-        message={"This input is string only."}
-      />
-      <ErrorMessageComponent name={"lastName"} errors={errors} />
+          <LabelComponent label={"Last Name"} />
+          <InputComponent
+            placeholder={"enter your last name"}
+            register={register}
+            registerValue={"lastName"}
+            pattern={stringRex}
+            message={"This input is string only."}
+          />
+          <ErrorMessageComponent name={"lastName"} errors={errors} />
 
-      <LabelComponent label={"Email"} />
-      <InputComponent
-        placeholder={"enter your email"}
-        register={register}
-        registerValue={"email"}
-        pattern={emailRex}
-        message={"Invalid email format"}
-      />
-      <ErrorMessageComponent name={"email"} errors={errors} />
+          <LabelComponent label={"Email"} />
+          <InputComponent
+            placeholder={"enter your email"}
+            register={register}
+            registerValue={"email"}
+            pattern={emailRex}
+            message={"Invalid email format"}
+          />
+          <ErrorMessageComponent name={"email"} errors={errors} />
 
-      <LabelComponent label={"Password"} />
-      <InputComponent
-        type={"password"}
-        placeholder={"enter your password"}
-        register={register}
-        registerValue={"password"}
-        pattern={rex}
-        message={
-          "At least 1 uppercase, special character and longer than 8 chars"
-        }
-      />
-      <ErrorMessageComponent name={"password"} errors={errors} />
+          <LabelComponent label={"Password"} />
+          <InputComponent
+            type={"password"}
+            placeholder={"enter your password"}
+            register={register}
+            registerValue={"password"}
+            pattern={rex}
+            message={
+              "At least 1 uppercase, special character and longer than 8 chars"
+            }
+          />
+          <ErrorMessageComponent name={"password"} errors={errors} />
 
-      <LabelComponent label={"Confirm Password"} />
-      <Input
-        type="password"
-        placeholder="check your password again"
-        {...register("password_confirm", {
-          required: "This input is required.",
-          validate: (value: string) => value === password.current,
-        })}
-      />
-      <ErrorMessageComponent name={"password_confirm"} errors={errors} />
+          <LabelComponent label={"Confirm Password"} />
+          <Input
+            type="password"
+            placeholder="check your password again"
+            {...register("password_confirm", {
+              required: "This input is required.",
+              validate: (value: string) => value === password.current,
+            })}
+          />
+          <ErrorMessageComponent name={"password_confirm"} errors={errors} />
 
-      <SubmitInput value="register" />
-      <SubmitButton onClick={() => history.push("/")}>back</SubmitButton>
-    </Form>
+          <SubmitInput value="register" />
+          <SubmitButton onClick={() => history.push("/")}>back</SubmitButton>
+          {error && <Label>{error}</Label>}
+        </Form>
+      )}
+    </>
   );
 };

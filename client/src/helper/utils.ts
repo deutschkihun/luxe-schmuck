@@ -5,3 +5,4 @@ export const rex = new RegExp(
 export const stringRex = /^[A-Za-z]+$/;
 export const emailRex =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+export const numberRex = /^\d+$/;

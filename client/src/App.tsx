@@ -12,6 +12,9 @@ import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
 import { ErrorPage } from "./pages/ErrorPage";
 import { ProductPage } from "./pages/ProductPage";
+import { ForgotPage } from "./pages/ForgotPage";
+import ForgotEmailPage from "./pages/ForgotEmailPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App(): JSX.Element {
   return (
@@ -29,13 +32,16 @@ function App(): JSX.Element {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
-          <Route exact path="/forgot" component={ProductPage} />
           <Route exact path="/cart" component={CartPage} />
           <Route exact path="/shop/search" component={SearchPage} />
           <Route exact path="/newletter" component={NewletterPage} />
           <Route exact path="/about" component={AboutPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/product" component={ProductPage} />
+          <Route exact path="/forgot" component={ForgotPage} />
+          <Route exact path="/forgot/email" component={ForgotEmailPage} />
+          <Route exact path="/forgot/password" component={ForgotPasswordPage} />
+
           <Route path="*" component={ErrorPage} />
         </Switch>
         <Route

@@ -1,4 +1,4 @@
-import { FieldError, UseFormRegister, Validate } from "react-hook-form";
+import { FieldError, UseFormRegister } from "react-hook-form";
 
 export interface IFormInputs {
   firstName: string;
@@ -69,5 +69,4 @@ export interface InputProps {
   pattern?: RegExp;
   message?: string;
   type?: string;
-  validate?: Validate<string> | Record<string, Validate<string>> | undefined;
 }
