@@ -2,6 +2,9 @@
 import axios from "axios";
 import { IFormInputs } from "../helper/interface";
 import {
+  USER_LOGIN_FAIL,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -9,7 +12,77 @@ import {
 
 export const registerUser =
   (body: IFormInputs) =>
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  async (
+    dispatch: (arg0: { type: string; payload?: any }) => void
+  ): Promise<void> => {
+    try {
+      dispatch({ type: USER_REGISTER_REQUEST });
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+
+      const { data } = await axios.post(
+        "/api/v1/users/register",
+        {
+          email: body.email,
+          firstname: body.firstName,
+          lastname: body.lastName,
+          password: body.password,
+        },
+        config
+      );
+
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload: error,
+        /*error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,*/
+      });
+    }
+  };
+
+export const loginUser =
+  (body: IFormInputs) =>
+  async (
+    dispatch: (arg0: { type: string; payload?: any }) => void
+  ): Promise<void> => {
+    try {
+      dispatch({ type: USER_LOGIN_REQUEST });
+
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+
+      const { data } = await axios.post(
+        "/api/v1/users/login",
+        { email: body.email, password: body.password },
+        config
+      );
+
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      });
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload: error,
+        /*error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,*/
+      });
+    }
+  };
+
+export const findEmailUser = (body: IFormInputs): void => {
   async (dispatch: (arg0: { type: string; payload?: any }) => void) => {
     try {
       dispatch({
@@ -25,10 +98,8 @@ export const registerUser =
       const { data } = await axios.post(
         "/api/v1/users/register",
         {
-          email: body.email,
           firstname: body.firstName,
           lastname: body.lastName,
-          password: body.password,
         },
         config
       );
@@ -55,3 +126,4 @@ export const registerUser =
       });
     }
   };
+};

@@ -8,25 +8,6 @@ export interface IFormInputs {
   password_confirm: string;
 }
 
-export interface loginFormInputs {
-  email: string;
-  password: string;
-  isAuth?: boolean;
-  message?: string;
-  status?: string;
-  login?: string;
-}
-
-export interface findEmail {
-  firstName: string;
-  lastName: string;
-  phone: number;
-  age: number;
-  find?: boolean;
-  email?: string;
-  message?: string;
-}
-
 export interface findPassword {
   firstName: string;
   lastName: string;
@@ -57,9 +38,9 @@ export interface TitleProps {
   title: string;
 }
 
-export interface InputProps {
+export type InputProps<T> = {
   placeholder: string;
-  register: UseFormRegister<IFormInputs>;
+  register: UseFormRegister<T>;
   registerValue:
     | "email"
     | "password_confirm"
@@ -69,4 +50,4 @@ export interface InputProps {
   pattern?: RegExp;
   message?: string;
   type?: string;
-}
+};

@@ -29,9 +29,6 @@ export const RegisterPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const userRegister = useSelector((state: RootState) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
-  const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  console.log(loading, error, redirect);
 
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
@@ -49,9 +46,9 @@ export const RegisterPage = (): JSX.Element => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      history.push("/login");
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo]);
 
   return (
     <>

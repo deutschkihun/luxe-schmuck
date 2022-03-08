@@ -275,3 +275,8 @@ export const LoadingViewBody = styled.p<ThemeProps<Theme>>`
   margin: 8px 0px 8px 0px;
   white-space: pre-wrap;
 `;
+
+export const DropDown = styled.li`
+  position: relative;
+  display: inline-block;
+`;

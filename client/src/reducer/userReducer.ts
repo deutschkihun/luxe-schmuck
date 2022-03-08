@@ -7,15 +7,15 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from "../actions/types";
-import { IFormInputs, loginFormInputs } from "../helper/interface";
+import { IFormInputs } from "../helper/interface";
 
 export const userloginReducer = (
   state = {},
-  action: { type: string; payload: Promise<void | loginFormInputs> }
+  action: { type: string; payload: Promise<void | IFormInputs> }
 ): {
   loading?: boolean;
-  userInfo?: Promise<void | loginFormInputs>;
-  error?: Promise<void | loginFormInputs>;
+  userInfo?: Promise<void | IFormInputs>;
+  error?: Promise<void | IFormInputs>;
 } => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -50,3 +50,11 @@ export const userRegisterReducer = (
       return state;
   }
 };
+
+export const logout =
+  () =>
+  (dispatch: (arg0: { type: string }) => void): void => {
+    localStorage.removeItem("userInfo");
+    dispatch({ type: USER_LOGOUT });
+    document.location.href = "/login";
+  };

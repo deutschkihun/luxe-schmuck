@@ -1,6 +1,12 @@
 import React from "react";
 import { ErrorMessage } from "@hookform/error-message";
-import { ErrorProps, InputProps, LabelProps, TitleProps } from "./interface";
+import {
+  ErrorProps,
+  IFormInputs,
+  InputProps,
+  LabelProps,
+  TitleProps,
+} from "./interface";
 import { Input, Label, Title, Warning } from "./lib";
 
 export const LabelComponent = (props: LabelProps): JSX.Element => {
@@ -31,7 +37,7 @@ export const ErrorMessageComponent = (props: ErrorProps): JSX.Element => {
   );
 };
 
-export const InputComponent = (props: InputProps): JSX.Element => {
+export const InputComponent = (props: InputProps<IFormInputs>): JSX.Element => {
   return (
     <Input
       type={props.type}
