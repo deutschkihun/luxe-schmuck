@@ -46,7 +46,7 @@ export const RegisterPage = (): JSX.Element => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/login");
+      history.push("/success");
     }
   }, [history, userInfo]);
 

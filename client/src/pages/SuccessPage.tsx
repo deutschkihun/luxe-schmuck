@@ -9,7 +9,7 @@ export const SuccessPage = (): JSX.Element => {
     <Form>
       <TitleComponent title={"Success"} />
       <Warning>Congraulations. Your request is successfully saved</Warning>
-      <SubmitButton type="submit" onClick={() => history.push("/")}>
+      <SubmitButton type="submit" onClick={() => history.push("/login")}>
         Done
       </SubmitButton>
     </Form>

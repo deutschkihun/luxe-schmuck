@@ -15,6 +15,7 @@ import { ProductPage } from "./pages/ProductPage";
 import { ForgotPage } from "./pages/ForgotPage";
 import { ForgotEmailPage } from "./pages/ForgotEmailPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { SuccessPage } from "./pages/SuccessPage";
 
 function App(): JSX.Element {
   return (
@@ -24,6 +25,7 @@ function App(): JSX.Element {
         render={({ location }) =>
           location.pathname !== "/login" &&
           location.pathname !== "/register" &&
+          location.pathname !== "/success" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
           location.pathname !== "/forgot/email" && <Header />
@@ -42,7 +44,7 @@ function App(): JSX.Element {
         <Route exact path="/forgot" component={ForgotPage} />
         <Route exact path="/forgot/email" component={ForgotEmailPage} />
         <Route exact path="/forgot/password" component={ForgotPasswordPage} />
-
+        <Route exact path="/success" component={SuccessPage} />
         <Route path="*" component={ErrorPage} />
       </Switch>
       <Route
@@ -51,6 +53,7 @@ function App(): JSX.Element {
           location.pathname !== "/" &&
           location.pathname !== "/login" &&
           location.pathname !== "/register" &&
+          location.pathname !== "/success" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
           location.pathname !== "/forgot/email" && <Footer />
