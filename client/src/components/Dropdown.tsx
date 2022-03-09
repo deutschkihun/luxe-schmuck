@@ -27,7 +27,7 @@ export const Dropdown = (): JSX.Element => {
         <a className="dropdown-item" href="/profile">
           Profile
         </a>
-        <a className="dropdown-item" onClick={logoutHandler}>
+        <a className="dropdown-item" href="/login" onClick={logoutHandler}>
           Logout
         </a>
       </div>

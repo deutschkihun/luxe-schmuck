@@ -16,6 +16,7 @@ import { ForgotPage } from "./pages/ForgotPage";
 import { ForgotEmailPage } from "./pages/ForgotEmailPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { SuccessPage } from "./pages/SuccessPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 function App(): JSX.Element {
   return (
@@ -45,6 +46,7 @@ function App(): JSX.Element {
         <Route exact path="/forgot/email" component={ForgotEmailPage} />
         <Route exact path="/forgot/password" component={ForgotPasswordPage} />
         <Route exact path="/success" component={SuccessPage} />
+        <Route exact path="/profile" component={ProfilePage} />
         <Route path="*" component={ErrorPage} />
       </Switch>
       <Route
