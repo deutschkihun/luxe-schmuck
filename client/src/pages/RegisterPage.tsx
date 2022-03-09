@@ -115,7 +115,9 @@ export const RegisterPage = (): JSX.Element => {
           <ErrorMessageComponent name={"password_confirm"} errors={errors} />
 
           <SubmitInput value="register" />
-          <SubmitButton onClick={() => history.push("/")}>back</SubmitButton>
+          <SubmitButton onClick={() => history.push("/login")}>
+            back
+          </SubmitButton>
           {error && <Label>{error}</Label>}
         </Form>
       )}

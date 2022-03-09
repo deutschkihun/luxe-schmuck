@@ -40,7 +40,7 @@ export const ForgotEmailPage = (): JSX.Element => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TitleComponent title={"Forgot Email"} />
       <LabelComponent label={"First name"} />
-      {/*<InputComponent
+      <InputComponent
         placeholder={"enter your first name"}
         register={register}
         registerValue={"firstName"}
@@ -48,7 +48,6 @@ export const ForgotEmailPage = (): JSX.Element => {
         message={"This input is string only."}
       />
       <ErrorMessageComponent name={"firstName"} errors={errors} />
-
       <LabelComponent label={"Last name"} />
       <InputComponent
         placeholder={"enter your last name"}
@@ -58,9 +57,9 @@ export const ForgotEmailPage = (): JSX.Element => {
         message={"This input is string only."}
       />
       <ErrorMessageComponent name={"lastName"} errors={errors} />
-      */}
+
       <SubmitInput value="Find Email" />
-      <SubmitButton type="submit" onClick={() => history.push("/")}>
+      <SubmitButton type="submit" onClick={() => history.push("/login")}>
         Back to Sign in
       </SubmitButton>
       {/*

@@ -14,7 +14,7 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { ProductPage } from "./pages/ProductPage";
 import { ForgotPage } from "./pages/ForgotPage";
 import { ForgotEmailPage } from "./pages/ForgotEmailPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 
 function App(): JSX.Element {
   return (
