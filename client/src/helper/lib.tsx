@@ -63,6 +63,9 @@ export const MenuLogo = styled.a`
   text-decoration: none;
   color: black;
   font-weight: bold;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 export const SearchLogo = styled.a`
@@ -99,6 +102,7 @@ export const HighlightLink = styled(Link)`
   text-decoration: none;
   &:hover {
     color: hotpink;
+    text-decoration: none;
   }
 `;
 
@@ -249,6 +253,7 @@ export const SubTitle = styled.h3`
   text-align: center;
   padding-bottom: 10px;
   padding-top: 10px;
+  font-size: 1.17em;
 `;
 
 export const Warning = styled.p`

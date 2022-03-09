@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Dropdown, Menu } from "antd";
+import { useSelector } from "react-redux";
 import {
   HeaderSection,
   Grid,
@@ -12,30 +11,13 @@ import {
   MenuContainer,
   Listing,
 } from "../helper/lib";
-import { logout } from "../reducer/userReducer";
 import { RootState } from "../store";
+import { Dropdown } from "./Dropdown";
 
 export const Header = (): JSX.Element => {
   const userLogin = useSelector((state: RootState) => state.userLogin);
-  const dispatch = useDispatch();
   const { userInfo } = userLogin;
-  const logoutHandler = () => {
-    dispatch(logout());
-  };
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="1" icon={<i className="fa-solid fa-angles-down"></i>}>
-        1st menu item
-      </Menu.Item>
-      <Menu.Item key="2" icon={<i className="fa-solid fa-angles-down"></i>}>
-        2nd menu item
-      </Menu.Item>
-      <Menu.Item key="3" icon={<i className="fa-solid fa-angles-down"></i>}>
-        3rd menu item
-      </Menu.Item>
-    </Menu>
-  );
   return (
     <HeaderSection>
       <Grid>
@@ -49,9 +31,7 @@ export const Header = (): JSX.Element => {
           <i className="fa fa-shopping-cart" aria-hidden="true"></i>
         </CartLogo>
         {userInfo ? (
-          <Dropdown overlay={menu}>
-            <Button>Button</Button>
-          </Dropdown>
+          <Dropdown />
         ) : (
           <UserLogo href="/login">
             <i className="fa fa-user" aria-hidden="true"></i>
