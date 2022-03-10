@@ -11,11 +11,11 @@ import { IFormInputs } from "../helper/interface";
 
 export const userloginReducer = (
   state = {},
-  action: { type: string; payload: Promise<void | IFormInputs> }
+  action: { type: string; payload: Promise<void | IFormInputs>; error: Error }
 ): {
   loading?: boolean;
   userInfo?: Promise<void | IFormInputs>;
-  error?: Promise<void | IFormInputs>;
+  error?: Error;
 } => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -23,7 +23,7 @@ export const userloginReducer = (
     case USER_LOGIN_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.error };
     case USER_LOGOUT:
       return {};
     default:
@@ -33,7 +33,10 @@ export const userloginReducer = (
 
 export const userRegisterReducer = (
   state = {},
-  action: { type: string; payload: Promise<void | IFormInputs> }
+  action: {
+    type: string;
+    payload: Promise<void | IFormInputs>;
+  }
 ): {
   loading?: boolean;
   userInfo?: Promise<void | IFormInputs>;

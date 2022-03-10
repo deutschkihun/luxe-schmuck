@@ -6,6 +6,7 @@ export interface IFormInputs {
   email: string;
   password: string;
   password_confirm: string;
+  message?: string;
 }
 
 export interface findPassword {

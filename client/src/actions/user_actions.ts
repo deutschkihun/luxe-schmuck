@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { IFormInputs } from "../helper/interface";
+import { userExist } from "../helper/message";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -39,10 +40,8 @@ export const registerUser =
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
-        payload: error,
-        /*error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,*/
+        payload:
+          error instanceof Error ? (error.message = userExist) : userExist,
       });
     }
   };

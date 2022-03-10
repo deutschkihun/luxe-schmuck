@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
+import {BadRequestError} from '../error/BadRequest.js'
 
 // @description     Auth user & get token
 // @route           POST /api/users/login
@@ -8,35 +9,33 @@ import User from '../models/userModel.js';
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  console.log("email",email)
   const user = await User.findOne({ email: email });
 
+  console.log("user",user)
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
-      name: user.name,
+      firstname: user.firstname,
+      lastname: user.lastname,
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
+    console.log("hello")
     res.status(401);
     throw new Error('Invalid email or password');
   }
 });
 
-// @description     Resgister a new user
-// @route    POST /api/users
-// @access    Public
 const registerUser = asyncHandler(async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
 
   const userExists = await User.findOne({ email: email });
-
-  if (userExists) {
-    res.status(400);
-    throw new Error('User already exists');
-  }
-
+  userExists && res.status(400) 
+  
+ 
   const user = await User.create({
     firstname,
     lastname,
@@ -54,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400);
+    res.status(400)
     throw new Error('Invalid user data');
   }
 });

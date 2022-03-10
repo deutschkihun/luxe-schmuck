@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { IFormInputs } from "../helper/interface";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions/user_actions";
-import { Form, Input, Label, SubmitButton, SubmitInput } from "../helper/lib";
+import { Form, Input, SubmitButton, SubmitInput, Warning } from "../helper/lib";
 import { emailRex, rex, stringRex } from "../helper/utils";
 import {
   ErrorMessageComponent,
@@ -29,6 +29,8 @@ export const RegisterPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const userRegister = useSelector((state: RootState) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
+
+  console.log("error123", error);
 
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
@@ -114,11 +116,11 @@ export const RegisterPage = (): JSX.Element => {
           />
           <ErrorMessageComponent name={"password_confirm"} errors={errors} />
 
+          {error && <Warning>{error}</Warning>}
           <SubmitInput value="register" />
           <SubmitButton onClick={() => history.push("/login")}>
             back
           </SubmitButton>
-          {error && <Label>{error}</Label>}
         </Form>
       )}
     </>
