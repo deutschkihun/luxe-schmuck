@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Form,
   HighlightLink,
-  Label,
   SubmitButton,
   SubmitInput,
   SubTitle,
+  Warning,
 } from "../helper/lib";
 import { emailRex, rex } from "../helper/utils";
 import { loginUser } from "../actions/user_actions";
@@ -38,8 +38,6 @@ export const LoginPage = (): JSX.Element => {
   const { loading, error, userInfo } = userLogin;
   const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
     setBody(data);
-
-  console.log("error", error);
 
   useEffect(() => {
     body && dispatch(loginUser(body));
@@ -87,7 +85,6 @@ export const LoginPage = (): JSX.Element => {
             }
           />
           <ErrorMessageComponent name={"password"} errors={errors} />
-          {error && <Label>{error}</Label>}
 
           <SubTitle>
             No account yet ? then{" "}
@@ -97,6 +94,11 @@ export const LoginPage = (): JSX.Element => {
             Forgot your Email or PW ? then click{" "}
             <HighlightLink to="/forgot">here.</HighlightLink>
           </SubTitle>
+          {error && (
+            <SubTitle>
+              <Warning>{error}</Warning>
+            </SubTitle>
+          )}
           <SubmitInput value="login" />
           <SubmitButton onClick={() => history.push("/")}>
             BACK TO LUXE SCHMUCK
