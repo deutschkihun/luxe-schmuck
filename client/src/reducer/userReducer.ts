@@ -66,12 +66,12 @@ export const userDetailsReducer = (
   state = {},
   action: {
     type: string;
-    payload: Promise<void | IFormInputs>;
+    payload: IFormInputs;
   }
 ): {
   loading?: boolean;
-  user?: Promise<void | IFormInputs> | Record<string, unknown>;
-  error?: Promise<void | IFormInputs>;
+  user?: IFormInputs | Record<string, unknown>;
+  error?: IFormInputs;
 } => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:

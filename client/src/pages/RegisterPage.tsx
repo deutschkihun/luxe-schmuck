@@ -30,8 +30,6 @@ export const RegisterPage = (): JSX.Element => {
   const userRegister = useSelector((state: RootState) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
-  console.log("error123", error);
-
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
   const [body, setBody] = useState<IFormInputs>();

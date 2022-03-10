@@ -51,4 +51,5 @@ export type InputProps<T> = {
   pattern?: RegExp;
   message?: string;
   type?: string;
+  defaultValue?: string;
 };

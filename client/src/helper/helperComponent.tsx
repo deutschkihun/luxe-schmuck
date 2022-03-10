@@ -41,6 +41,7 @@ export const InputComponent = (props: InputProps<IFormInputs>): JSX.Element => {
   return (
     <Input
       type={props.type}
+      defaultValue={props.defaultValue}
       placeholder="enter your first name"
       {...props.register(props.registerValue, {
         required: "This input is required.",

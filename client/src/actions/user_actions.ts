@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { IFormInputs } from "../helper/interface";
-import { userExist, wrongCredential } from "../helper/message";
+import {
+  failToLoad,
+  unauthorized,
+  fialToUpdate,
+  userExist,
+  wrongCredential,
+} from "../helper/message";
 import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
   USER_DETAILS_FAIL,
@@ -14,6 +20,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
 } from "./types";
 
 export const registerUser =
@@ -88,17 +97,17 @@ export const logoutUser =
 export const getUserDetails =
   (id: string) =>
   async (
-    dispatch: (arg0: { type: string; payload?: any }) => void
+    dispatch: (arg0: { type: string; payload?: any }) => void,
+    getState: () => { userLogin: { userInfo: any } }
   ): Promise<void> => {
     try {
       dispatch({ type: USER_DETAILS_REQUEST });
-      // error position
       const {
         userLogin: { userInfo },
       } = getState();
 
       const { data } = await axios.get(
-        `/api/users/${id}`,
+        `/api/v1/users/${id}`,
         tokenConfig(userInfo.token)
       );
 
@@ -107,15 +116,55 @@ export const getUserDetails =
         payload: data,
       });
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? (error.message = wrongCredential)
-          : wrongCredential;
-      /*if (message === "Not authorized, token failed") {
-        dispatch(logout());
+      let message;
+      /*if (error instanceof Error) {
+        error.message === unauthorized
+          ? dispatch(logoutUser())
+          : (message = failToLoad);
       }*/
+
       dispatch({
         type: USER_DETAILS_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const updateUserProfile =
+  (user: IFormInputs) =>
+  async (
+    dispatch: (arg0: { type: any; payload?: any }) => void,
+    getState: () => { userLogin: { userInfo: any } }
+  ): Promise<void> => {
+    try {
+      dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const { data } = await axios.put(`/api/users/profile`, user, {
+        ...jsonConfig,
+        ...tokenConfig(userInfo.token),
+      });
+
+      dispatch({
+        type: USER_UPDATE_PROFILE_SUCCESS,
+        payload: data,
+      });
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      let message;
+      /*if(error instanceof Error) {
+        error.message === unauthorized
+          ? dispatch(logoutUser())
+          : (message = fialToUpdate);
+      }*/
+      dispatch({
+        type: USER_UPDATE_PROFILE_FAIL,
         payload: message,
       });
     }
@@ -160,6 +209,3 @@ export const findEmailUser = (body: IFormInputs): void => {
     }
   };
 };
-function getState(): { userLogin: { userInfo: any } } {
-  throw new Error("Function not implemented.");
-}
