@@ -26,6 +26,7 @@ function App(): JSX.Element {
         render={({ location }) =>
           location.pathname !== "/login" &&
           location.pathname !== "/register" &&
+          location.pathname !== "/profile" &&
           location.pathname !== "/success" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
@@ -55,6 +56,7 @@ function App(): JSX.Element {
           location.pathname !== "/" &&
           location.pathname !== "/login" &&
           location.pathname !== "/register" &&
+          location.pathname !== "/profile" &&
           location.pathname !== "/success" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&

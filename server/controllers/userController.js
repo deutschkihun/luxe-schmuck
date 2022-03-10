@@ -57,7 +57,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     res.json({
       _id: user._id,
-      name: user.name,
+      firstname: user.firstname,
+      lastname: user.lastname,
       email: user.email,
       isAdmin: user.isAdmin,
     });

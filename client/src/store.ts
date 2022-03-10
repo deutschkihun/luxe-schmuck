@@ -1,11 +1,18 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { userloginReducer, userRegisterReducer } from "./reducer/userReducer";
+import {
+  userDetailsReducer,
+  userloginReducer,
+  userRegisterReducer,
+  userUpdateProfileReducer,
+} from "./reducer/userReducer";
 
 export const rootReducer = combineReducers({
   userLogin: userloginReducer,
   userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

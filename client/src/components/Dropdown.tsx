@@ -1,11 +1,11 @@
 import React from "react";
-import { logout } from "../reducer/userReducer";
+import { logoutUser } from "../actions/user_actions";
 import { useDispatch } from "react-redux";
 
 export const Dropdown = (): JSX.Element => {
   const dispatch = useDispatch();
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
   };
 
   return (
