@@ -13,7 +13,7 @@ import {
 import { emailRex, rex, stringRex } from "../helper/utils";
 import { RootState } from "../store";
 import { USER_UPDATE_PROFILE_RESET } from "../actions/types";
-import { getUserDetails } from "../actions/user_actions";
+import { getUserDetails, updateUserProfile } from "../actions/user_actions";
 import { LoadingView } from "../components/LoadingView";
 import { failToLoad } from "../helper/message";
 
@@ -29,51 +29,45 @@ export const ProfilePage = (): JSX.Element => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const [firstname, setFirstname] = useState<string>("");
-  const [lastname, setLastname] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
   const [body, setBody] = useState<IFormInputs>();
 
   const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
     setBody(data);
+  console.log("body", body);
 
   const userDetails = useSelector((state: RootState) => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  const userLogin = useSelector((state: RootState) => state.userLogin);
-  const { userInfo } = userLogin;
-
   const userUpdateProfile = useSelector(
     (state: RootState) => state.userUpdateProfile
   );
-  const { success } = userUpdateProfile;
+  const { loading: updateLoading, success } = userUpdateProfile;
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push("/login");
+    if (success) {
+      history.push("/");
     } else {
-      if (!user || !user.firstName || success) {
+      if (!user) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
         //dispatch(listMyOrders());
-      } else {
-        setFirstname(user?.firstName as string);
-        setLastname(user?.lastName as string);
-        setEmail(user?.email as string);
       }
     }
-  }, [dispatch, history, userInfo, user, success]);
+  }, [dispatch, history, user, success]);
 
-  console.log(firstname, lastname);
+  useEffect(() => {
+    body && dispatch(updateUserProfile(body));
+    return () => {
+      setBody(undefined);
+    };
+  }, [body]);
+
   return (
     <>
-      {loading ? (
-        <LoadingView
-          title={"Loading your data"}
-          body={"please wait a moment"}
-        />
+      {loading || updateLoading ? (
+        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
       ) : user ? (
         <Form onSubmit={handleSubmit(onSubmit)}>
           {error ? (
@@ -88,21 +82,21 @@ export const ProfilePage = (): JSX.Element => {
               <InputComponent
                 placeholder={"enter your first name"}
                 type="text"
-                defaultValue={firstname}
+                defaultValue={user.firstname as string}
                 register={register}
-                registerValue={"firstName"}
+                registerValue={"firstname"}
                 pattern={stringRex}
                 message={"This input is string only."}
               />
-              <ErrorMessageComponent name={"firstName"} errors={errors} />
+              <ErrorMessageComponent name={"firstname"} errors={errors} />
 
               <LabelComponent label={"Last Name"} />
               <InputComponent
                 placeholder={"enter your last name"}
                 type="text"
-                defaultValue={lastname}
+                defaultValue={user.lastname as string}
                 register={register}
-                registerValue={"lastName"}
+                registerValue={"lastname"}
                 pattern={stringRex}
                 message={"This input is string only."}
               />
@@ -110,7 +104,7 @@ export const ProfilePage = (): JSX.Element => {
 
               <LabelComponent label={"Email"} />
               <InputComponent
-                defaultValue={email}
+                defaultValue={user.email as string}
                 placeholder={"enter your email"}
                 register={register}
                 registerValue={"email"}
@@ -145,7 +139,7 @@ export const ProfilePage = (): JSX.Element => {
                 errors={errors}
               />
 
-              <SubmitInput value="change" />
+              <SubmitInput value="update" />
               <SubmitButton onClick={() => history.push("/")}>
                 back
               </SubmitButton>

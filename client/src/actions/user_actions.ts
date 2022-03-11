@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { IFormInputs } from "../helper/interface";
-import {
-  failToLoad,
-  unauthorized,
-  fialToUpdate,
-  userExist,
-  wrongCredential,
-} from "../helper/message";
+import { userExist, wrongCredential } from "../helper/message";
 import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
   USER_DETAILS_FAIL,
@@ -36,8 +30,8 @@ export const registerUser =
         "/api/v1/users/register",
         {
           email: body.email,
-          firstname: body.firstName,
-          lastname: body.lastName,
+          firstname: body.firstname,
+          lastname: body.lastname,
           password: body.password,
         },
         jsonConfig
@@ -142,7 +136,7 @@ export const updateUserProfile =
         userLogin: { userInfo },
       } = getState();
 
-      const { data } = await axios.put(`/api/users/profile`, user, {
+      const { data } = await axios.put(`/api/v1/users/profile`, user, {
         ...jsonConfig,
         ...tokenConfig(userInfo.token),
       });
@@ -186,8 +180,8 @@ export const findEmailUser = (body: IFormInputs): void => {
       const { data } = await axios.post(
         "/api/v1/users/register",
         {
-          firstname: body.firstName,
-          lastname: body.lastName,
+          firstname: body.firstname,
+          lastname: body.lastname,
         },
         config
       );

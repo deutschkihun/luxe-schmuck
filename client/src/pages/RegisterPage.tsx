@@ -64,21 +64,21 @@ export const RegisterPage = (): JSX.Element => {
           <InputComponent
             placeholder={"enter your first name"}
             register={register}
-            registerValue={"firstName"}
+            registerValue={"firstname"}
             pattern={stringRex}
             message={"This input is string only."}
           />
-          <ErrorMessageComponent name={"firstName"} errors={errors} />
+          <ErrorMessageComponent name={"firstname"} errors={errors} />
 
           <LabelComponent label={"Last Name"} />
           <InputComponent
             placeholder={"enter your last name"}
             register={register}
-            registerValue={"lastName"}
+            registerValue={"lastname"}
             pattern={stringRex}
             message={"This input is string only."}
           />
-          <ErrorMessageComponent name={"lastName"} errors={errors} />
+          <ErrorMessageComponent name={"lastname"} errors={errors} />
 
           <LabelComponent label={"Email"} />
           <InputComponent

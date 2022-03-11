@@ -1,8 +1,8 @@
 import { FieldError, UseFormRegister } from "react-hook-form";
 
 export interface IFormInputs {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   password_confirm: string;
@@ -46,8 +46,8 @@ export type InputProps<T> = {
     | "email"
     | "password_confirm"
     | "password"
-    | "firstName"
-    | "lastName";
+    | "firstname"
+    | "lastname";
   pattern?: RegExp;
   message?: string;
   type?: string;

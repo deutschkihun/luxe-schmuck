@@ -35,17 +35,17 @@ export const ForgotPasswordPage = (): JSX.Element => {
       <InputComponent
         placeholder="enter your first name"
         register={register}
-        registerValue={"firstName"}
+        registerValue={"firstname"}
         pattern={stringRex}
         message={"This input is number only."}
       />
-      <ErrorMessageComponent name={"firstName"} errors={errors} />
+      <ErrorMessageComponent name={"firstname"} errors={errors} />
 
       <LabelComponent label={"Last name"} />
       <InputComponent
         placeholder={"enter your last name"}
         register={register}
-        registerValue={"lastName"}
+        registerValue={"lastname"}
         pattern={stringRex}
         message={"This input is string only."}
       />
