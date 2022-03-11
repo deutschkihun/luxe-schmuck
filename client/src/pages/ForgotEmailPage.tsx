@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { USER_FIND_EMAIL_RESET } from "../actions/types";
 import { findEmailUser } from "../actions/user_actions";
 import { LoadingView } from "../components/LoadingView";
 import {
@@ -27,6 +28,7 @@ export const ForgotEmailPage = (): JSX.Element => {
 
   useEffect(() => {
     body && dispatch(findEmailUser(body));
+    dispatch({ type: USER_FIND_EMAIL_RESET });
 
     return () => {
       setBody(undefined);

@@ -2,6 +2,10 @@ import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs'
+import crypto from 'crypto';
+import dotenv from 'dotenv';
+import nodemailer from 'nodemailer'
+dotenv.config();
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -172,6 +176,69 @@ const findEmail = asyncHandler(async (req,res) => {
     res.status(404)
     throw new Error('Email not found');
   }
+})
+
+const findPW = asyncHandler(async (req,res) => {
+  const {firstname,lastname,email} = await req.body;
+  const randomDigits = crypto.randomInt(100000,999999).toString()
+  const findPW = await User.findOne({firstname,lastname,email})
+
+  if(findPW) {
+    let transporter = nodemailer.createTransport({
+      pool: true,
+      host: "smtp.netcorecloud.net",
+      port: 587,
+      auth: {
+        user: process.env.ID,
+        pass: process.env.PW
+      },
+      tls: {
+          rejectUnauthorized: false
+      }
+    });
+  
+    // send mail with defined transport object
+    await transporter.sendMail({
+      from: "info@deutschkihun.com",
+      to: email,
+      subject: "Your verification code", // Subject line
+      text: `Your verification code is ${randomDigits}`,
+    });
+
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Server is ready to take our messages");
+      }
+    });
+    res.json({
+      email,
+      pin:randomDigits
+    })
+  } else {
+    res.status(404)
+    throw new Error('No user was found that matches the information')
+  }
+})
+
+const resetPW = asyncHandler( async(req,res) => {
+  let {email,password} = await req.body 
+  console.log(email,password)
+  const salt = await bcrypt.genSalt(10);
+  password = await bcrypt.hash(password, salt);
+  const resetUser = await User.findOneAndUpdate({email:email},{password:password},{
+    new:true,
+    runValidators:true
+})
+
+    if(resetUser) {
+      res.json({success:true})
+    } else {
+      res.status(404)
+      throw new Error('No user was found that matches the information')
+    }
+
 
 })
 
@@ -184,5 +251,7 @@ export {
   deleteUser,
   getUserById,
   updateUser,
-  findEmail
+  findEmail,
+  findPW,
+  resetPW
 };

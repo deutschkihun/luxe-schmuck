@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { IFormInputs } from "../helper/interface";
-import { emailNotFound, userExist, wrongCredential } from "../helper/message";
+import {
+  emailNotFound,
+  noMatchedUser,
+  userExist,
+  wrongCredential,
+} from "../helper/message";
 import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
   USER_DETAILS_FAIL,
@@ -10,6 +15,9 @@ import {
   USER_FIND_EMAIL_FAIL,
   USER_FIND_EMAIL_REQUEST,
   USER_FIND_EMAIL_SUCCESS,
+  USER_FIND_PASSWORD_FAIL,
+  USER_FIND_PASSWORD_REQUEST,
+  USER_FIND_PASSWORD_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -17,6 +25,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_RESET_PASSWORD_FAIL,
+  USER_RESET_PASSWORD_REQUEST,
+  USER_RESET_PASSWORD_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
@@ -188,6 +199,60 @@ export const findEmailUser =
       dispatch({
         type: USER_FIND_EMAIL_FAIL,
         payload: emailNotFound,
+      });
+    }
+  };
+
+export const findPasswordUser =
+  (user: IFormInputs) =>
+  async (
+    dispatch: (arg0: { type: any; payload?: any }) => void
+  ): Promise<void> => {
+    try {
+      dispatch({ type: USER_FIND_PASSWORD_REQUEST });
+      const { data } = await axios.post(
+        `/api/v1/users/findpw`,
+        user,
+        jsonConfig
+      );
+
+      dispatch({
+        type: USER_FIND_PASSWORD_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_FIND_PASSWORD_FAIL,
+        payload: {
+          error: noMatchedUser,
+        },
+      });
+    }
+  };
+
+export const resetPasswordUser =
+  (user: IFormInputs) =>
+  async (
+    dispatch: (arg0: { type: any; payload?: any }) => void
+  ): Promise<void> => {
+    try {
+      dispatch({ type: USER_RESET_PASSWORD_REQUEST });
+      const { data } = await axios.post(
+        `/api/v1/users/resetpw`,
+        user,
+        jsonConfig
+      );
+
+      dispatch({
+        type: USER_RESET_PASSWORD_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_RESET_PASSWORD_FAIL,
+        payload: {
+          error: noMatchedUser,
+        },
       });
     }
   };

@@ -285,9 +285,10 @@ export const Label = styled.label`
   font-weight: 200;
 `;
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   font-weight: 100;
   color: black;
+  margin-top: 2rem;
   text-align: center;
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(79, 98, 148);

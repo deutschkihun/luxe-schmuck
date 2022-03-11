@@ -6,7 +6,9 @@ import {
   getUsers,
   getUserProfile,
   updateUserProfile,
-  findEmail
+  findEmail,
+  findPW,
+  resetPW
 } from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -18,5 +20,8 @@ router
   .put(protect, updateUserProfile);
 
 router.post('/findemail',findEmail)
+router.post('/findpw',findPW)
+router.post('/resetpw',resetPW)
+
 
 export default router;

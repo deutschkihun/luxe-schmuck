@@ -18,6 +18,7 @@ import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { SuccessPage } from "./pages/SuccessPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { MyOrderPage } from "./pages/MyOrderPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 
 function App(): JSX.Element {
   return (
@@ -31,6 +32,7 @@ function App(): JSX.Element {
           location.pathname !== "/success" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
+          location.pathname !== "/reset/password" &&
           location.pathname !== "/forgot/email" && <Header />
         }
       />
@@ -47,6 +49,7 @@ function App(): JSX.Element {
         <Route exact path="/forgot" component={ForgotPage} />
         <Route exact path="/forgot/email" component={ForgotEmailPage} />
         <Route exact path="/forgot/password" component={ForgotPasswordPage} />
+        <Route exact path="/reset/password" component={ResetPasswordPage} />
         <Route exact path="/success" component={SuccessPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/myorder" component={MyOrderPage} />
@@ -61,6 +64,7 @@ function App(): JSX.Element {
           location.pathname !== "/success" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
+          location.pathname !== "/reset/password" &&
           location.pathname !== "/forgot/email" && <Footer />
         }
       />

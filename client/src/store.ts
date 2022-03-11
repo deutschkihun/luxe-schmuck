@@ -3,10 +3,12 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   userDetailsReducer,
-  userFindEmail,
+  userFindEmailReducer,
   userloginReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
+  userFindPasswordReducer,
+  userResetPasswordReducer,
 } from "./reducer/userReducer";
 
 export const rootReducer = combineReducers({
@@ -14,7 +16,9 @@ export const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
-  userFindEmail: userFindEmail,
+  userFindEmail: userFindEmailReducer,
+  userFindPassword: userFindPasswordReducer,
+  userResetPassword: userResetPasswordReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
