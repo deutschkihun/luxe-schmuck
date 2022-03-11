@@ -138,6 +138,9 @@ export const UserLogo = styled.a`
 export const FooterLink = styled.a`
   text-decoration: none;
   color: white;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 export const HighlightLink = styled(Link)`
@@ -167,8 +170,8 @@ export const FooterSection = styled.footer`
   background-color: black;
   color: white;
   font-size: 0.7rem;
-  padding-left: 3.125vw;
-  padding-right: 3.125vw;
+  padding-left: 7vw;
+  padding-right: 7vw;
   flex: auto;
   font-size: 1rem;
 `;
