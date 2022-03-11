@@ -9,23 +9,6 @@ export interface IFormInputs {
   message?: string;
 }
 
-export interface findPassword {
-  firstName: string;
-  lastName: string;
-  email: string;
-  find?: boolean;
-  message?: string;
-  code?: number;
-}
-
-export interface resetPassword {
-  code?: number;
-  password?: string;
-  email: string;
-  reset: boolean;
-  message: string;
-}
-
 export interface ErrorProps {
   name: string;
   errors: { [x: string]: FieldError } | undefined;

@@ -35,8 +35,6 @@ export const ProfilePage = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
     setBody(data);
-  console.log("body", body);
-
   const userDetails = useSelector((state: RootState) => state.userDetails);
   const { loading, error, user } = userDetails;
 
@@ -52,7 +50,6 @@ export const ProfilePage = (): JSX.Element => {
       if (!user) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
-        //dispatch(listMyOrders());
       }
     }
   }, [dispatch, history, user, success]);

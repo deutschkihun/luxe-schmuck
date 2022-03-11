@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { findEmailUser } from "../actions/user_actions";
+import { LoadingView } from "../components/LoadingView";
 import {
   ErrorMessageComponent,
   InputComponent,
@@ -10,8 +11,9 @@ import {
   TitleComponent,
 } from "../helper/helperComponent";
 import { IFormInputs } from "../helper/interface";
-import { Form, SubmitButton, SubmitInput } from "../helper/lib";
+import { Form, SubmitButton, SubmitInput, Warning } from "../helper/lib";
 import { stringRex } from "../helper/utils";
+import { RootState } from "../store";
 
 export const ForgotEmailPage = (): JSX.Element => {
   const history = useHistory();
@@ -19,6 +21,9 @@ export const ForgotEmailPage = (): JSX.Element => {
   const [body, setBody] = useState<IFormInputs>();
   const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
     setBody(data);
+
+  const userFindEmail = useSelector((state: RootState) => state.userFindEmail);
+  const { loading, email, error } = userFindEmail;
 
   useEffect(() => {
     body && dispatch(findEmailUser(body));
@@ -37,36 +42,39 @@ export const ForgotEmailPage = (): JSX.Element => {
   });
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <TitleComponent title={"Forgot Email"} />
-      <LabelComponent label={"First name"} />
-      <InputComponent
-        placeholder={"enter your first name"}
-        register={register}
-        registerValue={"firstname"}
-        pattern={stringRex}
-        message={"This input is string only."}
-      />
-      <ErrorMessageComponent name={"firstname"} errors={errors} />
-      <LabelComponent label={"Last name"} />
-      <InputComponent
-        placeholder={"enter your last name"}
-        register={register}
-        registerValue={"lastname"}
-        pattern={stringRex}
-        message={"This input is string only."}
-      />
-      <ErrorMessageComponent name={"lastname"} errors={errors} />
+    <>
+      {loading ? (
+        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
+      ) : (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <TitleComponent title={"Forgot Email"} />
+          <LabelComponent label={"First name"} />
+          <InputComponent
+            placeholder={"enter your first name"}
+            register={register}
+            registerValue={"firstname"}
+            pattern={stringRex}
+            message={"This input is string only."}
+          />
+          <ErrorMessageComponent name={"firstname"} errors={errors} />
+          <LabelComponent label={"Last name"} />
+          <InputComponent
+            placeholder={"enter your last name"}
+            register={register}
+            registerValue={"lastname"}
+            pattern={stringRex}
+            message={"This input is string only."}
+          />
+          <ErrorMessageComponent name={"lastname"} errors={errors} />
 
-      <SubmitInput value="Find Email" />
-      <SubmitButton type="submit" onClick={() => history.push("/login")}>
-        Back to Sign in
-      </SubmitButton>
-      {/*
-      {foundEmail.length > 0 && <Warning>{foundEmail}</Warning>}
-      {error.length > 0 && (
-        <Warning style={{ textAlign: "center" }}>{error}</Warning>
-      )}*/}
-    </Form>
+          <SubmitInput value="Find Email" />
+          <SubmitButton type="submit" onClick={() => history.push("/login")}>
+            Back to Sign in
+          </SubmitButton>
+          {email && <Warning>{`Your email is ${email}`}</Warning>}
+          {error && <Warning>{error}</Warning>}
+        </Form>
+      )}
+    </>
   );
 };

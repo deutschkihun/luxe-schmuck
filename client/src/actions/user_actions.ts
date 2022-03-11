@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { IFormInputs } from "../helper/interface";
-import { userExist, wrongCredential } from "../helper/message";
+import { emailNotFound, userExist, wrongCredential } from "../helper/message";
 import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
+  USER_FIND_EMAIL_FAIL,
+  USER_FIND_EMAIL_REQUEST,
+  USER_FIND_EMAIL_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -164,42 +167,27 @@ export const updateUserProfile =
     }
   };
 
-export const findEmailUser = (body: IFormInputs): void => {
-  async (dispatch: (arg0: { type: string; payload?: any }) => void) => {
+export const findEmailUser =
+  (user: IFormInputs) =>
+  async (
+    dispatch: (arg0: { type: any; payload?: any }) => void
+  ): Promise<void> => {
     try {
-      dispatch({
-        type: USER_REGISTER_REQUEST,
-      });
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
+      dispatch({ type: USER_FIND_EMAIL_REQUEST });
       const { data } = await axios.post(
-        "/api/v1/users/register",
-        {
-          firstname: body.firstname,
-          lastname: body.lastname,
-        },
-        config
+        `/api/v1/users/findemail`,
+        user,
+        jsonConfig
       );
 
       dispatch({
-        type: USER_REGISTER_SUCCESS,
+        type: USER_FIND_EMAIL_SUCCESS,
         payload: data,
       });
-
-      localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
-        type: USER_REGISTER_FAIL,
-        payload: error,
-        /*error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,*/
+        type: USER_FIND_EMAIL_FAIL,
+        payload: emailNotFound,
       });
     }
   };
-};

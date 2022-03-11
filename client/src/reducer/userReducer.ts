@@ -3,6 +3,9 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
   USER_DETAILS_SUCCESS,
+  USER_FIND_EMAIL_FAIL,
+  USER_FIND_EMAIL_REQUEST,
+  USER_FIND_EMAIL_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -108,6 +111,29 @@ export const userUpdateProfileReducer = (
       return { loading: false, error: action.payload };
     case USER_UPDATE_PROFILE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const userFindEmail = (
+  state = {},
+  action: {
+    type: string;
+    payload: string;
+  }
+): {
+  loading?: boolean;
+  email?: string;
+  error?: string;
+} => {
+  switch (action.type) {
+    case USER_FIND_EMAIL_REQUEST:
+      return { loading: true };
+    case USER_FIND_EMAIL_SUCCESS:
+      return { loading: false, email: action.payload };
+    case USER_FIND_EMAIL_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   userDetailsReducer,
+  userFindEmail,
   userloginReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  userFindEmail: userFindEmail,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -163,6 +163,18 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const findEmail = asyncHandler(async (req,res) => {
+  const {firstname,lastname} = await req.body
+  const findEmail = await User.findOne({firstname,lastname})
+  if(findEmail) {
+    res.send(findEmail.email)
+  } else {
+    res.status(404)
+    throw new Error('Email not found');
+  }
+
+})
+
 export {
   authUser,
   registerUser,
@@ -172,4 +184,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  findEmail
 };
