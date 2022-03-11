@@ -30,9 +30,52 @@ export const VideoShowCase = styled.section`
     transform: translate(-50%, -50%);
     object-fit: cover;
   }
+
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(19, 18, 18, 0.5);
+  }
+`;
+
+export const VideoContent = styled.div`
+  position: relative;
+  align-items: center;
+  text-align: center;
+  color: $white-color;
+  z-index: 10;
+  margin-top: -5%;
+  display: flex;
+  flex-direction: column;
+
+  .h1 {
+    font-size: 2rem;
+  }
+
+  a {
+    width: 100px;
+    color: $white-color;
+    padding: 10px 0;
+    margin-top: 1rem;
+    border: 2px solid $white-color;
+  }
 `;
 
 export const HeaderSection = styled.header``;
+
+export const BodySection = styled.section`
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Grid = styled.div`
   max-width: 1440px;
@@ -41,7 +84,7 @@ export const Grid = styled.div`
   grid-template-columns: repeat(10, 1fr);
   grid-row-gap: 0px;
   padding-left: 10vw;
-  padding-right: 5vw;
+  padding-right: 10vw;
   @media (min-width: 783px) {
     .toggle-btn {
       display: none;
@@ -117,7 +160,7 @@ export const Listing = styled.li`
 `;
 
 export const FooterSection = styled.footer`
-  position: absolute;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;

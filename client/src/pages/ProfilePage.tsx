@@ -15,6 +15,7 @@ import { RootState } from "../store";
 import { USER_UPDATE_PROFILE_RESET } from "../actions/types";
 import { getUserDetails } from "../actions/user_actions";
 import { LoadingView } from "../components/LoadingView";
+import { failToLoad } from "../helper/message";
 
 export const ProfilePage = (): JSX.Element => {
   const {
@@ -41,7 +42,6 @@ export const ProfilePage = (): JSX.Element => {
   const userDetails = useSelector((state: RootState) => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  console.log("user", user?.firstName);
   const userLogin = useSelector((state: RootState) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -54,13 +54,11 @@ export const ProfilePage = (): JSX.Element => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user || success) {
-        console.log("ff");
+      if (!user || !user.firstName || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
         //dispatch(listMyOrders());
       } else {
-        console.log("ff2");
         setFirstname(user?.firstName as string);
         setLastname(user?.lastName as string);
         setEmail(user?.email as string);
@@ -68,6 +66,7 @@ export const ProfilePage = (): JSX.Element => {
     }
   }, [dispatch, history, userInfo, user, success]);
 
+  console.log(firstname, lastname);
   return (
     <>
       {loading ? (
@@ -75,7 +74,7 @@ export const ProfilePage = (): JSX.Element => {
           title={"Loading your data"}
           body={"please wait a moment"}
         />
-      ) : (
+      ) : user ? (
         <Form onSubmit={handleSubmit(onSubmit)}>
           {error ? (
             <>
@@ -84,7 +83,7 @@ export const ProfilePage = (): JSX.Element => {
             </>
           ) : (
             <>
-              <TitleComponent title={"Setting"} />
+              <TitleComponent title={"MY LUXE SCHMUCK"} />
               <LabelComponent label={"First Name"} />
               <InputComponent
                 placeholder={"enter your first name"}
@@ -153,6 +152,11 @@ export const ProfilePage = (): JSX.Element => {
             </>
           )}
         </Form>
+      ) : (
+        <>
+          <TitleComponent title="Error" />
+          <Warning>{failToLoad}</Warning>
+        </>
       )}
     </>
   );

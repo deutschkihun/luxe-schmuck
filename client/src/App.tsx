@@ -53,7 +53,6 @@ function App(): JSX.Element {
       <Route
         path="/"
         render={({ location }) =>
-          location.pathname !== "/" &&
           location.pathname !== "/login" &&
           location.pathname !== "/register" &&
           location.pathname !== "/profile" &&
