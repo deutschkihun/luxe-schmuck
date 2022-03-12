@@ -51,8 +51,11 @@ export const ForgotPasswordPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    body && dispatch(findPasswordUser(body));
     dispatch({ type: USER_FIND_PASSWORD_RESET });
+  }, []);
+
+  useEffect(() => {
+    body && dispatch(findPasswordUser(body));
     return () => {
       setBody(undefined);
     };
