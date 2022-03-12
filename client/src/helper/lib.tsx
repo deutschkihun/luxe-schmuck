@@ -83,22 +83,42 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-row-gap: 0px;
-  padding-left: 10vw;
-  padding-right: 10vw;
-  @media (min-width: 783px) {
+  justify-items: center;
+  @media (min-width: 1000px) {
     .toggle-btn {
       display: none;
     }
   }
-  @media (max-width: 782px) {
+  @media (max-width: 1000px) {
     .logo-toggle,
     .menu-toggle {
       display: none;
     }
     .toggle-btn {
-      grid-column: 4 / 8;
+      grid-column: 5 / 6;
+      .show {
+        visibility: visible;
+        z-index: 2;
+        transform: scale(1);
+      }
     }
   }
+`;
+
+export const MenuContainer1 = styled.div`
+  grid-column: 4 / 5;
+`;
+
+export const MenuContainer2 = styled.div`
+  grid-column: 5 / 6;
+`;
+
+export const MenuContainer3 = styled.div`
+  grid-column: 6 / 7;
+`;
+
+export const MenuContainer4 = styled.div`
+  grid-column: 7 / 8;
 `;
 
 export const MenuLogo = styled.a`
@@ -111,6 +131,22 @@ export const MenuLogo = styled.a`
   }
 `;
 
+export const MenuDeco = styled.a`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  &:hover {
+    text-decoration: none;
+  }
+`;
+
+export const MenubarLogo = styled.a`
+  grid-column: 5 / 6;
+  cursor: pointer;
+  color: black;
+  font-size: 25px;
+`;
+
 export const SearchLogo = styled.a`
   cursor: pointer;
   grid-column: 1 / 2;
@@ -121,7 +157,7 @@ export const SearchLogo = styled.a`
 
 export const CartLogo = styled.a`
   cursor: pointer;
-  grid-column: 9 / 10;
+  grid-column: 10 / 11;
   color: black;
   font-size: 25px;
   padding: 1rem;
@@ -129,10 +165,14 @@ export const CartLogo = styled.a`
 
 export const UserLogo = styled.a`
   cursor: pointer;
-  grid-column: 10 / 11;
+  grid-column: 9 / 10;
   color: black;
   font-size: 25px;
   padding: 1rem;
+`;
+
+export const DropdowLogo = styled.div`
+  grid-column: 9 / 10;
 `;
 
 export const FooterLink = styled.a`
@@ -150,10 +190,6 @@ export const HighlightLink = styled(Link)`
     color: hotpink;
     text-decoration: none;
   }
-`;
-
-export const MenuContainer = styled.div`
-  grid-column: 4 / 11;
 `;
 
 export const Listing = styled.li`
@@ -288,7 +324,7 @@ export const Label = styled.label`
 export const Title = styled.h2`
   font-weight: 100;
   color: black;
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-align: center;
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(79, 98, 148);
