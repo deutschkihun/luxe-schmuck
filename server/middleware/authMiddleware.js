@@ -18,13 +18,14 @@ const protect = asyncHandler(async (req, res, next) => {
 
       next();
     } catch (error) {
-      console.error(error);
       res.status(401);
+      throw new Error("Unauthorized")
     }
   }
 
   if (!token) {
     res.status(401);
+    throw new Error("Unauthorized")
   }
 });
 
@@ -33,6 +34,7 @@ const admin = (req, res, next) => {
     next();
   } else {
     res.status(401);
+    throw new Error("Unauthorized")
   }
 };
 

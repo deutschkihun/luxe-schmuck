@@ -3,7 +3,10 @@ import axios from "axios";
 import { IFormInputs } from "../helper/interface";
 import {
   emailNotFound,
+  failToLoad,
+  fialToUpdate,
   noMatchedUser,
+  unauthorized,
   userExist,
   wrongCredential,
 } from "../helper/message";
@@ -104,10 +107,15 @@ export const logoutUser =
 
 export const getUserDetails =
   (id: string) =>
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async (
-    dispatch: (arg0: { type: string; payload?: any }) => void,
+    dispatch: (
+      arg0:
+        | { type: string; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
     getState: () => { userLogin: { userInfo: any } }
-  ): Promise<void> => {
+  ) => {
     try {
       dispatch({ type: USER_DETAILS_REQUEST });
       const {
@@ -124,12 +132,13 @@ export const getUserDetails =
         payload: data,
       });
     } catch (error) {
-      let message;
-      /*if (error instanceof Error) {
-        error.message === unauthorized
-          ? dispatch(logoutUser())
-          : (message = failToLoad);
-      }*/
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+        }
+        message = failToLoad;
+      }
 
       dispatch({
         type: USER_DETAILS_FAIL,
@@ -141,7 +150,11 @@ export const getUserDetails =
 export const updateUserProfile =
   (user: IFormInputs) =>
   async (
-    dispatch: (arg0: { type: any; payload?: any }) => void,
+    dispatch: (
+      arg0:
+        | { type: any; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
     getState: () => { userLogin: { userInfo: any } }
   ): Promise<void> => {
     try {
@@ -165,12 +178,13 @@ export const updateUserProfile =
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
-      let message;
-      /*if(error instanceof Error) {
-        error.message === unauthorized
-          ? dispatch(logoutUser())
-          : (message = fialToUpdate);
-      }*/
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+        }
+        message = fialToUpdate;
+      }
       dispatch({
         type: USER_UPDATE_PROFILE_FAIL,
         payload: message,

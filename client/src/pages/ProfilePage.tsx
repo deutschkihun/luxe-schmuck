@@ -15,7 +15,6 @@ import { RootState } from "../store";
 import { USER_UPDATE_PROFILE_RESET } from "../actions/types";
 import { getUserDetails, updateUserProfile } from "../actions/user_actions";
 import { LoadingView } from "../components/LoadingView";
-import { failToLoad } from "../helper/message";
 
 export const ProfilePage = (): JSX.Element => {
   const {
@@ -144,10 +143,7 @@ export const ProfilePage = (): JSX.Element => {
           )}
         </Form>
       ) : (
-        <>
-          <TitleComponent title="Error" />
-          <Warning>{failToLoad}</Warning>
-        </>
+        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
       )}
     </>
   );
