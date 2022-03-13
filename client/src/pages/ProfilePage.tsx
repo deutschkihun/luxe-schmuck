@@ -13,7 +13,7 @@ import {
 import { emailRex, rex, stringRex } from "../helper/utils";
 import { RootState } from "../store";
 import { USER_UPDATE_PROFILE_RESET } from "../actions/types";
-import { getUserDetails, updateUserProfile } from "../actions/user_actions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { LoadingView } from "../components/LoadingView";
 
 export const ProfilePage = (): JSX.Element => {

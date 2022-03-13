@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { IFormInputs } from "../helper/interface";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../actions/user_actions";
+import { registerUser } from "../actions/userActions";
 import { Form, Input, SubmitButton, SubmitInput, Warning } from "../helper/lib";
 import { emailRex, rex, stringRex } from "../helper/utils";
 import {

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { USER_FIND_EMAIL_RESET } from "../actions/types";
-import { findEmailUser } from "../actions/user_actions";
+import { findEmailUser } from "../actions/userActions";
 import { LoadingView } from "../components/LoadingView";
 import {
   ErrorMessageComponent,

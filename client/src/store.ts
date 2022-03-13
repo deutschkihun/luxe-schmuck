@@ -10,6 +10,7 @@ import {
   userFindPasswordReducer,
   userResetPasswordReducer,
 } from "./reducer/userReducer";
+import { productListReducer } from "./reducer/productReducer";
 
 export const rootReducer = combineReducers({
   userLogin: userloginReducer,
@@ -19,6 +20,7 @@ export const rootReducer = combineReducers({
   userFindEmail: userFindEmailReducer,
   userFindPassword: userFindPasswordReducer,
   userResetPassword: userResetPasswordReducer,
+  productList: productListReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

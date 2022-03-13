@@ -12,7 +12,7 @@ import {
 import { Form, Input, SubmitButton, SubmitInput, Warning } from "../helper/lib";
 import { emailRex, stringRex } from "../helper/utils";
 import { RootState } from "../store";
-import { findPasswordUser } from "../actions/user_actions";
+import { findPasswordUser } from "../actions/userActions";
 import { LoadingView } from "../components/LoadingView";
 import { USER_FIND_PASSWORD_RESET } from "../actions/types";
 

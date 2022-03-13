@@ -12,7 +12,7 @@ import {
   Warning,
 } from "../helper/lib";
 import { emailRex, rex } from "../helper/utils";
-import { loginUser } from "../actions/user_actions";
+import { loginUser } from "../actions/userActions";
 import { RootState } from "../store";
 import {
   ErrorMessageComponent,

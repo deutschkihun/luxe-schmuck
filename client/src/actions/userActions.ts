@@ -107,7 +107,6 @@ export const logoutUser =
 
 export const getUserDetails =
   (id: string) =>
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async (
     dispatch: (
       arg0:
@@ -115,7 +114,7 @@ export const getUserDetails =
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
     getState: () => { userLogin: { userInfo: any } }
-  ) => {
+  ): Promise<void> => {
     try {
       dispatch({ type: USER_DETAILS_REQUEST });
       const {

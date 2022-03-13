@@ -1,5 +1,5 @@
 import React from "react";
-import { logoutUser } from "../actions/user_actions";
+import { logoutUser } from "../actions/userActions";
 import { useDispatch } from "react-redux";
 
 export const ProfileDropdown = (): JSX.Element => {

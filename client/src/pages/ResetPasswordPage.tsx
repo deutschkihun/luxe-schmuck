@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPasswordUser } from "../actions/user_actions";
+import { resetPasswordUser } from "../actions/userActions";
 import { rex } from "../helper/utils";
 import {
   ErrorMessageComponent,

@@ -9,6 +9,21 @@ export interface IFormInputs {
   message?: string;
 }
 
+export interface ProductProps {
+  page: number;
+  pages: number;
+  error: string;
+  products: string[];
+}
+
+export interface PaginationProps {
+  pages: number;
+  page: number;
+  isAdmin?: boolean;
+  keyword: string;
+  category: string;
+}
+
 export interface ErrorProps {
   name: string;
   errors: { [x: string]: FieldError } | undefined;
@@ -36,3 +51,18 @@ export type InputProps<T> = {
   type?: string;
   defaultValue?: string;
 };
+
+export interface RatingProps {
+  value: number;
+  color: string;
+  text: string;
+}
+
+export interface ProductProps {
+  _id: string;
+  name: string;
+  rating: number;
+  numReviews: number;
+  image: string;
+  price: number;
+}
