@@ -7,6 +7,8 @@ export interface IFormInputs {
   password: string;
   password_confirm: string;
   message?: string;
+  error?: string;
+  isAdmin?: boolean;
 }
 
 export interface ProductProps {
@@ -65,4 +67,17 @@ export interface ProductProps {
   numReviews: number;
   image: string;
   price: number;
+}
+
+export interface UserListProps {
+  error?: string | undefined;
+  users?: [
+    {
+      _id?: string;
+      firstname?: string;
+      lastname?: string;
+      email?: string;
+      isAdmin?: boolean;
+    }
+  ];
 }

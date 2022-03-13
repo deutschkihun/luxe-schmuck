@@ -39,6 +39,8 @@ export const LoginPage = (): JSX.Element => {
   const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
     setBody(data);
 
+  console.log("error", error);
+
   useEffect(() => {
     body && dispatch(loginUser(body));
 

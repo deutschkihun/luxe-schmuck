@@ -4,14 +4,18 @@ import { IFormInputs } from "../helper/interface";
 import {
   emailNotFound,
   failToLoad,
-  fialToUpdate,
+  failToDelete,
+  failToUpdate,
   noMatchedUser,
   unauthorized,
   userExist,
-  wrongCredential,
+  InvaildCredential,
 } from "../helper/message";
 import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -21,6 +25,9 @@ import {
   USER_FIND_PASSWORD_FAIL,
   USER_FIND_PASSWORD_REQUEST,
   USER_FIND_PASSWORD_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -44,7 +51,7 @@ export const registerUser =
     try {
       dispatch({ type: USER_REGISTER_REQUEST });
       const { data } = await axios.post(
-        "/api/v1/users/register",
+        "/api/v1/users",
         {
           email: body.email,
           firstname: body.firstname,
@@ -59,11 +66,14 @@ export const registerUser =
         payload: data,
       });
     } catch (error) {
-      dispatch({
-        type: USER_REGISTER_FAIL,
-        payload:
-          error instanceof Error ? (error.message = userExist) : userExist,
-      });
+      if (error instanceof Error) {
+        dispatch({
+          type: USER_REGISTER_FAIL,
+          payload: {
+            error: userExist,
+          },
+        });
+      }
     }
   };
 
@@ -87,13 +97,14 @@ export const loginUser =
 
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
-      dispatch({
-        type: USER_LOGIN_FAIL,
-        payload:
-          error instanceof Error
-            ? (error.message = wrongCredential)
-            : wrongCredential,
-      });
+      if (error instanceof Error) {
+        dispatch({
+          type: USER_LOGIN_FAIL,
+          payload: {
+            error: InvaildCredential,
+          },
+        });
+      }
     }
   };
 
@@ -135,8 +146,10 @@ export const getUserDetails =
       if (error instanceof Error) {
         if (error.message == unauthorized) {
           await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToLoad;
         }
-        message = failToLoad;
       }
 
       dispatch({
@@ -181,8 +194,10 @@ export const updateUserProfile =
       if (error instanceof Error) {
         if (error.message == unauthorized) {
           await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToUpdate;
         }
-        message = fialToUpdate;
       }
       dispatch({
         type: USER_UPDATE_PROFILE_FAIL,
@@ -266,6 +281,90 @@ export const resetPasswordUser =
         payload: {
           error: noMatchedUser,
         },
+      });
+    }
+  };
+
+export const listUsers =
+  () =>
+  async (
+    dispatch: (
+      arg0:
+        | { type: any; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
+    getState: () => { userLogin: { userInfo: any } }
+  ): Promise<void> => {
+    try {
+      dispatch({ type: USER_LIST_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const { data } = await axios.get(
+        `/api/v1/users`,
+        tokenConfig(userInfo.token)
+      );
+
+      dispatch({
+        type: USER_LIST_SUCCESS,
+        payload: {
+          users: data,
+        },
+      });
+    } catch (error) {
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToLoad;
+        }
+      }
+      dispatch({
+        type: USER_LIST_FAIL,
+        payload: {
+          error: message,
+        },
+      });
+    }
+  };
+
+export const deleteUser =
+  (id: string) =>
+  async (
+    dispatch: (
+      arg0:
+        | { type: any; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
+    getState: () => { userLogin: { userInfo: any } }
+  ): Promise<void> => {
+    try {
+      dispatch({
+        type: USER_DELETE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      await axios.delete(`/api/v1/users/${id}`, tokenConfig(userInfo.token));
+
+      dispatch({ type: USER_DELETE_SUCCESS });
+    } catch (error) {
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+          message = error.message;
+        }
+        message = failToDelete;
+      }
+      dispatch({
+        type: USER_DELETE_FAIL,
+        payload: message,
       });
     }
   };

@@ -19,6 +19,10 @@ import { SuccessPage } from "./pages/SuccessPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { MyOrderPage } from "./pages/MyOrderPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
+import UserListPage from "./pages/UserListPage";
+import { UserEditPage } from "./pages/UserEditPage";
+import { ProductListPage } from "./pages/ProductListPage";
+import { OrderListPage } from "./pages/OrderListPage";
 
 function App(): JSX.Element {
   return (
@@ -53,11 +57,17 @@ function App(): JSX.Element {
         <Route exact path="/success" component={SuccessPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/myorder" component={MyOrderPage} />
+        {/* admin */}
+        <Route exact path="/admin/userlist" component={UserListPage} />
+        <Route exact path="/admin/userlist" component={UserEditPage} />
+        <Route path="/admin/productlist" component={ProductListPage} />
+        <Route exact path="/admin/orderlist" component={OrderListPage} />
         <Route path="*" component={ErrorPage} />
       </Switch>
       <Route
         path="/"
         render={({ location }) =>
+          location.pathname !== "/" &&
           location.pathname !== "/login" &&
           location.pathname !== "/register" &&
           location.pathname !== "/profile" &&

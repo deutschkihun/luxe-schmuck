@@ -9,6 +9,8 @@ import {
   userUpdateProfileReducer,
   userFindPasswordReducer,
   userResetPasswordReducer,
+  userListReducer,
+  userDeleteReducer,
 } from "./reducer/userReducer";
 import { productListReducer } from "./reducer/productReducer";
 
@@ -20,6 +22,8 @@ export const rootReducer = combineReducers({
   userFindEmail: userFindEmailReducer,
   userFindPassword: userFindPasswordReducer,
   userResetPassword: userResetPasswordReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
   productList: productListReducer,
 });
 

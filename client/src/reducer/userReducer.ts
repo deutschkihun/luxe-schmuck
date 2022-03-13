@@ -1,4 +1,7 @@
 import {
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
@@ -11,6 +14,9 @@ import {
   USER_FIND_PASSWORD_REQUEST,
   USER_FIND_PASSWORD_RESET,
   USER_FIND_PASSWORD_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -27,15 +33,15 @@ import {
   USER_UPDATE_PROFILE_RESET,
   USER_UPDATE_PROFILE_SUCCESS,
 } from "../actions/types";
-import { IFormInputs } from "../helper/interface";
+import { IFormInputs, UserListProps } from "../helper/interface";
 
 export const userloginReducer = (
   state = {},
-  action: { type: string; payload: Promise<void | IFormInputs> }
+  action: { type: string; payload: IFormInputs }
 ): {
   loading?: boolean;
-  userInfo?: Promise<void | IFormInputs>;
-  error?: Promise<void | IFormInputs>;
+  userInfo?: IFormInputs;
+  error?: string;
 } => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -43,7 +49,7 @@ export const userloginReducer = (
     case USER_LOGIN_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload.error };
     case USER_LOGOUT:
       return {};
     default:
@@ -55,12 +61,12 @@ export const userRegisterReducer = (
   state = {},
   action: {
     type: string;
-    payload: Promise<void | IFormInputs>;
+    payload: IFormInputs;
   }
 ): {
   loading?: boolean;
-  userInfo?: Promise<void | IFormInputs>;
-  error?: Promise<void | IFormInputs>;
+  userInfo?: IFormInputs;
+  error?: string;
 } => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -68,7 +74,7 @@ export const userRegisterReducer = (
     case USER_REGISTER_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_REGISTER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload.error };
     default:
       return state;
   }
@@ -200,6 +206,49 @@ export const userResetPasswordReducer = (
       return { loading: false, error: action.payload.error };
     case USER_RESET_PASSWORD_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const userListReducer = (
+  state = {},
+  action: {
+    type?: string;
+    payload: UserListProps;
+  }
+): {
+  loading?: boolean;
+  userlist?: UserListProps;
+  error?: string;
+} => {
+  switch (action.type) {
+    case USER_LIST_REQUEST:
+      return { loading: true };
+    case USER_LIST_SUCCESS:
+      return { loading: false, userlist: action.payload };
+    case USER_LIST_FAIL:
+      return { loading: false, error: action.payload.error };
+    default:
+      return state;
+  }
+};
+
+export const userDeleteReducer = (
+  state = {},
+  action: { type: string; payload: { error: string }; success: boolean }
+): {
+  loading?: boolean;
+  success?: boolean;
+  error?: string;
+} => {
+  switch (action.type) {
+    case USER_DELETE_REQUEST:
+      return { loading: true };
+    case USER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case USER_DELETE_FAIL:
+      return { loading: false, error: action.payload.error };
     default:
       return state;
   }
