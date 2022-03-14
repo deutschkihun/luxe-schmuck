@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "../components/Product";
-import { Paginatation } from "../components/Pagination";
+import { Pagination } from "../components/Pagination";
 import { listProducts } from "../actions/productActions";
 import { NavLink } from "react-router-dom";
 import { Warning } from "../helper/lib";
 import { LoadingView } from "../components/LoadingView";
 import { RootState } from "../store";
+import { MatchParams } from "../helper/interface";
 
-export const ProductPage = (match: {
-  params: { category: string; keyword: string; pageNumber: string };
-}): JSX.Element => {
-  const category = match.params.category;
-  const keyword = match.params.keyword;
-  const pageNumber = match.params.pageNumber || "1";
+export const ProductPage = (props: MatchParams): JSX.Element => {
+  const category = props.match.params.category;
+  const keyword = props.match.params.keyword;
+  const pageNumber = props.match.params.pageNumber || 1;
   const dispatch = useDispatch();
 
   const productList = useSelector((state: RootState) => state.productList);
@@ -66,14 +65,14 @@ export const ProductPage = (match: {
           <Warning>{error}</Warning>
         ) : (
           <div className="products">
-            {/*products.map((product) => (
+            {/*products?.map((product) => (
               <Product key={product._id} product={product} />
             ))*/}
           </div>
         )}
-        <Paginatation
-          pages={pages}
-          page={page}
+        <Pagination
+          pages={pages as number}
+          page={page as number}
           keyword={keyword ? keyword : ""}
           category={category ? category : ""}
         />

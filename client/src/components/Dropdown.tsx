@@ -41,7 +41,7 @@ export const ProfileDropdown = (): JSX.Element => {
             <a className="dropdown-item" href="/admin/userlist">
               Users
             </a>
-            <a className="dropdown-item" href="/login">
+            <a className="dropdown-item" href="/admin/productlist">
               Products
             </a>
             <a className="dropdown-item" href="/login">

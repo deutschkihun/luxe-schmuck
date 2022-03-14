@@ -15,15 +15,23 @@ export interface ProductProps {
   page: number;
   pages: number;
   error: string;
-  products: string[];
+  products: [
+    {
+      _id?: string;
+      name?: string;
+      category?: string;
+      price?: number;
+      brand?: string;
+    }
+  ];
 }
 
 export interface PaginationProps {
   pages: number;
   page: number;
   isAdmin?: boolean;
-  keyword: string;
-  category: string;
+  keyword?: string;
+  category?: string;
 }
 
 export interface ErrorProps {
@@ -80,4 +88,14 @@ export interface UserListProps {
       isAdmin?: boolean;
     }
   ];
+}
+
+export interface MatchParams {
+  match: {
+    params: {
+      pageNumber: number;
+      category: string;
+      keyword: string;
+    };
+  };
 }

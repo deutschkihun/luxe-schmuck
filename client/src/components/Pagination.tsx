@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { PaginationProps } from "../helper/interface";
 
-export const Paginatation = (props: PaginationProps): JSX.Element => {
+export const Pagination = (props: PaginationProps): JSX.Element => {
   const { isAdmin, category, keyword, page, pages } = props;
   const redirectTo = (pageNum: number) => {
     if (isAdmin) {

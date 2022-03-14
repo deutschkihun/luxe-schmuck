@@ -12,7 +12,10 @@ import {
   userListReducer,
   userDeleteReducer,
 } from "./reducer/userReducer";
-import { productListReducer } from "./reducer/productReducer";
+import {
+  productDeleteReducer,
+  productListReducer,
+} from "./reducer/productReducer";
 
 export const rootReducer = combineReducers({
   userLogin: userloginReducer,
@@ -25,6 +28,7 @@ export const rootReducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   productList: productListReducer,
+  productDelete: productDeleteReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

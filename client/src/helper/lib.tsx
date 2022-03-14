@@ -368,3 +368,17 @@ export const DropDown = styled.li`
   position: relative;
   display: inline-block;
 `;
+
+export const UserListContainer = styled.form`
+  margin: 2rem auto 0px;
+  width: 713.91px;
+`;
+
+export const ProductListContainer = styled.form`
+  margin: 2rem auto 0px;
+  width: 830px;
+`;
+
+export const ListTitle = styled.h4`
+  text-align: center;
+`;

@@ -1,8 +1,8 @@
 export const userExist = "Already registered email";
 export const failToLoad = "Fail to load user data";
 export const unauthorized = "Request failed with status code 401";
-export const failToUpdate = "Fail to update user data";
-export const failToDelete = "Fail to delete user data";
+export const failToUpdate = "Fail to update";
+export const failToDelete = "Fail to delete";
 export const emailNotFound = "Email not found";
 export const noMatchedUser = "No user was found that matches the information";
 export const InvaildCredential = "Invalid email or password";
