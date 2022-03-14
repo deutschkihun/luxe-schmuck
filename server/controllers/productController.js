@@ -93,6 +93,8 @@ const createProduct = asyncHandler(async (req, res) => {
     description,
   });
 
+  
+
   const createdProduct = await product.save();
   res.status(201).json(createdProduct);
 });
