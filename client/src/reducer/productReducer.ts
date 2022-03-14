@@ -1,4 +1,8 @@
 import {
+  PRODUCT_CREATE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_RESET,
+  PRODUCT_CREATE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
@@ -6,7 +10,7 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
 } from "../actions/types";
-import { ProductProps } from "../helper/interface";
+import { CreateProductProps, ProductProps } from "../helper/interface";
 
 export const productListReducer = (
   state = {},
@@ -61,6 +65,32 @@ export const productDeleteReducer = (
       return { loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload.error };
+    default:
+      return state;
+  }
+};
+
+export const productCreateReducer = (
+  state = {},
+  action: {
+    type: string;
+    payload: { error: string; product: CreateProductProps };
+  }
+): {
+  loading?: boolean;
+  error?: string;
+  product?: CreateProductProps;
+  success?: boolean;
+} => {
+  switch (action.type) {
+    case PRODUCT_CREATE_REQUEST:
+      return { loading: true };
+    case PRODUCT_CREATE_SUCCESS:
+      return { loading: false, success: true, product: action.payload.product };
+    case PRODUCT_CREATE_FAIL:
+      return { loading: false, error: action.payload.error };
+    case PRODUCT_CREATE_RESET:
+      return {};
     default:
       return state;
   }

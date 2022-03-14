@@ -22,6 +22,7 @@ import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import UserListPage from "./pages/UserListPage";
 import { ProductListPage } from "./pages/ProductListPage";
 import { OrderListPage } from "./pages/OrderListPage";
+import ProductCreateScreen from "./pages/ProductCreatePage";
 
 function App(): JSX.Element {
   return (
@@ -59,6 +60,11 @@ function App(): JSX.Element {
         {/* admin */}
         <Route exact path="/admin/userlist" component={UserListPage} />
         <Route path="/admin/productlist" component={ProductListPage} />
+        <Route
+          exact
+          path="/admin/product/create"
+          component={ProductCreateScreen}
+        />
         <Route exact path="/admin/orderlist" component={OrderListPage} />
         <Route path="*" component={ErrorPage} />
       </Switch>

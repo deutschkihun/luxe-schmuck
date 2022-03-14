@@ -1,8 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { failToDelete, failToLoad, unauthorized } from "../helper/message";
-import { tokenConfig } from "../helper/utils";
+import { CreateProductProps } from "../helper/interface";
 import {
+  failToCreate,
+  failToDelete,
+  failToLoad,
+  unauthorized,
+} from "../helper/message";
+import { jsonConfig, tokenConfig } from "../helper/utils";
+import {
+  PRODUCT_CREATE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
@@ -73,6 +82,53 @@ export const deleteProduct =
       dispatch({
         type: PRODUCT_DELETE_FAIL,
         payload: message,
+      });
+    }
+  };
+
+export const createProduct =
+  (product: CreateProductProps) =>
+  async (
+    dispatch: (
+      arg0:
+        | { type: any; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
+    getState: () => { userLogin: { userInfo: any } }
+  ): Promise<void> => {
+    try {
+      dispatch({ type: PRODUCT_CREATE_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      console.log("userInfo", userInfo);
+
+      const { data } = await axios.post(`/api/v1/products`, product, {
+        ...jsonConfig,
+        ...tokenConfig(userInfo.token),
+      });
+      console.log("data", data);
+
+      dispatch({
+        type: PRODUCT_CREATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      let message;
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToCreate;
+        }
+      }
+      dispatch({
+        type: PRODUCT_CREATE_FAIL,
+        payload: {
+          error: message,
+        },
       });
     }
   };

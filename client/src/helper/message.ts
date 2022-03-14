@@ -8,3 +8,4 @@ export const noMatchedUser = "No user was found that matches the information";
 export const InvaildCredential = "Invalid email or password";
 export const deleteAccount =
   "If you delete your account, you cannot recover it. Do you still want to proceed?";
+export const failToCreate = "Fail to create";

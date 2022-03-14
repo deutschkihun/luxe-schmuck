@@ -78,6 +78,8 @@ const createProduct = asyncHandler(async (req, res) => {
     countInStock,
   } = req.body;
 
+  console.log("fwefwe")
+
   const product = new Product({
     name, // same as name: name; => key and variabe have same name
     price,

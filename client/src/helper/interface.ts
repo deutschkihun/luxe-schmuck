@@ -99,3 +99,13 @@ export interface MatchParams {
     };
   };
 }
+
+export interface CreateProductProps {
+  name: string;
+  price: number;
+  image: string;
+  brand: string;
+  category: string;
+  countInStock: number;
+  description: string;
+}
