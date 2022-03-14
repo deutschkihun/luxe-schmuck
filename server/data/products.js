@@ -1,6 +1,6 @@
 const products = [
     {
-      name: 'WOOL MIX BELTED COAT',
+      productname: 'WOOL MIX BELTED COAT',
       image: '/images/w_coat.jpg',
       description:
         'Designed from a wool mix with a full lining, this coat has a waist belt to define the silhouette.',
@@ -12,7 +12,7 @@ const products = [
       numReviews: 12,
     },
     {
-      name: 'RIBBED COLLAR WOOL-ALPACA TOP',
+      productname: 'RIBBED COLLAR WOOL-ALPACA TOP',
       image: '/images/w_top.jpg',
       description:
         'Made for cool, winter days. Designed from a wool alpaca mix, this knitted top is elevated with a ribbed collar that can be folded over.',
@@ -24,7 +24,7 @@ const products = [
       numReviews: 8,
     },
     {
-      name: 'CHECKED WOOL DRESS',
+      productname: 'CHECKED WOOL DRESS',
       image: '/images/w_dress.jpg',
       description:
         'Winter checks for seasons to come. Made from wool with a touch of stretch, this dress is elevated with a check design.',
@@ -36,7 +36,7 @@ const products = [
       numReviews: 12,
     },
     {
-      name: 'LONG WIDE-LEG WOOL PANTS',
+      productname: 'LONG WIDE-LEG WOOL PANTS',
       image: '/images/m_pants.jpg',
       description:
         'Directional tailoring. Cut with wide, long legs, these trousers have a distinctive and contemporary design.',
@@ -48,7 +48,7 @@ const products = [
       numReviews: 12,
     },
     {
-      name: 'COTTON CORDUROY SHIRT',
+      productname: 'COTTON CORDUROY SHIRT',
       image: '/images/m_top.jpg',
       description:
         'A transitional necessity. Made from a cotton mix with a ribbed quality, this corduroy shirt can be styled on its own or worn as a jacket as the season changes.',
@@ -60,7 +60,7 @@ const products = [
       numReviews: 10,
     },
     {
-      name: 'SHORT PUFFER JACKET',
+      productname: 'SHORT PUFFER JACKET',
       image: '/images/m_coat.jpg',
       description:
         'A functional, thermoregulating design with clever details. Made with a soft down padding and a high neck, this coat will keep you warm in the coldest of climates.',

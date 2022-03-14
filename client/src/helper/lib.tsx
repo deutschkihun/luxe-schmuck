@@ -199,7 +199,7 @@ export const Listing = styled.li`
 `;
 
 export const FooterSection = styled.footer`
-  position: absolute;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -231,9 +231,20 @@ export const FooterNavigation = styled.div`
   flex-wrap: wrap;
 `;
 
+export const TextArea = styled.textarea`
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid black;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+`;
+
 export const Form = styled.form`
   max-width: 500px;
-  margin: 1rem auto 0px;
+  margin: 1rem auto 30px;
 `;
 
 export const Input = styled.input`

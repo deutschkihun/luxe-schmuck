@@ -67,7 +67,7 @@ export const MenuDropdown = (): JSX.Element => {
         aria-expanded="false"
         style={{ margin: "1rem" }}
       >
-        Menu LS
+        MENU LS
       </a>
 
       <div

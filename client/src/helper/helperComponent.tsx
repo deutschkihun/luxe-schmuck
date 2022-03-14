@@ -7,7 +7,7 @@ import {
   LabelProps,
   TitleProps,
 } from "./interface";
-import { Input, Label, Title, Warning } from "./lib";
+import { Input, Label, TextArea, Title, Warning } from "./lib";
 
 export const LabelComponent = (props: LabelProps): JSX.Element => {
   return <Label>{props.label}</Label>;
@@ -41,6 +41,24 @@ export const InputComponent = (props: InputProps<IFormInputs>): JSX.Element => {
   return (
     <Input
       type={props.type}
+      defaultValue={props.defaultValue}
+      placeholder={props.placeholder}
+      {...props.register(props.registerValue, {
+        required: "This input is required.",
+        pattern: {
+          value: props.pattern as RegExp,
+          message: props.message as string,
+        },
+      })}
+    />
+  );
+};
+
+export const TextAreaComponent = (
+  props: InputProps<IFormInputs>
+): JSX.Element => {
+  return (
+    <TextArea
       defaultValue={props.defaultValue}
       placeholder={props.placeholder}
       {...props.register(props.registerValue, {

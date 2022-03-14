@@ -9,6 +9,13 @@ export interface IFormInputs {
   message?: string;
   error?: string;
   isAdmin?: boolean;
+  productname?: string;
+  brand?: string;
+  category?: string;
+  countInStock?: number;
+  description?: string;
+  price?: number;
+  image?: string;
 }
 
 export interface ProductProps {
@@ -55,7 +62,14 @@ export type InputProps<T> = {
     | "password_confirm"
     | "password"
     | "firstname"
-    | "lastname";
+    | "lastname"
+    | "productname"
+    | "brand"
+    | "image"
+    | "description"
+    | "countInStock"
+    | "category"
+    | "price";
   pattern?: RegExp;
   message?: string;
   type?: string;
@@ -98,14 +112,4 @@ export interface MatchParams {
       keyword: string;
     };
   };
-}
-
-export interface CreateProductProps {
-  name: string;
-  price: number;
-  image: string;
-  brand: string;
-  category: string;
-  countInStock: number;
-  description: string;
 }

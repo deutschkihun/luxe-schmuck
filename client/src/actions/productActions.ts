@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { CreateProductProps } from "../helper/interface";
+import { IFormInputs } from "../helper/interface";
 import {
   failToCreate,
   failToDelete,
@@ -28,7 +28,6 @@ export const listProducts =
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
-
       const { data } = await axios.get(
         `/api/v1/products?keyword=${keyword}&category=${category}&pageNumber=${pageNumber}`
       );
@@ -87,7 +86,7 @@ export const deleteProduct =
   };
 
 export const createProduct =
-  (product: CreateProductProps) =>
+  (product: IFormInputs) =>
   async (
     dispatch: (
       arg0:
@@ -101,8 +100,6 @@ export const createProduct =
       const {
         userLogin: { userInfo },
       } = getState();
-
-      console.log("userInfo", userInfo);
 
       const { data } = await axios.post(`/api/v1/products`, product, {
         ...jsonConfig,

@@ -5,20 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../actions/productActions";
 import { PRODUCT_CREATE_RESET } from "../actions/types";
 import { LoadingView } from "../components/LoadingView";
-import { Form, Warning } from "../helper/lib";
+import { Form, SubmitInput, Warning } from "../helper/lib";
 import { useHistory } from "react-router";
 import { RootState } from "../store";
+import {
+  ErrorMessageComponent,
+  InputComponent,
+  LabelComponent,
+  TextAreaComponent,
+} from "../helper/helperComponent";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { IFormInputs } from "../helper/interface";
+import { mixRex, urlRex } from "../helper/utils";
 
 const ProductCreateScreen = (): JSX.Element => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState(0);
-  const [description, setDescription] = useState("");
   const [uploading, setUploading] = useState(false);
-
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -31,7 +32,7 @@ const ProductCreateScreen = (): JSX.Element => {
 
   useEffect(() => {
     if (successCreate) {
-      dispatch({ type: PRODUCT_CREATE_RESET });
+      //dispatch({ type: PRODUCT_CREATE_RESET });
       history.push("/admin/productlist");
     }
   }, [dispatch, history, successCreate]);
@@ -48,120 +49,106 @@ const ProductCreateScreen = (): JSX.Element => {
           "Content-Type": "multipart/form-data",
         },
       };
-      const { data } = await axios.post("/api/upload", formData, config);
-      setImage(data);
+      const { data } = await axios.post("/api/v1/upload", formData, config);
+      //setBody({ image: data });
       setUploading(false);
     } catch (error) {
-      console.error(error);
       setUploading(false);
     }
   };
 
-  const submitHandler = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    dispatch(
-      createProduct({
-        name,
-        price,
-        image,
-        brand,
-        category,
-        countInStock,
-        description,
-      })
-    );
-  };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IFormInputs>({
+    criteriaMode: "all",
+  });
+
+  const [body, setBody] = useState<IFormInputs>();
+  const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
+    setBody(data);
+
+  useEffect(() => {
+    body && dispatch(createProduct(body));
+    return () => {
+      setBody(undefined);
+    };
+  }, [body]);
 
   return (
-    <Form>
-      <h3 className="user__list__title">CREATE PRODUCT</h3>
-      {loadingCreate && (
-        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <LabelComponent label={"Product name"} />
+      <InputComponent
+        placeholder={"enter product name"}
+        register={register}
+        registerValue={"productname"}
+        pattern={mixRex}
+        message={"Only number and string allowed"}
+      />
+      <ErrorMessageComponent name={"productname"} errors={errors} />
+
+      <LabelComponent label={"Brand"} />
+      <InputComponent
+        placeholder={"enter brand"}
+        register={register}
+        registerValue={"brand"}
+        pattern={mixRex}
+        message={"Only number and string allowed"}
+      />
+      <ErrorMessageComponent name={"brand"} errors={errors} />
+
+      <LabelComponent label={"Category"} />
+      <InputComponent
+        placeholder={"enter category"}
+        register={register}
+        registerValue={"category"}
+        pattern={mixRex}
+        message={"Only number and string allowed"}
+      />
+      <ErrorMessageComponent name={"category"} errors={errors} />
+
+      <LabelComponent label={"Image"} />
+      <InputComponent
+        placeholder={"Enter image url"}
+        register={register}
+        registerValue={"image"}
+        pattern={urlRex}
+        message={"Only url form allowed"}
+      />
+      <ErrorMessageComponent name={"image"} errors={errors} />
+
+      <LabelComponent label={"Image"} />
+      <input
+        type="file"
+        placeholder={"Enter image url"}
+        onChange={() => uploadFileHandler}
+      />
+      {uploading && (
+        <LoadingView title={"Uploading ..."} body={"please wait a moment"} />
       )}
-      {errorCreate && <Warning>{errorCreate}</Warning>}
+      <ErrorMessageComponent name={"price"} errors={errors} />
 
-      <form onSubmit={submitHandler}>
-        <div className="form__content">
-          <div>Name</div>
-          <input
-            type="name"
-            placeholder="Enter name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+      <LabelComponent label={"Stock"} />
+      <InputComponent
+        type="number"
+        placeholder={"enter stock"}
+        register={register}
+        registerValue={"countInStock"}
+        pattern={mixRex}
+        message={"Only number allowed"}
+      />
+      <ErrorMessageComponent name={"countInStock"} errors={errors} />
 
-        <div className="form__content">
-          <div>Price</div>
-          <input
-            type="number"
-            placeholder="Enter price"
-            value={price}
-            onChange={(e) => setPrice(parseInt(e.target.value))}
-          />
-        </div>
-
-        <div className="form__content">
-          <div>Image</div>
-          <input
-            type="text"
-            placeholder="Enter image URL"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-          <div className="form__content__upload">
-            <input type="file" onChange={() => uploadFileHandler} />
-            {uploading && (
-              <LoadingView
-                title={"Loading ..."}
-                body={"please wait a moment"}
-              />
-            )}
-          </div>
-        </div>
-
-        <div className="form__content">
-          <div>Brand</div>
-          <input
-            type="text"
-            placeholder="Enter brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-          />
-        </div>
-
-        <div className="form__content">
-          <div>Count In Stock</div>
-          <input
-            type="number"
-            placeholder="Enter countInStock"
-            value={countInStock}
-            onChange={(e) => setCountInStock(parseInt(e.target.value))}
-          />
-        </div>
-
-        <div className="form__content">
-          <div>Category</div>
-          <input
-            type="text"
-            placeholder="Enter category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-        </div>
-
-        <div className="form__content">
-          <div>Description</div>
-          <input
-            type="text"
-            placeholder="Enter description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        <button className="btn">CREATE</button>
-      </form>
+      <LabelComponent label={"Decription"} />
+      <TextAreaComponent
+        placeholder={"enter description"}
+        register={register}
+        registerValue={"description"}
+        pattern={mixRex}
+      />
+      <ErrorMessageComponent name={"description"} errors={errors} />
+      <SubmitInput className="create-product" value="register" />
     </Form>
   );
 };

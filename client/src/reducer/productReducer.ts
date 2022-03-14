@@ -10,7 +10,7 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
 } from "../actions/types";
-import { CreateProductProps, ProductProps } from "../helper/interface";
+import { IFormInputs, ProductProps } from "../helper/interface";
 
 export const productListReducer = (
   state = {},
@@ -74,12 +74,12 @@ export const productCreateReducer = (
   state = {},
   action: {
     type: string;
-    payload: { error: string; product: CreateProductProps };
+    payload: { error: string; product: IFormInputs };
   }
 ): {
   loading?: boolean;
   error?: string;
-  product?: CreateProductProps;
+  product?: IFormInputs;
   success?: boolean;
 } => {
   switch (action.type) {

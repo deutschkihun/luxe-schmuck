@@ -69,7 +69,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @access         Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
   const {
-    name,
+    productname,
     price,
     description,
     image,
@@ -78,16 +78,17 @@ const createProduct = asyncHandler(async (req, res) => {
     countInStock,
   } = req.body;
 
-  console.log("fwefwe")
+  console.log(typeof price) // string
+  console.log(typeof Number(price))
 
   const product = new Product({
-    name, // same as name: name; => key and variabe have same name
-    price,
+    productname,
+    price:Number(price),
     user: req.user._id,
     image,
     brand,
     category,
-    countInStock,
+    countInStock:Number(countInStock),
     numReviews: 0,
     description,
   });
