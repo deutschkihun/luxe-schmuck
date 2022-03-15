@@ -101,7 +101,6 @@ function App(): JSX.Element {
           location.pathname !== "/register" &&
           location.pathname !== "/profile" &&
           location.pathname !== "/success" &&
-          location.pathname !== "/product" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
           location.pathname !== "/reset/password" &&

@@ -50,58 +50,55 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
         <i className="fas fa-plus"></i> CREATE PRODUCT
       </HighlightLink>
 
-      <div className="admin__list">
-        {errorDelete && <Warning className="error">{errorDelete}</Warning>}
+      {errorDelete && <Warning className="error">{errorDelete}</Warning>}
+      {loading ? (
+        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
+      ) : error ? (
+        <Warning>{error}</Warning>
+      ) : (
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">NAME</th>
+              <th scope="col">PRICE</th>
+              <th scope="col">CATEGORY</th>
+              <th scope="col">BRAND</th>
+              <th scope="col">EDIT</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products &&
+              products.map((product, index) => (
+                <tr key={product._id}>
+                  <td>{index + 1}</td>
+                  <td>{product.productname}</td>
+                  <td>${product.price}</td>
+                  <td>{product.category}</td>
+                  <td>{product.brand}</td>
 
-        {loading ? (
-          <LoadingView title={"Loading ..."} body={"please wait a moment"} />
-        ) : error ? (
-          <Warning>{error}</Warning>
-        ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">NAME</th>
-                <th scope="col">PRICE</th>
-                <th scope="col">CATEGORY</th>
-                <th scope="col">BRAND</th>
-                <th scope="col">EDIT</th>
-                <th scope="col">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products &&
-                products.map((product, index) => (
-                  <tr key={product._id}>
-                    <td>{index + 1}</td>
-                    <td>{product.productname}</td>
-                    <td>${product.price}</td>
-                    <td>{product.category}</td>
-                    <td>{product.brand}</td>
-
-                    <td>
-                      <Link to={`/admin/product/${product._id}/edit`}>
-                        <button className="btn">
-                          <i className="fas fa-edit"></i>
-                        </button>
-                      </Link>
-                    </td>
-
-                    <td>
-                      <button
-                        className="btn"
-                        onClick={() => deleteHandler(product._id as string)}
-                      >
-                        <i className="fas fa-trash"></i>
+                  <td>
+                    <Link to={`/admin/product/${product._id}/edit`}>
+                      <button className="btn">
+                        <i className="fas fa-edit"></i>
                       </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+                    </Link>
+                  </td>
+
+                  <td>
+                    <button
+                      className="btn"
+                      onClick={() => deleteHandler(product._id as string)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      )}
       <div>
         <Pagination pages={pages as number} page={page as number} />
       </div>

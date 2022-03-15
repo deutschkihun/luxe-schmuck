@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -157,7 +156,7 @@ export const ProductCreatePage = (): JSX.Element => {
                 message={"Only number and string allowed"}
               />
               <ErrorMessageComponent name={"description"} errors={errors} />
-              <SubmitInput value="register" />
+              <SubmitInput value="create" />
               <SubmitButton
                 type="submit"
                 onClick={() => history.push("/admin/productlist")}

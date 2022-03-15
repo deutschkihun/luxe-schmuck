@@ -390,12 +390,18 @@ export const ProductListContainer = styled.form`
   width: 830px;
 `;
 
+export const ProductContainer = styled.form`
+  margin: 0.7rem auto 0px;
+  max-width: 960px;
+`;
+
 export const ListTitle = styled.h4`
   text-align: center;
 `;
 
 export const ProductComponent = styled.div`
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(3, 1fr);
   padding: 1rem;
   img {
@@ -420,4 +426,10 @@ export const ProductComponent = styled.div`
       font-size: 0.6rem;
     }
   }
+`;
+
+export const Img = styled.img`
+  min-width: 300px;
+  width: 300px;
+  height: 300px;
 `;
