@@ -15,9 +15,15 @@ import {
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DETAILS_FAIL,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
 } from "./types";
 import { logoutUser } from "./userActions";
 
@@ -105,7 +111,6 @@ export const createProduct =
         ...jsonConfig,
         ...tokenConfig(userInfo.token),
       });
-      console.log("data", data);
 
       dispatch({
         type: PRODUCT_CREATE_SUCCESS,
@@ -126,6 +131,94 @@ export const createProduct =
         payload: {
           error: message,
         },
+      });
+    }
+  };
+
+export const listProductDetails =
+  (id: string) =>
+  async (
+    dispatch: (
+      arg0:
+        | { type: string; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void
+  ): Promise<void> => {
+    try {
+      dispatch({ type: PRODUCT_DETAILS_REQUEST });
+
+      const { data } = await axios.get(`/api/v1/products/${id}`);
+      dispatch({
+        type: PRODUCT_DETAILS_SUCCESS,
+        payload: {
+          product: data,
+        },
+      });
+    } catch (error) {
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToLoad;
+        }
+      }
+      dispatch({
+        type: PRODUCT_DETAILS_FAIL,
+        payload: {
+          error: message,
+        },
+      });
+    }
+  };
+
+export const updateProduct =
+  (product: IFormInputs) =>
+  async (
+    dispatch: (
+      arg0:
+        | { type: any; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
+    getState: () => { userLogin: { userInfo: any } }
+  ): Promise<void> => {
+    try {
+      dispatch({
+        type: PRODUCT_UPDATE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const { data } = await axios.put(
+        `/api/v1/products/${product._id}`,
+        product,
+        {
+          ...jsonConfig,
+          ...tokenConfig(userInfo.token),
+        }
+      );
+
+      dispatch({
+        type: PRODUCT_UPDATE_SUCCESS,
+        payload: data,
+      });
+      dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+    } catch (error) {
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToLoad;
+        }
+      }
+      dispatch({
+        type: PRODUCT_UPDATE_FAIL,
+        payload: message,
       });
     }
   };

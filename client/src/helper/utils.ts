@@ -13,7 +13,11 @@ export const tokenConfig = (token: string) => {
   return { headers: { Authorization: `Bearer ${token}` } };
 };
 
-export const mixRex = /^[\w.-]+$/;
+export const multipartConfig = {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+};
+
+export const mixRex = /^[a-zA-Z0-9_.-\s.,]*$/;
 export const numRex = /^[0-9]*$/;
-export const urlRex =
-  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;

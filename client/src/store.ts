@@ -15,7 +15,9 @@ import {
 import {
   productCreateReducer,
   productDeleteReducer,
+  productDetailsReducer,
   productListReducer,
+  productUpdateReducer,
 } from "./reducer/productReducer";
 
 export const rootReducer = combineReducers({
@@ -31,6 +33,8 @@ export const rootReducer = combineReducers({
   productList: productListReducer,
   productCreate: productCreateReducer,
   productDelete: productDeleteReducer,
+  productDetails: productDetailsReducer,
+  productUpdate: productUpdateReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

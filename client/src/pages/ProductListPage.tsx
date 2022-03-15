@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Pagination } from "../components/Pagination";
 import { listProducts, deleteProduct } from "../actions/productActions";
@@ -74,18 +74,17 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
                 products.map((product, index) => (
                   <tr key={product._id}>
                     <td>{index + 1}</td>
-                    <td>{product.name}</td>
+                    <td>{product.productname}</td>
                     <td>${product.price}</td>
                     <td>{product.category}</td>
                     <td>{product.brand}</td>
 
                     <td>
-                      <button
-                        className="btn"
-                        onClick={() => deleteHandler(product._id as string)}
-                      >
-                        <i className="fas fa-edit"></i>
-                      </button>
+                      <Link to={`/admin/product/${product._id}/edit`}>
+                        <button className="btn">
+                          <i className="fas fa-edit"></i>
+                        </button>
+                      </Link>
                     </td>
 
                     <td>

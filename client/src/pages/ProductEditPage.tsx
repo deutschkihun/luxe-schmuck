@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createProduct } from "../actions/productActions";
-import { PRODUCT_CREATE_RESET } from "../actions/types";
-import { LoadingView } from "../components/LoadingView";
-import { Form, SubmitButton, SubmitInput, Warning } from "../helper/lib";
+import { listProductDetails, updateProduct } from "../actions/productActions";
+import { PRODUCT_UPDATE_RESET } from "../actions/types";
+import { IFormInputs, MatchParams } from "../helper/interface";
 import { useHistory } from "react-router";
-import { RootState } from "../store";
+import { mixRex, multipartConfig, numRex } from "../helper/utils";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { LoadingView } from "../components/LoadingView";
 import {
   ErrorMessageComponent,
   InputComponent,
@@ -15,28 +15,34 @@ import {
   TextAreaComponent,
   TitleComponent,
 } from "../helper/helperComponent";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { IFormInputs } from "../helper/interface";
-import { mixRex, multipartConfig, numRex } from "../helper/utils";
+import { Form, SubmitButton, SubmitInput, Warning } from "../helper/lib";
+import { RootState } from "../store";
 
-export const ProductCreatePage = (): JSX.Element => {
-  const dispatch = useDispatch();
+export const ProductEditPage = (props: MatchParams): JSX.Element => {
+  const productId = props.match.params.id;
   const history = useHistory();
   const [image, setImage] = useState<string>("");
   const [imageMsg, setImageMsg] = useState<string>("");
-  const productCreate = useSelector((state: RootState) => state.productCreate);
-  const { loading, error, success: successCreate } = productCreate;
+  const dispatch = useDispatch();
+  const productDetails = useSelector(
+    (state: RootState) => state.productDetails
+  );
+  const { loading, error, product } = productDetails;
+  const productUpdate = useSelector((state: RootState) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
 
   useEffect(() => {
-    dispatch({ type: PRODUCT_CREATE_RESET });
-  }, []);
-
-  useEffect(() => {
-    if (successCreate) {
-      dispatch({ type: PRODUCT_CREATE_RESET });
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
       history.push("/admin/productlist");
+    } else if (product?._id !== productId) {
+      dispatch(listProductDetails(productId));
     }
-  }, [dispatch, history, successCreate]);
+  }, [dispatch, history, productId, product, successUpdate]);
 
   const uploadFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files as FileList;
@@ -64,9 +70,10 @@ export const ProductCreatePage = (): JSX.Element => {
 
   useEffect(() => {
     if (body) {
+      body._id = productId;
       if (image) {
         body.image = image;
-        dispatch(createProduct(body));
+        dispatch(updateProduct(body));
       } else {
         setImageMsg("Image is required");
       }
@@ -78,28 +85,20 @@ export const ProductCreatePage = (): JSX.Element => {
 
   return (
     <>
-      {loading ? (
-        <LoadingView
-          title={"Loading ..."}
-          body={"We are processing the requested work."}
-        />
-      ) : (
+      {loading || loadingUpdate ? (
+        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
+      ) : product ? (
         <Form onSubmit={handleSubmit(onSubmit)}>
-          {error ? (
+          {error || errorUpdate ? (
             <>
               <TitleComponent title="Error" />
               <Warning>{error}</Warning>
-              <SubmitButton
-                type="submit"
-                onClick={() => history.push("/admin/product/create")}
-              >
-                Back to product create
-              </SubmitButton>
             </>
           ) : (
             <>
               <LabelComponent label={"Product name"} />
               <InputComponent
+                defaultValue={product.productname}
                 placeholder={"enter product name"}
                 register={register}
                 registerValue={"productname"}
@@ -109,6 +108,7 @@ export const ProductCreatePage = (): JSX.Element => {
               <ErrorMessageComponent name={"productname"} errors={errors} />
               <LabelComponent label={"Brand"} />
               <InputComponent
+                defaultValue={product.brand}
                 placeholder={"enter brand"}
                 register={register}
                 registerValue={"brand"}
@@ -118,6 +118,7 @@ export const ProductCreatePage = (): JSX.Element => {
               <ErrorMessageComponent name={"brand"} errors={errors} />
               <LabelComponent label={"Category"} />
               <InputComponent
+                defaultValue={product.category}
                 placeholder={"enter category"}
                 register={register}
                 registerValue={"category"}
@@ -131,6 +132,7 @@ export const ProductCreatePage = (): JSX.Element => {
               <LabelComponent label={"Price in $"} />
               <InputComponent
                 type="number"
+                defaultValue={product.price}
                 placeholder={"enter price"}
                 register={register}
                 registerValue={"price"}
@@ -141,6 +143,7 @@ export const ProductCreatePage = (): JSX.Element => {
               <LabelComponent label={"Stock"} />
               <InputComponent
                 type="number"
+                defaultValue={product.countInStock}
                 placeholder={"enter stock"}
                 register={register}
                 registerValue={"countInStock"}
@@ -150,6 +153,7 @@ export const ProductCreatePage = (): JSX.Element => {
               <ErrorMessageComponent name={"countInStock"} errors={errors} />
               <LabelComponent label={"Decription"} />
               <TextAreaComponent
+                defaultValue={product.description}
                 placeholder={"enter description"}
                 register={register}
                 registerValue={"description"}
@@ -167,6 +171,8 @@ export const ProductCreatePage = (): JSX.Element => {
             </>
           )}
         </Form>
+      ) : (
+        <LoadingView title={"Loading ..."} body={"please wait a moment"} />
       )}
     </>
   );

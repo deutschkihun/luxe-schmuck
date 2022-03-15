@@ -22,7 +22,8 @@ import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import UserListPage from "./pages/UserListPage";
 import { ProductListPage } from "./pages/ProductListPage";
 import { OrderListPage } from "./pages/OrderListPage";
-import ProductCreateScreen from "./pages/ProductCreatePage";
+import { ProductCreatePage } from "./pages/ProductCreatePage";
+import { ProductEditPage } from "./pages/ProductEditPage";
 
 function App(): JSX.Element {
   return (
@@ -63,7 +64,12 @@ function App(): JSX.Element {
         <Route
           exact
           path="/admin/product/create"
-          component={ProductCreateScreen}
+          component={ProductCreatePage}
+        />
+        <Route
+          exact
+          path="/admin/product/:id/edit"
+          component={ProductEditPage}
         />
         <Route exact path="/admin/orderlist" component={OrderListPage} />
         <Route path="*" component={ErrorPage} />

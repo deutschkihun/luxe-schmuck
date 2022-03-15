@@ -6,6 +6,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use(express.json());
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/products',productRoutes );
+app.use('/api/v1/upload', uploadRoutes);
+
 
 
 const __dirname = path.resolve();

@@ -78,8 +78,13 @@ const createProduct = asyncHandler(async (req, res) => {
     countInStock,
   } = req.body;
 
-  console.log(typeof price) // string
-  console.log(typeof Number(price))
+console.log( productname,
+  price,
+  description,
+  image,
+  brand,
+  category,
+  countInStock )
 
   const product = new Product({
     productname,

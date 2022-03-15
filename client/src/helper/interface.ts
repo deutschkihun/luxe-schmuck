@@ -1,10 +1,10 @@
 import { FieldError, UseFormRegister } from "react-hook-form";
 
 export interface IFormInputs {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  password?: string;
   password_confirm: string;
   message?: string;
   error?: string;
@@ -16,6 +16,7 @@ export interface IFormInputs {
   description?: string;
   price?: number;
   image?: string;
+  _id?: string;
 }
 
 export interface ProductProps {
@@ -73,7 +74,7 @@ export type InputProps<T> = {
   pattern?: RegExp;
   message?: string;
   type?: string;
-  defaultValue?: string;
+  defaultValue?: string | number;
 };
 
 export interface RatingProps {
@@ -110,6 +111,14 @@ export interface MatchParams {
       pageNumber: number;
       category: string;
       keyword: string;
+      id: string;
     };
   };
+}
+
+export interface ReviewProps {
+  name: string;
+  rating: number;
+  comment: string;
+  user: string;
 }
