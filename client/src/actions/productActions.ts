@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { IFormInputs } from "../helper/interface";
+import { IFormInputs, ProductReviews } from "../helper/interface";
 import {
   failToCreate,
   failToDelete,
@@ -11,6 +11,9 @@ import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
@@ -218,6 +221,48 @@ export const updateProduct =
       }
       dispatch({
         type: PRODUCT_UPDATE_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const createProductReview =
+  (productId: string, review: ProductReviews) =>
+  async (
+    dispatch: (
+      arg0:
+        | { type: string; payload?: any }
+        | ((dispatch: (arg0: { type: string }) => void) => void)
+    ) => void,
+    getState: () => { userLogin: { userInfo: any } }
+  ): Promise<void> => {
+    try {
+      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      await axios.post(`/api/v1/products/${productId}/reviews`, review, {
+        ...jsonConfig,
+        ...tokenConfig(userInfo.token),
+      });
+
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_SUCCESS,
+      });
+    } catch (error) {
+      let message = "";
+      if (error instanceof Error) {
+        if (error.message == unauthorized) {
+          await dispatch(logoutUser());
+          message = error.message;
+        } else {
+          message = failToCreate;
+        }
+      }
+
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
         payload: message,
       });
     }

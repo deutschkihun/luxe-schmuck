@@ -393,3 +393,31 @@ export const ProductListContainer = styled.form`
 export const ListTitle = styled.h4`
   text-align: center;
 `;
+
+export const ProductComponent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
+  img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  @include atMobile {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2rem;
+    .product {
+      padding: 0.2rem;
+      font-size: 0.4rem;
+    }
+  }
+
+  @include atTablets {
+    grid-template-columns: repeat(3, 1fr);
+    .product {
+      padding: 0.4rem;
+      font-size: 0.6rem;
+    }
+  }
+`;

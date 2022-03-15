@@ -27,7 +27,7 @@ export const Header = (): JSX.Element => {
   return (
     <HeaderSection>
       <Grid>
-        <SearchLogo href="/shop/search">
+        <SearchLogo href="/product/search">
           <i className="fa fa-search fa-4" aria-hidden="true"></i>
         </SearchLogo>
         <MenuLogo className="logo-toggle" href="/">

@@ -24,6 +24,7 @@ import { ProductListPage } from "./pages/ProductListPage";
 import { OrderListPage } from "./pages/OrderListPage";
 import { ProductCreatePage } from "./pages/ProductCreatePage";
 import { ProductEditPage } from "./pages/ProductEditPage";
+import { ProductDetailPage } from "./pages/ProductDetail";
 
 function App(): JSX.Element {
   return (
@@ -46,11 +47,29 @@ function App(): JSX.Element {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/cart" component={CartPage} />
-        <Route exact path="/shop/search" component={SearchPage} />
         <Route exact path="/newletter" component={NewletterPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/contact" component={ContactPage} />
         <Route exact path="/product" component={ProductPage} />
+        <Route exact path="/product/search" component={SearchPage} />
+        <Route exact path="/product/search/:keyword" component={ProductPage} />
+        <Route
+          exact
+          path="/product/search/:keyword/page/:pageNumber"
+          component={ProductPage}
+        />
+        <Route
+          exact
+          path="/product/category/:category"
+          component={ProductPage}
+        />
+        <Route
+          exact
+          path="/product/category/:category/page/:pageNumber"
+          component={ProductPage}
+        />
+        <Route exact path="/product/page/:pageNumber" component={ProductPage} />
+        <Route exact path="/product/:id" component={ProductDetailPage} />
         <Route exact path="/forgot" component={ForgotPage} />
         <Route exact path="/forgot/email" component={ForgotEmailPage} />
         <Route exact path="/forgot/password" component={ForgotPasswordPage} />
@@ -82,6 +101,7 @@ function App(): JSX.Element {
           location.pathname !== "/register" &&
           location.pathname !== "/profile" &&
           location.pathname !== "/success" &&
+          location.pathname !== "/product" &&
           location.pathname !== "/forgot" &&
           location.pathname !== "/forgot/password" &&
           location.pathname !== "/reset/password" &&

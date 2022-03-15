@@ -12,6 +12,7 @@ import {
   ProductListContainer,
   Warning,
 } from "../helper/lib";
+import { deleteData } from "../helper/message";
 
 export const ProductListPage = (props: MatchParams): JSX.Element => {
   const history = useHistory();
@@ -37,7 +38,7 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
   }, [dispatch, history, userInfo, successDelete, pageNumber]);
 
   const deleteHandler = (id: string) => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm(deleteData)) {
       dispatch(deleteProduct(id));
     }
   };

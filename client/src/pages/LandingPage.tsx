@@ -82,7 +82,7 @@ export const LandingPage = (): JSX.Element => {
         <VideoContent>
           <h1 className="section__content__title">NEW IN</h1>
           <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/shop">VIEW</Link>
+          <Link to="/product">VIEW</Link>
         </VideoContent>
       </BodySection>
 
@@ -91,7 +91,7 @@ export const LandingPage = (): JSX.Element => {
         <div className="section__content" ref={revealRef1}>
           <h1 className="section__content__title">COLLECTION</h1>
           <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/shop">VIEW</Link>
+          <Link to="/product">VIEW</Link>
         </div>
       </section>
 
@@ -100,7 +100,7 @@ export const LandingPage = (): JSX.Element => {
         <div className="section__content" ref={revealRef2}>
           <h1 className="section__content__title">SPECIAL PRICES</h1>
           <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/shop">VIEW</Link>
+          <Link to="/product">VIEW</Link>
         </div>
       </section>
     </>

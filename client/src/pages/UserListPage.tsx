@@ -5,7 +5,7 @@ import { listUsers, deleteUser } from "../actions/userActions";
 import { RootState } from "../store";
 import { UserListContainer, ListTitle, Warning } from "../helper/lib";
 import { LoadingView } from "../components/LoadingView";
-import { deleteAccount } from "../helper/message";
+import { deleteData } from "../helper/message";
 
 const UserListScreen = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const UserListScreen = (): JSX.Element => {
   }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id: string) => {
-    if (window.confirm(deleteAccount)) {
+    if (window.confirm(deleteData)) {
       dispatch(deleteUser(id));
     }
   };

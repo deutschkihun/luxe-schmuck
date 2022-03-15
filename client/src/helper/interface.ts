@@ -20,19 +20,30 @@ export interface IFormInputs {
 }
 
 export interface ProductProps {
-  page: number;
-  pages: number;
-  error: string;
-  products: [
-    {
-      _id?: string;
-      name?: string;
-      category?: string;
-      price?: number;
-      brand?: string;
-    }
-  ];
+  _id?: string;
+  productname?: string;
+  category?: string;
+  price?: number;
+  brand?: string;
+  image?: string;
+  rating?: number;
+  numReviews?: number;
+  description?: string;
+  countInStock?: number;
+  reviews: ProductReviewProps;
 }
+
+export type ProductsProps = ProductProps[];
+
+export interface ProductReviews {
+  _id?: string;
+  name?: string;
+  rating?: number;
+  comment?: string;
+  createdAt?: string;
+}
+
+export type ProductReviewProps = ProductReviews[];
 
 export interface PaginationProps {
   pages: number;
@@ -78,18 +89,9 @@ export type InputProps<T> = {
 };
 
 export interface RatingProps {
-  value: number;
-  color: string;
-  text: string;
-}
-
-export interface ProductProps {
-  _id: string;
-  name: string;
-  rating: number;
-  numReviews: number;
-  image: string;
-  price: number;
+  value?: number;
+  color?: string;
+  text?: string;
 }
 
 export interface UserListProps {
@@ -114,11 +116,4 @@ export interface MatchParams {
       id: string;
     };
   };
-}
-
-export interface ReviewProps {
-  name: string;
-  rating: number;
-  comment: string;
-  user: string;
 }

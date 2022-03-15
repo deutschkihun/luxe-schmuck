@@ -10,14 +10,14 @@ export const Pagination = (props: PaginationProps): JSX.Element => {
     }
 
     if (category) {
-      return `/shop/category/${category}/page/${pageNum}`;
+      return `/product/category/${category}/page/${pageNum}`;
     }
 
     if (keyword) {
-      return `/shop/search/${keyword}/page/${pageNum}`;
+      return `/product/search/${keyword}/page/${pageNum}`;
     }
 
-    return `/shop/page/${pageNum}`;
+    return `/product/page/${pageNum}`;
   };
 
   return pages > 1 ? (
