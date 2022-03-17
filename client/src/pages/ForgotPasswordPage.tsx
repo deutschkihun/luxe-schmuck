@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IFormInputs } from "../helper/interface";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ErrorMessageComponent,
@@ -15,6 +14,7 @@ import { RootState } from "../store";
 import { findPasswordUser } from "../actions/userActions";
 import { LoadingView } from "../components/LoadingView";
 import { USER_FIND_PASSWORD_RESET } from "../actions/types";
+import { IFormInputs } from "../helper/interface";
 
 export const ForgotPasswordPage = (): JSX.Element => {
   const history = useHistory();

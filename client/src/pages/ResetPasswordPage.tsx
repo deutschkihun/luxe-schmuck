@@ -11,10 +11,17 @@ import {
   TitleComponent,
 } from "../helper/helperComponent";
 import { Form, Input, SubmitButton, SubmitInput, Warning } from "../helper/lib";
-import { IFormInputs } from "../helper/interface";
 import { RootState } from "../store";
 import { LoadingView } from "../components/LoadingView";
 import { USER_RESET_PASSWORD_RESET } from "../actions/types";
+
+interface Props {
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  password?: string;
+  password_confirm: string;
+}
 
 export const ResetPasswordPage = (): JSX.Element => {
   const history = useHistory();
@@ -25,7 +32,7 @@ export const ResetPasswordPage = (): JSX.Element => {
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm<IFormInputs>({
+  } = useForm<Props>({
     criteriaMode: "all",
   });
 
@@ -39,16 +46,13 @@ export const ResetPasswordPage = (): JSX.Element => {
 
   const { loading, error, success } = userResetPassword;
   const { email } = userFindPassword;
-  console.log("email", email);
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
-  const [body, setBody] = useState<IFormInputs>();
-  const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
+  const [body, setBody] = useState<Props>();
+  const onSubmit: SubmitHandler<Props> = (data: Props) => {
     data.email = email as string;
     setBody(data);
   };
-
-  console.log(body);
 
   useEffect(() => {
     body && dispatch(resetPasswordUser(body));

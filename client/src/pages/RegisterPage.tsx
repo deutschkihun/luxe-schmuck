@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { IFormInputs } from "../helper/interface";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions/userActions";
 import { Form, Input, SubmitButton, SubmitInput, Warning } from "../helper/lib";
@@ -15,13 +14,21 @@ import {
 import { RootState } from "../store";
 import { LoadingView } from "../components/LoadingView";
 
+interface Props {
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  password?: string;
+  password_confirm: string;
+}
+
 export const RegisterPage = (): JSX.Element => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm<IFormInputs>({
+  } = useForm<Props>({
     criteriaMode: "all",
   });
 
@@ -32,9 +39,8 @@ export const RegisterPage = (): JSX.Element => {
 
   const password: React.MutableRefObject<string | undefined> = useRef();
   password.current = watch("password");
-  const [body, setBody] = useState<IFormInputs>();
-  const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) =>
-    setBody(data);
+  const [body, setBody] = useState<Props>();
+  const onSubmit: SubmitHandler<Props> = (data: Props) => setBody(data);
 
   useEffect(() => {
     body && dispatch(registerUser(body));

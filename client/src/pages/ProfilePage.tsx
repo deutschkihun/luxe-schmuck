@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { IFormInputs } from "../helper/interface";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, SubmitButton, SubmitInput, Warning } from "../helper/lib";
 import {
@@ -15,6 +14,7 @@ import { RootState } from "../store";
 import { USER_UPDATE_PROFILE_RESET } from "../actions/types";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { LoadingView } from "../components/LoadingView";
+import { IFormInputs } from "../helper/interface";
 
 export const ProfilePage = (): JSX.Element => {
   const {

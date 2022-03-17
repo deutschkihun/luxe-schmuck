@@ -37,7 +37,7 @@ import { IFormInputs, UserListProps } from "../helper/interface";
 
 export const userloginReducer = (
   state = {},
-  action: { type: string; payload: IFormInputs }
+  action: { type: string; payload: IFormInputs; error: string }
 ): {
   loading?: boolean;
   userInfo?: IFormInputs;
@@ -49,7 +49,7 @@ export const userloginReducer = (
     case USER_LOGIN_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     case USER_LOGOUT:
       return {};
     default:
@@ -62,6 +62,7 @@ export const userRegisterReducer = (
   action: {
     type: string;
     payload: IFormInputs;
+    error: string;
   }
 ): {
   loading?: boolean;
@@ -74,7 +75,7 @@ export const userRegisterReducer = (
     case USER_REGISTER_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_REGISTER_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     default:
       return state;
   }
@@ -85,11 +86,12 @@ export const userDetailsReducer = (
   action: {
     type: string;
     payload: IFormInputs;
+    error: string;
   }
 ): {
   loading?: boolean;
   user?: IFormInputs | Record<string, unknown>;
-  error?: IFormInputs;
+  error?: string;
 } => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
@@ -97,7 +99,7 @@ export const userDetailsReducer = (
     case USER_DETAILS_SUCCESS:
       return { loading: false, user: action.payload };
     case USER_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.error };
     case USER_DETAILS_RESET:
       return {};
     default:
@@ -109,21 +111,21 @@ export const userUpdateProfileReducer = (
   state = {},
   action: {
     type: string;
-    payload: Promise<void | IFormInputs>;
+    error: string;
   }
 ): {
   loading?: boolean;
   success?: boolean;
   userInfo?: Promise<void | IFormInputs>;
-  error?: Promise<void | IFormInputs>;
+  error?: string;
 } => {
   switch (action.type) {
     case USER_UPDATE_PROFILE_REQUEST:
       return { loading: true };
     case USER_UPDATE_PROFILE_SUCCESS:
-      return { loading: false, success: true, userInfo: action.payload };
+      return { loading: false, success: true };
     case USER_UPDATE_PROFILE_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.error };
     case USER_UPDATE_PROFILE_RESET:
       return {};
     default:
@@ -136,6 +138,7 @@ export const userFindEmailReducer = (
   action: {
     type: string;
     payload: string;
+    error: string;
   }
 ): {
   loading?: boolean;
@@ -148,7 +151,7 @@ export const userFindEmailReducer = (
     case USER_FIND_EMAIL_SUCCESS:
       return { loading: false, email: action.payload };
     case USER_FIND_EMAIL_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.error };
     case USER_FIND_EMAIL_RESET:
       return {};
     default:
@@ -160,7 +163,8 @@ export const userFindPasswordReducer = (
   state = {},
   action: {
     type: string;
-    payload: { email?: string; pin?: string; error?: string };
+    payload: { email: string; pin: string };
+    error: string;
   }
 ): {
   loading?: boolean;
@@ -178,7 +182,7 @@ export const userFindPasswordReducer = (
         pin: action.payload.pin,
       };
     case USER_FIND_PASSWORD_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     case USER_FIND_PASSWORD_RESET:
       return {};
     default:
@@ -190,7 +194,8 @@ export const userResetPasswordReducer = (
   state = {},
   action: {
     type: string;
-    payload: { success?: boolean; error?: string };
+    payload: { success?: boolean };
+    error: string;
   }
 ): {
   loading?: boolean;
@@ -203,7 +208,7 @@ export const userResetPasswordReducer = (
     case USER_RESET_PASSWORD_SUCCESS:
       return { loading: false, success: action.payload.success };
     case USER_RESET_PASSWORD_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     case USER_RESET_PASSWORD_RESET:
       return {};
     default:
@@ -215,18 +220,21 @@ export const userListReducer = (
   state = {},
   action: {
     type?: string;
-    payload: UserListProps;
+    payload: {
+      users: UserListProps["users"];
+      error: string;
+    };
   }
 ): {
   loading?: boolean;
-  userlist?: UserListProps;
+  userlist?: UserListProps["users"];
   error?: string;
 } => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return { loading: true };
     case USER_LIST_SUCCESS:
-      return { loading: false, userlist: action.payload };
+      return { loading: false, userlist: action.payload.users };
     case USER_LIST_FAIL:
       return { loading: false, error: action.payload.error };
     default:
@@ -236,7 +244,7 @@ export const userListReducer = (
 
 export const userDeleteReducer = (
   state = {},
-  action: { type: string; payload: { error: string }; success: boolean }
+  action: { type: string; error: string; success: boolean }
 ): {
   loading?: boolean;
   success?: boolean;
@@ -248,7 +256,7 @@ export const userDeleteReducer = (
     case USER_DELETE_SUCCESS:
       return { loading: false, success: true };
     case USER_DELETE_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     default:
       return state;
   }

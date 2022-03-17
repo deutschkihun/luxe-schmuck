@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { IFormInputs } from "../helper/interface";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,6 +20,7 @@ import {
   TitleComponent,
 } from "../helper/helperComponent";
 import { LoadingView } from "../components/LoadingView";
+import { IFormInputs } from "../helper/interface";
 
 export const LoginPage = (): JSX.Element => {
   const {

@@ -16,6 +16,7 @@ const UserListScreen = (): JSX.Element => {
   const userLogin = useSelector((state: RootState) => state.userLogin);
   const { userInfo } = userLogin;
 
+  console.log("userlist", userlist);
   const userDelete = useSelector((state: RootState) => state.userDelete);
   const { success: successDelete } = userDelete;
 
@@ -57,7 +58,7 @@ const UserListScreen = (): JSX.Element => {
               </tr>
             </thead>
             <tbody>
-              {userlist.users?.map((user, index) => (
+              {userlist.map((user, index) => (
                 <tr key={user._id}>
                   <td>{index + 1}</td>
                   <td>{user.firstname}</td>

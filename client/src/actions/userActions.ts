@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import { IFormInputs } from "../helper/interface";
+import { IFormInputs, UserListProps } from "../helper/interface";
 import {
-  emailNotFound,
   failToLoad,
   failToDelete,
   failToUpdate,
@@ -10,6 +8,7 @@ import {
   unauthorized,
   userExist,
   InvaildCredential,
+  NotFound,
 } from "../helper/message";
 import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
@@ -46,7 +45,11 @@ import {
 export const registerUser =
   (body: IFormInputs) =>
   async (
-    dispatch: (arg0: { type: string; payload?: any }) => void
+    dispatch: (arg0: {
+      type: string;
+      payload?: IFormInputs;
+      error?: string;
+    }) => void
   ): Promise<void> => {
     try {
       dispatch({ type: USER_REGISTER_REQUEST });
@@ -69,9 +72,7 @@ export const registerUser =
       if (error instanceof Error) {
         dispatch({
           type: USER_REGISTER_FAIL,
-          payload: {
-            error: userExist,
-          },
+          error: userExist,
         });
       }
     }
@@ -80,7 +81,11 @@ export const registerUser =
 export const loginUser =
   (body: IFormInputs) =>
   async (
-    dispatch: (arg0: { type: string; payload?: any }) => void
+    dispatch: (arg0: {
+      type: string;
+      payload?: IFormInputs;
+      error?: string;
+    }) => void
   ): Promise<void> => {
     try {
       dispatch({ type: USER_LOGIN_REQUEST });
@@ -100,9 +105,7 @@ export const loginUser =
       if (error instanceof Error) {
         dispatch({
           type: USER_LOGIN_FAIL,
-          payload: {
-            error: InvaildCredential,
-          },
+          error: InvaildCredential,
         });
       }
     }
@@ -121,10 +124,10 @@ export const getUserDetails =
   async (
     dispatch: (
       arg0:
-        | { type: string; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({ type: USER_DETAILS_REQUEST });
@@ -134,7 +137,7 @@ export const getUserDetails =
 
       const { data } = await axios.get(
         `/api/v1/users/${id}`,
-        tokenConfig(userInfo.token)
+        tokenConfig(userInfo.token as string)
       );
 
       dispatch({
@@ -151,10 +154,9 @@ export const getUserDetails =
           message = failToLoad;
         }
       }
-
       dispatch({
         type: USER_DETAILS_FAIL,
-        payload: message,
+        error: message,
       });
     }
   };
@@ -164,10 +166,10 @@ export const updateUserProfile =
   async (
     dispatch: (
       arg0:
-        | { type: any; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
@@ -177,7 +179,7 @@ export const updateUserProfile =
 
       const { data } = await axios.put(`/api/v1/users/profile`, user, {
         ...jsonConfig,
-        ...tokenConfig(userInfo.token),
+        ...tokenConfig(userInfo.token as string),
       });
 
       dispatch({
@@ -201,7 +203,7 @@ export const updateUserProfile =
       }
       dispatch({
         type: USER_UPDATE_PROFILE_FAIL,
-        payload: message,
+        error: message,
       });
     }
   };
@@ -209,7 +211,11 @@ export const updateUserProfile =
 export const findEmailUser =
   (user: IFormInputs) =>
   async (
-    dispatch: (arg0: { type: any; payload?: any }) => void
+    dispatch: (arg0: {
+      type: string;
+      payload?: IFormInputs;
+      error?: string;
+    }) => void
   ): Promise<void> => {
     try {
       dispatch({ type: USER_FIND_EMAIL_REQUEST });
@@ -226,7 +232,7 @@ export const findEmailUser =
     } catch (error) {
       dispatch({
         type: USER_FIND_EMAIL_FAIL,
-        payload: emailNotFound,
+        error: NotFound,
       });
     }
   };
@@ -234,7 +240,11 @@ export const findEmailUser =
 export const findPasswordUser =
   (user: IFormInputs) =>
   async (
-    dispatch: (arg0: { type: any; payload?: any }) => void
+    dispatch: (arg0: {
+      type: string;
+      payload?: IFormInputs;
+      error?: string;
+    }) => void
   ): Promise<void> => {
     try {
       dispatch({ type: USER_FIND_PASSWORD_REQUEST });
@@ -251,9 +261,7 @@ export const findPasswordUser =
     } catch (error) {
       dispatch({
         type: USER_FIND_PASSWORD_FAIL,
-        payload: {
-          error: noMatchedUser,
-        },
+        error: noMatchedUser,
       });
     }
   };
@@ -261,7 +269,11 @@ export const findPasswordUser =
 export const resetPasswordUser =
   (user: IFormInputs) =>
   async (
-    dispatch: (arg0: { type: any; payload?: any }) => void
+    dispatch: (arg0: {
+      type: string;
+      payload?: IFormInputs;
+      error?: string;
+    }) => void
   ): Promise<void> => {
     try {
       dispatch({ type: USER_RESET_PASSWORD_REQUEST });
@@ -278,9 +290,7 @@ export const resetPasswordUser =
     } catch (error) {
       dispatch({
         type: USER_RESET_PASSWORD_FAIL,
-        payload: {
-          error: noMatchedUser,
-        },
+        error: noMatchedUser,
       });
     }
   };
@@ -290,10 +300,10 @@ export const listUsers =
   async (
     dispatch: (
       arg0:
-        | { type: any; payload?: any }
+        | { type: string; payload?: UserListProps }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({ type: USER_LIST_REQUEST });
@@ -303,7 +313,7 @@ export const listUsers =
 
       const { data } = await axios.get(
         `/api/v1/users`,
-        tokenConfig(userInfo.token)
+        tokenConfig(userInfo.token as string)
       );
 
       dispatch({
@@ -336,10 +346,10 @@ export const deleteUser =
   async (
     dispatch: (
       arg0:
-        | { type: any; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({
@@ -350,7 +360,10 @@ export const deleteUser =
         userLogin: { userInfo },
       } = getState();
 
-      await axios.delete(`/api/v1/users/${id}`, tokenConfig(userInfo.token));
+      await axios.delete(
+        `/api/v1/users/${id}`,
+        tokenConfig(userInfo.token as string)
+      );
 
       dispatch({ type: USER_DELETE_SUCCESS });
     } catch (error) {
@@ -364,7 +377,7 @@ export const deleteUser =
       }
       dispatch({
         type: USER_DELETE_FAIL,
-        payload: message,
+        error: message,
       });
     }
   };

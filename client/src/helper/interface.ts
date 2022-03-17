@@ -7,7 +7,6 @@ export interface IFormInputs {
   password?: string;
   password_confirm: string;
   message?: string;
-  error?: string;
   isAdmin?: boolean;
   productname?: string;
   brand?: string;
@@ -16,6 +15,9 @@ export interface IFormInputs {
   description?: string;
   price?: number;
   image?: string;
+  rating?: number;
+  numReviews?: number;
+  token?: string;
   _id?: string;
 }
 
@@ -31,6 +33,7 @@ export interface ProductProps {
   description?: string;
   countInStock?: number;
   reviews: ProductReviewProps;
+  error?: string;
 }
 
 export type ProductsProps = ProductProps[];
@@ -94,6 +97,17 @@ export interface RatingProps {
   text?: string;
 }
 
+export interface MatchParams {
+  match: {
+    params: {
+      pageNumber: number;
+      category: string;
+      keyword: string;
+      id: string;
+    };
+  };
+}
+
 export interface UserListProps {
   error?: string | undefined;
   users?: [
@@ -105,15 +119,4 @@ export interface UserListProps {
       isAdmin?: boolean;
     }
   ];
-}
-
-export interface MatchParams {
-  match: {
-    params: {
-      pageNumber: number;
-      category: string;
-      keyword: string;
-      id: string;
-    };
-  };
 }

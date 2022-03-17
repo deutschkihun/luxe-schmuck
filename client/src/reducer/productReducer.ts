@@ -31,8 +31,8 @@ export const productListReducer = (
       products: ProductsProps;
       page: number;
       pages: number;
-      error: string;
     };
+    error: string;
   }
 ): {
   loading?: boolean;
@@ -52,7 +52,7 @@ export const productListReducer = (
         pages: action.payload.pages,
       };
     case PRODUCT_LIST_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     default:
       return state;
   }
@@ -60,7 +60,7 @@ export const productListReducer = (
 
 export const productDeleteReducer = (
   state = {},
-  action: { type: string; payload: { error: string } }
+  action: { type: string; error: string }
 ): {
   loading?: boolean;
   success?: boolean;
@@ -72,7 +72,7 @@ export const productDeleteReducer = (
     case PRODUCT_DELETE_SUCCESS:
       return { loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     default:
       return state;
   }
@@ -82,7 +82,8 @@ export const productCreateReducer = (
   state = {},
   action: {
     type: string;
-    payload: { error: string; product: IFormInputs };
+    payload: { product: IFormInputs };
+    error: string;
   }
 ): {
   loading?: boolean;
@@ -96,7 +97,7 @@ export const productCreateReducer = (
     case PRODUCT_CREATE_SUCCESS:
       return { loading: false, success: true, product: action.payload.product };
     case PRODUCT_CREATE_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     case PRODUCT_CREATE_RESET:
       return {};
     default:
@@ -106,7 +107,7 @@ export const productCreateReducer = (
 
 export const productDetailsReducer = (
   state = {},
-  action: { type: string; payload: { error: string; product: ProductProps } }
+  action: { type: string; payload: { product: ProductProps }; error: string }
 ): {
   loading?: boolean;
   error?: string;
@@ -118,7 +119,7 @@ export const productDetailsReducer = (
     case PRODUCT_DETAILS_SUCCESS:
       return { loading: false, product: action.payload.product };
     case PRODUCT_DETAILS_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     default:
       return state;
   }
@@ -126,7 +127,7 @@ export const productDetailsReducer = (
 
 export const productUpdateReducer = (
   state = {},
-  action: { type: string; payload: { product: IFormInputs; error: string } }
+  action: { type: string; payload: { product: IFormInputs }; error: string }
 ): {
   loading?: boolean;
   success?: boolean;
@@ -139,9 +140,9 @@ export const productUpdateReducer = (
     case PRODUCT_UPDATE_SUCCESS:
       return { loading: false, success: true, product: action.payload.product };
     case PRODUCT_UPDATE_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     case PRODUCT_UPDATE_RESET:
-      return { product: { password_confirm: "" } };
+      return {};
     default:
       return state;
   }
@@ -149,7 +150,7 @@ export const productUpdateReducer = (
 
 export const productReviewCreateReducer = (
   state = {},
-  action: { type: string; payload: { error: string } }
+  action: { type: string; error: string }
 ): {
   loading?: boolean;
   success?: boolean;
@@ -161,7 +162,7 @@ export const productReviewCreateReducer = (
     case PRODUCT_CREATE_REVIEW_SUCCESS:
       return { loading: false, success: true };
     case PRODUCT_CREATE_REVIEW_FAIL:
-      return { loading: false, error: action.payload.error };
+      return { loading: false, error: action.error };
     case PRODUCT_CREATE_REVIEW_RESET:
       return {};
     default:

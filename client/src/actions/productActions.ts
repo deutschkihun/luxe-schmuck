@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { IFormInputs, ProductReviews } from "../helper/interface";
 import {
@@ -33,7 +32,11 @@ import { logoutUser } from "./userActions";
 export const listProducts =
   (keyword = "", category = "", pageNumber = 0) =>
   async (
-    dispatch: (arg0: { type: string; payload?: any }) => void
+    dispatch: (arg0: {
+      type: string;
+      payload?: IFormInputs;
+      error?: string;
+    }) => void
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -49,9 +52,7 @@ export const listProducts =
       if (error instanceof Error) {
         dispatch({
           type: PRODUCT_LIST_FAIL,
-          payload: {
-            error: failToLoad,
-          },
+          error: failToLoad,
         });
       }
     }
@@ -62,10 +63,10 @@ export const deleteProduct =
   async (
     dispatch: (
       arg0:
-        | { type: string; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_DELETE_REQUEST });
@@ -73,7 +74,10 @@ export const deleteProduct =
         userLogin: { userInfo },
       } = getState();
 
-      await axios.delete(`/api/v1/products/${id}`, tokenConfig(userInfo.token));
+      await axios.delete(
+        `/api/v1/products/${id}`,
+        tokenConfig(userInfo.token as string)
+      );
       dispatch({
         type: PRODUCT_DELETE_SUCCESS,
       });
@@ -89,7 +93,7 @@ export const deleteProduct =
       }
       dispatch({
         type: PRODUCT_DELETE_FAIL,
-        payload: message,
+        error: message,
       });
     }
   };
@@ -99,10 +103,10 @@ export const createProduct =
   async (
     dispatch: (
       arg0:
-        | { type: any; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_CREATE_REQUEST });
@@ -112,7 +116,7 @@ export const createProduct =
 
       const { data } = await axios.post(`/api/v1/products`, product, {
         ...jsonConfig,
-        ...tokenConfig(userInfo.token),
+        ...tokenConfig(userInfo.token as string),
       });
 
       dispatch({
@@ -131,9 +135,7 @@ export const createProduct =
       }
       dispatch({
         type: PRODUCT_CREATE_FAIL,
-        payload: {
-          error: message,
-        },
+        error: message,
       });
     }
   };
@@ -143,7 +145,7 @@ export const listProductDetails =
   async (
     dispatch: (
       arg0:
-        | { type: string; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void
   ): Promise<void> => {
@@ -151,11 +153,10 @@ export const listProductDetails =
       dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
       const { data } = await axios.get(`/api/v1/products/${id}`);
+      //
       dispatch({
         type: PRODUCT_DETAILS_SUCCESS,
-        payload: {
-          product: data,
-        },
+        payload: data,
       });
     } catch (error) {
       let message = "";
@@ -169,9 +170,7 @@ export const listProductDetails =
       }
       dispatch({
         type: PRODUCT_DETAILS_FAIL,
-        payload: {
-          error: message,
-        },
+        error: message,
       });
     }
   };
@@ -181,10 +180,10 @@ export const updateProduct =
   async (
     dispatch: (
       arg0:
-        | { type: any; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({
@@ -200,7 +199,7 @@ export const updateProduct =
         product,
         {
           ...jsonConfig,
-          ...tokenConfig(userInfo.token),
+          ...tokenConfig(userInfo.token as string),
         }
       );
 
@@ -221,7 +220,7 @@ export const updateProduct =
       }
       dispatch({
         type: PRODUCT_UPDATE_FAIL,
-        payload: message,
+        error: message,
       });
     }
   };
@@ -231,10 +230,10 @@ export const createProductReview =
   async (
     dispatch: (
       arg0:
-        | { type: string; payload?: any }
+        | { type: string; payload?: IFormInputs; error?: string }
         | ((dispatch: (arg0: { type: string }) => void) => void)
     ) => void,
-    getState: () => { userLogin: { userInfo: any } }
+    getState: () => { userLogin: { userInfo: IFormInputs } }
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
@@ -244,7 +243,7 @@ export const createProductReview =
       } = getState();
       await axios.post(`/api/v1/products/${productId}/reviews`, review, {
         ...jsonConfig,
-        ...tokenConfig(userInfo.token),
+        ...tokenConfig(userInfo.token as string),
       });
 
       dispatch({
@@ -263,7 +262,7 @@ export const createProductReview =
 
       dispatch({
         type: PRODUCT_CREATE_REVIEW_FAIL,
-        payload: message,
+        error: message,
       });
     }
   };
