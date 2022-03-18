@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Descriptions } from "antd";
 import { Rating } from "../components/Rating";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { Title } from "../helper/lib";
+import { Button, SubmitButton, Title } from "../helper/lib";
 import { ProductProps } from "../helper/interface";
 
 interface Props {
@@ -19,57 +18,68 @@ export const ProductInfo = (props: Props): JSX.Element => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
   return (
-    <div>
+    <>
       <Title>{product.productname}</Title>
-      <Descriptions title="Product Info">
-        <Descriptions.Item label="Price">{product.price}</Descriptions.Item>
-        <Descriptions.Item label="Sold">{product.numReviews}</Descriptions.Item>
-        <Descriptions.Item label="View">
-          {product.countInStock}
-          {/*
-           <div
-                  className={`${
-                    (product.countInStock as number) > 0
-                      ? "in-stock"
-                      : "sold-out"
-                  }`}
-                >
-            {(product?.countInStock as number) > 0
-            ? "In Stock"
-            : "Out Of Stock"}
-          */}
-        </Descriptions.Item>
-
-        {(product.countInStock as number) > 0 && (
-          <div className="quantity">
-            <span>Qty</span>
-            <select className="select" value={qty}>
-              {Array.from(Array(product.countInStock).keys()).map(
-                (x, index) => (
-                  <option key={index} value={x + 1}>
-                    {x + 1}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-        )}
-
-        <Descriptions.Item label="Description">
-          {product.description}
-        </Descriptions.Item>
-        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-      </Descriptions>
-
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">NAME</th>
+            <th scope="col">PRICE</th>
+            <th scope="col">CATEGORY</th>
+            <th scope="col">BRAND</th>
+            <th scope="col">STOCK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr key={product._id}>
+            <td>{product.productname}</td>
+            <td>${product.price}</td>
+            <td>{product.category}</td>
+            <td>{product.brand}</td>
+            <td>{product.countInStock}</td>
+          </tr>
+        </tbody>
+      </table>
       <br />
-      <br />
-      <br />
-      <button
-        disabled={product.countInStock === 0 ? true : false}
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">DESCRIPTION</th>
+            <th scope="col">REVIEWS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr key={product._id}>
+            <td>{product.description}</td>
+            <td>{product.numReviews}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {(product?.countInStock as number) > 0 && (
+        <div className="quantity">
+          <span>Qty</span>
+          <select className="select" value={qty}>
+            {Array.from(Array(product.countInStock).keys()).map((x, index) => (
+              <option key={index} value={x + 1}>
+                {x + 1}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/*<Rating value={product.rating + 1} text={`${product.numReviews} reviews`} />*/}
+
+      <SubmitButton
+        className={`${
+          (product?.countInStock as number) == 0 ? "sold-out" : "in-stock"
+        }`}
+        disabled={product.countInStock == 0 ? true : false}
         onClick={addToCartHandler}
       >
-        ADD TO CART
-      </button>
-    </div>
+        Add to Cart
+      </SubmitButton>
+    </>
   );
 };

@@ -35,10 +35,11 @@ export const ProductDetailPage = (): JSX.Element => {
               <Col lg={12} sm={24}>
                 <ProductImage product={product} />
               </Col>
-              <Col lg={12} sm={24}>
-                <ProductInfo product={product} />
-                <ProductReviews product={product} />
-              </Col>
+              {
+                <Col lg={12} sm={24}>
+                  <ProductInfo product={product} />
+                </Col>
+              }
             </Row>
           </SingleProductContainer>
         </>

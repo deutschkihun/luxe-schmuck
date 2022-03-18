@@ -320,6 +320,10 @@ export const SubmitButton = styled.button.attrs({
     border: 1px solid transparent;
     opacity: 0.8;
   }
+
+  .sold-out {
+    opacity: 0.5;
+  }
 `;
 
 export const Label = styled.label`

@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300|Inconsolata:300");
+@import '~antd/dist/antd.css';
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+
 *,
 ::after,
 ::before {

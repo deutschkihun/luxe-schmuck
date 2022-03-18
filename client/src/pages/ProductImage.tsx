@@ -22,5 +22,9 @@ export const ProductImage = (props: Props): JSX.Element => {
       setImages(item);
     }
   }, [product]);
-  return <ImageGallery items={images} />;
+  return (
+    <div>
+      <ImageGallery items={images} />;
+    </div>
+  );
 };
