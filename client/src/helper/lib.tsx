@@ -433,3 +433,16 @@ export const Img = styled.img`
   width: 300px;
   height: 300px;
 `;
+
+export const DropZoneContainer = styled.div`
+  .dzu-inputLabel {
+    font-family: "Montserrat", sans-serif;
+    color: black;
+    font-weight: 100;
+  }
+`;
+
+export const SingleProductContainer = styled.div`
+  width: 100%;
+  padding: 3rem 4rem;
+`;

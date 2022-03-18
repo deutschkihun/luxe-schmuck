@@ -151,14 +151,13 @@ export const listProductDetails =
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_DETAILS_REQUEST });
-
       const { data } = await axios.get(`/api/v1/products/${id}`);
-      //
       dispatch({
         type: PRODUCT_DETAILS_SUCCESS,
         payload: data,
       });
     } catch (error) {
+      console.log("fewfwe");
       let message = "";
       if (error instanceof Error) {
         if (error.message == unauthorized) {

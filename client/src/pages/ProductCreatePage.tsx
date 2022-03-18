@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../actions/productActions";
@@ -17,6 +16,7 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IFormInputs } from "../helper/interface";
 import { mixRex, multipartConfig, numRex } from "../helper/utils";
+import axios from "axios";
 
 export const ProductCreatePage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ export const ProductCreatePage = (): JSX.Element => {
   const uploadFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files as FileList;
     const formData = new FormData();
+    console.log(file[0] as File);
     formData.append("image", file[0]);
     const { data } = await axios.post(
       "/api/v1/upload",
@@ -125,6 +126,7 @@ export const ProductCreatePage = (): JSX.Element => {
               />
               <ErrorMessageComponent name={"category"} errors={errors} />
               <LabelComponent label={"Product image"} />
+              {/*<ImagesFileUpload />*/}
               <input type="file" onChange={uploadFileHandler} />
               {imageMsg && <Warning>{imageMsg}</Warning>}
               <LabelComponent label={"Price in $"} />

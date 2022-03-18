@@ -1,7 +1,12 @@
 import React from "react";
-import { RatingProps } from "../helper/interface";
 
-export const Rating = (props: RatingProps): JSX.Element => {
+interface Props {
+  value?: number;
+  color?: string;
+  text?: string;
+}
+
+export const Rating = (props: Props): JSX.Element => {
   const { color, text, value } = props;
   return (
     <>

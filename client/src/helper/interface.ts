@@ -91,12 +91,6 @@ export type InputProps<T> = {
   defaultValue?: string | number;
 };
 
-export interface RatingProps {
-  value?: number;
-  color?: string;
-  text?: string;
-}
-
 export interface MatchParams {
   match: {
     params: {

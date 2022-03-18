@@ -107,7 +107,7 @@ export const productCreateReducer = (
 
 export const productDetailsReducer = (
   state = {},
-  action: { type: string; payload: { product: ProductProps }; error: string }
+  action: { type: string; payload: ProductProps; error: string }
 ): {
   loading?: boolean;
   error?: string;
@@ -117,7 +117,8 @@ export const productDetailsReducer = (
     case PRODUCT_DETAILS_REQUEST:
       return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: action.payload.product };
+      console.log(action.payload);
+      return { loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.error };
     default:

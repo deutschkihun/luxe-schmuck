@@ -22,7 +22,6 @@ export const ProductPage = (props: MatchParams): JSX.Element => {
 
   const productList = useSelector((state: RootState) => state.productList);
   const { loading, error, products, page, pages } = productList;
-  console.log(products);
 
   useEffect(() => {
     dispatch(listProducts(keyword, category, pageNumber));
@@ -43,7 +42,7 @@ export const ProductPage = (props: MatchParams): JSX.Element => {
                   value={product.rating}
                   text={`${product.numReviews} reviews`}
                 />
-                ${product.price}
+                <div>${product.price}</div>
               </HighlightLink>
             ))}
           </ProductComponent>
