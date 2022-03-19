@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Pagination } from "../components/Pagination";
 import { listProducts, deleteProduct } from "../actions/productActions";
 import { MatchParams } from "../helper/interface";
 import { RootState } from "../store";
@@ -21,7 +20,7 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state: RootState) => state.productList);
-  const { loading, error, products, pages, page } = productList;
+  const { loading, error, products } = productList;
 
   const productDelete = useSelector((state: RootState) => state.productDelete);
   const { error: errorDelete, success: successDelete } = productDelete;
@@ -99,9 +98,6 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
           </tbody>
         </table>
       )}
-      <div>
-        <Pagination pages={pages as number} page={page as number} />
-      </div>
     </ProductListContainer>
   );
 };

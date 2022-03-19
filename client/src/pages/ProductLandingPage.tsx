@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Pagination } from "../components/Pagination";
 import { listProducts } from "../actions/productActions";
 import {
   HighlightLink,
@@ -119,12 +118,6 @@ export const ProductLandingPage = (props: MatchParams): JSX.Element => {
       ) : (
         <Warning>{error as string}</Warning>
       )}
-      <Pagination
-        pages={pages as number}
-        page={page as number}
-        keyword={keyword ? keyword : ""}
-        category={category ? category : ""}
-      />
     </ProductContainer>
   );
 };

@@ -58,15 +58,6 @@ export interface ProductReviews {
 }
 
 export type ProductReviewProps = ProductReviews[];
-
-export interface PaginationProps {
-  pages: number;
-  page: number;
-  isAdmin?: boolean;
-  keyword?: string;
-  category?: string;
-}
-
 export interface ErrorProps {
   name: string;
   errors: { [x: string]: FieldError } | undefined;

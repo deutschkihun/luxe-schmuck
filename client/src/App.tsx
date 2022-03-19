@@ -50,31 +50,6 @@ function App(): JSX.Element {
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/contact" component={ContactPage} />
         <Route exact path="/product" component={ProductLandingPage} />
-        <Route
-          exact
-          path="/product/search/:keyword"
-          component={ProductLandingPage}
-        />
-        <Route
-          exact
-          path="/product/search/:keyword/page/:pageNumber"
-          component={ProductLandingPage}
-        />
-        <Route
-          exact
-          path="/product/category/:category"
-          component={ProductLandingPage}
-        />
-        <Route
-          exact
-          path="/product/category/:category/page/:pageNumber"
-          component={ProductLandingPage}
-        />
-        <Route
-          exact
-          path="/product/page/:pageNumber"
-          component={ProductLandingPage}
-        />
         <Route exact path="/product/:id" component={ProductDetailPage} />
         <Route exact path="/forgot" component={ForgotPage} />
         <Route exact path="/forgot/email" component={ForgotEmailPage} />
