@@ -19,7 +19,7 @@ export const ProductInfo = (props: Props): JSX.Element => {
   };
   return (
     <>
-      <Title>{product.productname}</Title>
+      <Title style={{ borderBottom: "none" }}>{product.productname}</Title>
       <table className="table">
         <thead>
           <tr>
@@ -46,39 +46,42 @@ export const ProductInfo = (props: Props): JSX.Element => {
           <tr>
             <th scope="col">DESCRIPTION</th>
             <th scope="col">TOTAL REVIEWS</th>
+            <th scope="col">ORDER QUANTITY</th>
           </tr>
         </thead>
         <tbody>
           <tr key={product._id}>
             <td>{product.description}</td>
             <td>{product.numReviews}</td>
+            <td>
+              {(product?.countInStock as number) > 0 && (
+                <select className="select" value={qty}>
+                  {Array.from(Array(product.countInStock).keys()).map(
+                    (x, index) => (
+                      <option key={index} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    )
+                  )}
+                </select>
+              )}
+            </td>
           </tr>
         </tbody>
       </table>
 
-      {(product?.countInStock as number) > 0 && (
-        <div className="quantity">
-          <span>Qty</span>
-          <select className="select" value={qty}>
-            {Array.from(Array(product.countInStock).keys()).map((x, index) => (
-              <option key={index} value={x + 1}>
-                {x + 1}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
       {/*<Rating value={product.rating + 1} text={`${product.numReviews} reviews`} />*/}
 
       <SubmitButton
-        className={`${
-          (product?.countInStock as number) == 0 ? "sold-out" : "in-stock"
-        }`}
         disabled={product.countInStock == 0 ? true : false}
         onClick={addToCartHandler}
+        style={
+          product.countInStock == 0 ? { opacity: "0.5" } : { opacity: "1" }
+        }
       >
-        Add to Cart
+        {product.countInStock == 0
+          ? "temporarily not available"
+          : "Add to Cart"}
       </SubmitButton>
     </>
   );

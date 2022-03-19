@@ -31,7 +31,7 @@ export const ProductLandingPage = (props: MatchParams): JSX.Element => {
   const [SearchTerm, setSearchTerm] = useState<string>("");
 
   const productList = useSelector((state: RootState) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { loading, error, products } = productList;
 
   useEffect(() => {
     dispatch(listProducts(keyword, category, pageNumber));
