@@ -40,3 +40,10 @@ router.post('/', upload.single('image'), (req, res) => {
 });
 
 export default router;
+
+/*
+router.post('/', multi_upload.array('image', 10), (req, res) => {
+  console.log(req.files)
+  res.send(req.files);
+});
+*/

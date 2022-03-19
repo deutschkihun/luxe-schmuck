@@ -36,6 +36,17 @@ export interface ProductProps {
   error?: string;
 }
 
+export interface Image {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
+}
+
 export type ProductsProps = ProductProps[];
 
 export interface ProductReviews {

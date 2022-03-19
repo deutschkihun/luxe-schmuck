@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone, {
@@ -9,49 +10,40 @@ import Dropzone, {
 } from "react-dropzone-uploader";
 import { DropZoneContainer } from "../helper/lib";
 import axios from "axios";
-import { multipartConfig } from "../helper/utils";
 
 interface CustomBlob extends Blob {
   id: string;
   status: StatusValue;
-  type: string; // MIME type, example: `image/*`
-  uploadedDate: string; // ISO string
+  type: string;
+  uploadedDate: string;
   percent: number;
-  size: number; // bytes
-  lastModifiedDate: string; // ISO string
-  previewUrl?: string; // from URL.createObjectURL
-  duration?: number; // seconds
+  size: number;
+  lastModifiedDate: string;
+  duration?: number;
   width?: number;
   height?: number;
   videoWidth?: number;
   videoHeight?: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validationError?: any;
 }
 
-interface newProps extends CustomBlob {
+interface Prop extends CustomBlob {
   readonly lastModified: number;
   readonly name: string;
   readonly webkitRelativePath: string;
 }
 
-/*interface Props {
-  file: IMeta;
-}*/
+type Props = Prop[];
 
 export const ImagesFileUpload = (): JSX.Element => {
   const [images, setImages] = useState<IMeta[]>([]);
+  console.log(images);
 
   useEffect(() => {
     async function upload() {
       if (images.length > 0) {
-        const formData = new FormData();
-        images.map(async (image) => {
-          const ig = image as newProps;
-          console.log(ig);
-          formData.append("image", ig);
-          await axios.post("/api/v1/upload", formData, multipartConfig);
-        });
+        const ig = images as Props;
+        await axios.post("/api/v1/upload", ig);
       }
     }
     upload();
@@ -81,17 +73,6 @@ export const ImagesFileUpload = (): JSX.Element => {
       setImages(files.map((f) => f.meta));
       allFiles.forEach((f) => f.remove());
     };
-
-    /*const getUploadParams = (props: Props) => {
-      const body = new FormData();
-      body.append("customFile", props.file);
-      body.append("type", "normal");
-      return { url: uploadUrl, body };
-    };
-
-    const getUploadParams: IDropzoneProps['getUploadParams'] = () => {
-      return { url: 'https://httpbin.org/post' }
-    }*/
 
     return (
       <DropZoneContainer>

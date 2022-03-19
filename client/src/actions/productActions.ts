@@ -157,7 +157,6 @@ export const listProductDetails =
         payload: data,
       });
     } catch (error) {
-      console.log("fewfwe");
       let message = "";
       if (error instanceof Error) {
         if (error.message == unauthorized) {

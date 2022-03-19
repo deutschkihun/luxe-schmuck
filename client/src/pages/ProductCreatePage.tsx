@@ -40,7 +40,6 @@ export const ProductCreatePage = (): JSX.Element => {
   const uploadFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files as FileList;
     const formData = new FormData();
-    console.log(file[0] as File);
     formData.append("image", file[0]);
     const { data } = await axios.post(
       "/api/v1/upload",
@@ -125,9 +124,9 @@ export const ProductCreatePage = (): JSX.Element => {
                 message={"Only number and string allowed"}
               />
               <ErrorMessageComponent name={"category"} errors={errors} />
-              <LabelComponent label={"Product image"} />
+              <LabelComponent label={"Product images (only png,jpg,jpeg)"} />
               {/*<ImagesFileUpload />*/}
-              <input type="file" onChange={uploadFileHandler} />
+              {<input type="file" onChange={uploadFileHandler} />}
               {imageMsg && <Warning>{imageMsg}</Warning>}
               <LabelComponent label={"Price in $"} />
               <InputComponent
