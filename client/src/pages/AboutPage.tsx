@@ -15,13 +15,14 @@ export const AboutPage = (): JSX.Element => {
       <Wrapper>
         <SubTitle>About LUXE SCHMUCK</SubTitle>
         <Message>
-          This page shows beautiful data visualization in various forms in web
-          browsers using javascript and React, HTML, CSS, and D3. D3 is a
-          JavaScript library for manipulating documents based on data. D3’s
-          emphasis on web standards gives you the full capabilities of modern
-          browsers without tying yourself to a proprietary framework, combining
-          powerful visualization components and a data-driven approach to DOM
-          manipulation.
+          LUXE SCHMUCK is a combination of French and German, meaning luxury
+          accessories. LUXE SCHMUCK is an e-commerce platform that helps many
+          users purchase luxury products online. We do not actually sell the
+          items posted in this project. Please note that the posted items are
+          data generated for example. This project allows you to register and
+          delete products through an administrator account. You can also manage
+          accounts registered with LUXE SCHMUCK. Users can search, fill, and get
+          more information as well as order and pay through LUXE SCHMUCK.
         </Message>
         <SubmitButton
           style={{ width: "auto" }}
