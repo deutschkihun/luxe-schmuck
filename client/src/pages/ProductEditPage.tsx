@@ -161,7 +161,7 @@ export const ProductEditPage = (props: MatchParams): JSX.Element => {
                 message={"Only number and string allowed"}
               />
               <ErrorMessageComponent name={"description"} errors={errors} />
-              <SubmitInput value="register" />
+              <SubmitInput value="edit" />
               <SubmitButton
                 type="submit"
                 onClick={() => history.push("/admin/productlist")}

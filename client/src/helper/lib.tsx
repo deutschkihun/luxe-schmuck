@@ -1,3 +1,4 @@
+import Search from "antd/lib/input/Search";
 import { Link } from "react-router-dom";
 import styled, { ThemeProps } from "styled-components";
 import { Theme } from "./theme";
@@ -147,14 +148,6 @@ export const MenubarLogo = styled.a`
   font-size: 25px;
 `;
 
-export const SearchLogo = styled.a`
-  cursor: pointer;
-  grid-column: 1 / 2;
-  color: black;
-  font-size: 25px;
-  padding: 1rem;
-`;
-
 export const CartLogo = styled.a`
   cursor: pointer;
   grid-column: 10 / 11;
@@ -165,14 +158,14 @@ export const CartLogo = styled.a`
 
 export const UserLogo = styled.a`
   cursor: pointer;
-  grid-column: 9 / 10;
+  grid-column: 1 / 2;
   color: black;
   font-size: 25px;
   padding: 1rem;
 `;
 
 export const DropdowLogo = styled.div`
-  grid-column: 9 / 10;
+  grid-column: 1 / 2;
 `;
 
 export const FooterLink = styled.a`
@@ -396,7 +389,7 @@ export const ProductListContainer = styled.form`
 
 export const ProductContainer = styled.form`
   margin: 0.7rem auto 0px;
-  max-width: 960px;
+  max-width: 1240px;
 `;
 
 export const ListTitle = styled.h4`
@@ -407,7 +400,7 @@ export const ProductComponent = styled.div`
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(3, 1fr);
-  padding: 1rem;
+  padding-top: 1.5rem;
   img {
     width: 100%;
     height: auto;
@@ -450,3 +443,13 @@ export const SingleProductContainer = styled.div`
   width: 100%;
   padding: 3rem 4rem;
 `;
+
+export const CheckList = styled.span``;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+export const SearchBox = styled(Search)``;

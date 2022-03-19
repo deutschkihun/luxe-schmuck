@@ -32,7 +32,7 @@ export const ProductDetailPage = (): JSX.Element => {
         <>
           <SingleProductContainer>
             <Row gutter={[16, 16]}>
-              <Col lg={12} sm={24}>
+              <Col lg={12} sm={24} style={{ maxWidth: "750px" }}>
                 <ProductImage product={product} />
               </Col>
               {

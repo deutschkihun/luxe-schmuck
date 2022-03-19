@@ -5,7 +5,6 @@ import {
   Grid,
   Title,
   MenuLogo,
-  SearchLogo,
   CartLogo,
   UserLogo,
   Listing,
@@ -27,15 +26,6 @@ export const Header = (): JSX.Element => {
   return (
     <HeaderSection>
       <Grid>
-        <SearchLogo href="/product/search">
-          <i className="fa fa-search fa-4" aria-hidden="true"></i>
-        </SearchLogo>
-        <MenuLogo className="logo-toggle" href="/">
-          <Title>LUXE SCHMUCK</Title>
-        </MenuLogo>
-        <MenubarLogo className="toggle-btn">
-          <MenuDropdown />
-        </MenubarLogo>
         {userInfo ? (
           <DropdowLogo>
             <ProfileDropdown />
@@ -45,6 +35,13 @@ export const Header = (): JSX.Element => {
             <i className="fa fa-user" aria-hidden="true"></i>
           </UserLogo>
         )}
+        <MenuLogo className="logo-toggle" href="/">
+          <Title>LUXE SCHMUCK</Title>
+        </MenuLogo>
+        <MenubarLogo className="toggle-btn">
+          <MenuDropdown />
+        </MenubarLogo>
+
         <CartLogo href="/cart">
           <i className="fa fa-shopping-cart" aria-hidden="true"></i>
         </CartLogo>

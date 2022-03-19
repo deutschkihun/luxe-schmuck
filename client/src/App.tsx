@@ -6,12 +6,11 @@ import { LandingPage } from "./pages/LandingPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { CartPage } from "./pages/CartPage";
 import { LoginPage } from "./pages/LoginPage";
-import { SearchPage } from "./pages/SearchPage";
 import { NewletterPage } from "./pages/NewletterPage";
 import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
 import { ErrorPage } from "./pages/ErrorPage";
-import { ProductPage } from "./pages/ProductPage";
+import { ProductLandingPage } from "./pages/ProductLandingPage";
 import { ForgotPage } from "./pages/ForgotPage";
 import { ForgotEmailPage } from "./pages/ForgotEmailPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
@@ -50,25 +49,32 @@ function App(): JSX.Element {
         <Route exact path="/newletter" component={NewletterPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/contact" component={ContactPage} />
-        <Route exact path="/product" component={ProductPage} />
-        <Route exact path="/product/search" component={SearchPage} />
-        <Route exact path="/product/search/:keyword" component={ProductPage} />
+        <Route exact path="/product" component={ProductLandingPage} />
+        <Route
+          exact
+          path="/product/search/:keyword"
+          component={ProductLandingPage}
+        />
         <Route
           exact
           path="/product/search/:keyword/page/:pageNumber"
-          component={ProductPage}
+          component={ProductLandingPage}
         />
         <Route
           exact
           path="/product/category/:category"
-          component={ProductPage}
+          component={ProductLandingPage}
         />
         <Route
           exact
           path="/product/category/:category/page/:pageNumber"
-          component={ProductPage}
+          component={ProductLandingPage}
         />
-        <Route exact path="/product/page/:pageNumber" component={ProductPage} />
+        <Route
+          exact
+          path="/product/page/:pageNumber"
+          component={ProductLandingPage}
+        />
         <Route exact path="/product/:id" component={ProductDetailPage} />
         <Route exact path="/forgot" component={ForgotPage} />
         <Route exact path="/forgot/email" component={ForgotEmailPage} />

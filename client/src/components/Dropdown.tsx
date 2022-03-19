@@ -27,7 +27,7 @@ export const ProfileDropdown = (): JSX.Element => {
       </a>
 
       <div
-        className="dropdown-menu dropdown-menu-right"
+        className="dropdown-menu dropdown-menu"
         aria-labelledby="dropdownMenuLink"
       >
         <a className="dropdown-item" href="/profile">

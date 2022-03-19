@@ -45,7 +45,7 @@ export const ProductInfo = (props: Props): JSX.Element => {
         <thead>
           <tr>
             <th scope="col">DESCRIPTION</th>
-            <th scope="col">REVIEWS</th>
+            <th scope="col">TOTAL REVIEWS</th>
           </tr>
         </thead>
         <tbody>
