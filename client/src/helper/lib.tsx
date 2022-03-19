@@ -2,6 +2,11 @@ import Search from "antd/lib/input/Search";
 import { Link } from "react-router-dom";
 import styled, { ThemeProps } from "styled-components";
 import { Theme } from "./theme";
+import {
+  MailOutlined,
+  LinkedinOutlined,
+  GithubOutlined,
+} from "@ant-design/icons";
 
 export const Section = styled.section`
   position: relative;
@@ -453,3 +458,32 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchBox = styled(Search)``;
+
+export const Wrapper = styled.div`
+  padding: 50px 15vw 50px 15vw;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-size: 3rem;
+`;
+
+export const Message = styled.p`
+  font-size: 1rem;
+  text-align: center;
+`;
+
+export const CommonButton = styled(Button)`
+  margin: 0.5em;
+`;
+
+export const Mail = styled(MailOutlined)`
+  padding: 0.5rem;
+`;
+
+export const LinkedIn = styled(LinkedinOutlined)`
+  padding: 0.5rem;
+`;
+
+export const Github = styled(GithubOutlined)`
+  padding: 0.5rem;
+`;

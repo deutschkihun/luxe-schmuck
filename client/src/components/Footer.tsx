@@ -11,9 +11,7 @@ export const Footer = (): JSX.Element => {
     <FooterSection>
       <FooterBreadCrumb>LUXE SCHMUCK</FooterBreadCrumb>
       <FooterNavigation>
-        <FooterLink href="/newletter">Newletter</FooterLink>
-        <FooterLink href="/about">About Us</FooterLink>
-        <FooterLink href="contact">Contact</FooterLink>
+        <FooterLink href="/about">About US</FooterLink>
       </FooterNavigation>
     </FooterSection>
   );

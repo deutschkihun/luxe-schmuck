@@ -8,7 +8,6 @@ import { CartPage } from "./pages/CartPage";
 import { LoginPage } from "./pages/LoginPage";
 import { NewletterPage } from "./pages/NewletterPage";
 import { AboutPage } from "./pages/AboutPage";
-import { ContactPage } from "./pages/ContactPage";
 import { ErrorPage } from "./pages/ErrorPage";
 import { ProductLandingPage } from "./pages/ProductLandingPage";
 import { ForgotPage } from "./pages/ForgotPage";
@@ -48,7 +47,6 @@ function App(): JSX.Element {
         <Route exact path="/cart" component={CartPage} />
         <Route exact path="/newletter" component={NewletterPage} />
         <Route exact path="/about" component={AboutPage} />
-        <Route exact path="/contact" component={ContactPage} />
         <Route exact path="/product" component={ProductLandingPage} />
         <Route exact path="/product/:id" component={ProductDetailPage} />
         <Route exact path="/forgot" component={ForgotPage} />
