@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Rating } from "../components/Rating";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { Button, SubmitButton, Title } from "../helper/lib";
+import { SubmitButton, Title } from "../helper/lib";
 import { ProductProps } from "../helper/interface";
 
 interface Props {

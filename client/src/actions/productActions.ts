@@ -30,7 +30,7 @@ import {
 import { logoutUser } from "./userActions";
 
 export const listProducts =
-  (keyword = "", category = "", pageNumber = 0) =>
+  () =>
   async (
     dispatch: (arg0: {
       type: string;
@@ -40,9 +40,7 @@ export const listProducts =
   ): Promise<void> => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await axios.get(
-        `/api/v1/products?keyword=${keyword}&category=${category}&pageNumber=${pageNumber}`
-      );
+      const { data } = await axios.get(`/api/v1/products`);
 
       dispatch({
         type: PRODUCT_LIST_SUCCESS,

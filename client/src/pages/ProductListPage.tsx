@@ -33,7 +33,7 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
       history.push("/login");
     }
 
-    dispatch(listProducts("", "", pageNumber));
+    dispatch(listProducts());
   }, [dispatch, history, userInfo, successDelete, pageNumber]);
 
   const deleteHandler = (id: string) => {

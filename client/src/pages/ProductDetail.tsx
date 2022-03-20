@@ -17,7 +17,7 @@ export const ProductDetailPage = (): JSX.Element => {
   );
 
   const match = useRouteMatch<{ id: string }>();
-  const { loading, error, product } = productDetails;
+  const { loading, product } = productDetails;
   console.log("product", product);
 
   useEffect(() => {

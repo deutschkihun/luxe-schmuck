@@ -5,34 +5,8 @@ import Product from '../models/productModel.js';
 // @route          GET /api/products
 // @access         Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 12;
-  const page = Number(req.query.pageNumber) || 1;
-
-  const keywordFilter = req.query.keyword
-    ? {
-        name: {
-          // $regex is for insufficient user keyword  e.g. iph = iphone
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
-    : {};
-
-  const categoryFilter = req.query.category
-    ? {
-        category: req.query.category,
-      }
-    : {};
-
-  const count = await Product.countDocuments({
-    ...keywordFilter,
-    ...categoryFilter,
-  });
-  const products = await Product.find({ ...keywordFilter, ...categoryFilter })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
-
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  const products = await Product.find()
+  res.json({ products });
 });
 
 // @description    Fetch single product
