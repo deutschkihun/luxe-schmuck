@@ -16,7 +16,6 @@ const UserListScreen = (): JSX.Element => {
   const userLogin = useSelector((state: RootState) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log("userlist", userlist);
   const userDelete = useSelector((state: RootState) => state.userDelete);
   const { success: successDelete } = userDelete;
 

@@ -1,4 +1,3 @@
-import Search from "antd/lib/input/Search";
 import { Link } from "react-router-dom";
 import styled, { ThemeProps } from "styled-components";
 import { Theme } from "./theme";
@@ -451,14 +450,6 @@ export const SingleProductContainer = styled.div`
 
 export const CheckList = styled.span``;
 
-export const SearchContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-`;
-
-export const SearchBox = styled(Search)``;
-
 export const Wrapper = styled.div`
   padding: 50px 15vw 50px 15vw;
   flex-direction: column;
@@ -486,4 +477,8 @@ export const LinkedIn = styled(LinkedinOutlined)`
 
 export const Github = styled(GithubOutlined)`
   padding: 0.5rem;
+`;
+
+export const ReviewContainer = styled.form`
+  text-align: center;
 `;

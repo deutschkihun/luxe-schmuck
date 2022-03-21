@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IFormInputs, ProductReviews } from "../helper/interface";
+import { IFormInputs, ProductReview } from "../helper/interface";
 import {
   failToCreate,
   failToDelete,
@@ -222,7 +222,7 @@ export const updateProduct =
   };
 
 export const createProductReview =
-  (productId: string, review: ProductReviews) =>
+  (productId: string, review: ProductReview) =>
   async (
     dispatch: (
       arg0:
@@ -234,6 +234,7 @@ export const createProductReview =
     try {
       dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
 
+      console.log(productId, review);
       const {
         userLogin: { userInfo },
       } = getState();

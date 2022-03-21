@@ -52,14 +52,6 @@ const createProduct = asyncHandler(async (req, res) => {
     countInStock,
   } = req.body;
 
-console.log( productname,
-  price,
-  description,
-  image,
-  brand,
-  category,
-  countInStock )
-
   const product = new Product({
     productname,
     price:Number(price),
@@ -83,7 +75,7 @@ console.log( productname,
 // @access         Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
   const {
-    name,
+    productname,
     price,
     description,
     image,
@@ -95,7 +87,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    product.name = name;
+    product.productname = productname;
     product.price = price;
     product.description = description;
     product.image = image;
@@ -124,7 +116,7 @@ const createProductReview = asyncHandler(async (req, res) => {
       r => r.user.toString() === req.user._id.toString()
     );
 
-    if (alreadyReviewed) {
+    /*if (alreadyReviewed) {
       res.status(400);
       throw new Error('Product already reviewed');
     }
@@ -145,7 +137,7 @@ const createProductReview = asyncHandler(async (req, res) => {
       product.reviews.length;
 
     await product.save();
-    res.status(201).json({ message: 'Review added' });
+    res.status(201).json({ message: 'Review added' });*/
   } else {
     res.status(404);
     throw new Error('Product not found');

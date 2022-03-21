@@ -37,8 +37,6 @@ type Props = Prop[];
 
 export const ImagesFileUpload = (): JSX.Element => {
   const [images, setImages] = useState<IMeta[]>([]);
-  console.log(images);
-
   useEffect(() => {
     async function upload() {
       if (images.length > 0) {

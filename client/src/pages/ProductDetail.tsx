@@ -6,7 +6,6 @@ import { LoadingView } from "../components/LoadingView";
 import { Row, Col } from "antd";
 import { ProductImage } from "./ProductImage";
 import { ProductInfo } from "./ProductInfo";
-import { ProductReviews } from "./ProductReviews";
 import { useRouteMatch } from "react-router";
 import { listProductDetails } from "../actions/productActions";
 
@@ -15,10 +14,8 @@ export const ProductDetailPage = (): JSX.Element => {
   const productDetails = useSelector(
     (state: RootState) => state.productDetails
   );
-
   const match = useRouteMatch<{ id: string }>();
   const { loading, product } = productDetails;
-  console.log("product", product);
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));

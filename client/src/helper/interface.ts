@@ -49,7 +49,7 @@ export interface Image {
 
 export type ProductsProps = ProductProps[];
 
-export interface ProductReviews {
+export interface ProductReview {
   _id?: string;
   name?: string;
   rating?: number;
@@ -57,7 +57,7 @@ export interface ProductReviews {
   createdAt?: string;
 }
 
-export type ProductReviewProps = ProductReviews[];
+export type ProductReviewProps = ProductReview[];
 export interface ErrorProps {
   name: string;
   errors: { [x: string]: FieldError } | undefined;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { SubmitButton, Title } from "../helper/lib";
 import { ProductProps } from "../helper/interface";
+import { ProductReviews } from "./ProductReviews";
 
 interface Props {
   product: ProductProps;
@@ -54,7 +55,11 @@ export const ProductInfo = (props: Props): JSX.Element => {
             <td>{product.numReviews}</td>
             <td>
               {(product?.countInStock as number) > 0 && (
-                <select className="select" value={qty}>
+                <select
+                  className="select"
+                  value={qty}
+                  onChange={(e) => setQty(parseInt(e.target.value))}
+                >
                   {Array.from(Array(product.countInStock).keys()).map(
                     (x, index) => (
                       <option key={index} value={x + 1}>
@@ -68,9 +73,6 @@ export const ProductInfo = (props: Props): JSX.Element => {
           </tr>
         </tbody>
       </table>
-
-      {/*<Rating value={product.rating + 1} text={`${product.numReviews} reviews`} />*/}
-
       <SubmitButton
         disabled={product.countInStock == 0 ? true : false}
         onClick={addToCartHandler}
@@ -82,6 +84,7 @@ export const ProductInfo = (props: Props): JSX.Element => {
           ? "temporarily not available"
           : "Add to Cart"}
       </SubmitButton>
+      <ProductReviews product={product} />
     </>
   );
 };
