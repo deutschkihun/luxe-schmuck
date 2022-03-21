@@ -9,3 +9,5 @@ export const InvaildCredential = "Invalid email or password";
 export const failToCreate = "Fail to create";
 export const deleteData =
   "The deleted data cannot be recovered. Do you still want to continue?";
+export const badRequest = "Request failed with status code 400";
+export const alreadyReviewed = "already reviewed";

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { IFormInputs, ProductReview } from "../helper/interface";
 import {
+  alreadyReviewed,
+  badRequest,
   failToCreate,
   failToDelete,
   failToLoad,
@@ -234,7 +236,6 @@ export const createProductReview =
     try {
       dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
 
-      console.log(productId, review);
       const {
         userLogin: { userInfo },
       } = getState();
@@ -249,9 +250,12 @@ export const createProductReview =
     } catch (error) {
       let message = "";
       if (error instanceof Error) {
+        console.log(error);
         if (error.message == unauthorized) {
           await dispatch(logoutUser());
           message = error.message;
+        } else if (error.message == badRequest) {
+          message = alreadyReviewed;
         } else {
           message = failToCreate;
         }

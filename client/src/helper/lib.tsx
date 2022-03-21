@@ -282,15 +282,27 @@ export const SubmitInput = styled.input.attrs({
 `;
 
 export const Button = styled.button`
-  display: block;
-  appearance: none;
-  margin-top: 40px;
-  border: 1px solid #333;
-  margin-bottom: 20px;
+  background: #ec5990;
+  color: black;
   text-transform: uppercase;
-  padding: 10px 20px;
-  border-radius: 4px;
+  border: none;
+  margin-top: 20px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 10px;
   width: 100%;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  &:hover {
+    background: #bf1650;
+  }
+  &:active {
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
 `;
 
 export const SubmitButton = styled.button.attrs({
@@ -461,10 +473,6 @@ export const Wrapper = styled.div`
 export const Message = styled.p`
   font-size: 1rem;
   text-align: center;
-`;
-
-export const CommonButton = styled(Button)`
-  margin: 0.5em;
 `;
 
 export const Mail = styled(MailOutlined)`

@@ -51,7 +51,7 @@ export type ProductsProps = ProductProps[];
 
 export interface ProductReview {
   _id?: string;
-  name?: string;
+  email?: string;
   rating?: number;
   comment?: string;
   createdAt?: string;
