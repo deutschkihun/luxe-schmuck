@@ -2,7 +2,15 @@ import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BodySection, VideoContent, VideoShowCase } from "../helper/lib";
+import {
+  BodySection,
+  SubTitle,
+  VideoContent,
+  VideoShowCase,
+} from "../helper/lib";
+import show from "../video/show.mp4";
+import lv from "../video/lv.mp4";
+import watch from "../video/watch.mp4";
 
 // register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -53,7 +61,7 @@ export const LandingPage = (): JSX.Element => {
           autoAlpha: 0,
         },
         {
-          duration: 1,
+          duration: 3,
           autoAlpha: 1,
           ease: "none",
           scrollTrigger: {
@@ -66,18 +74,22 @@ export const LandingPage = (): JSX.Element => {
     });
   }, []);
 
-  // https://lv-vod.fl.freecaster.net/vod/louisvuitton/xMJ46NJ0m4_HD.mp4
-
   return (
     <>
       <BodySection ref={refSlide1}>
         <VideoShowCase>
-          <video
-            src="https://lv-vod.fl.freecaster.net/vod/louisvuitton/2iAbiyBoFx_MD.mp4"
-            autoPlay
-            muted
-            loop
-          ></video>
+          <video src={watch} autoPlay muted loop controls={true}></video>
+        </VideoShowCase>
+        <VideoContent>
+          <SubTitle>NEW IN</SubTitle>
+          <h3>Explore latest collection of the season curated for you</h3>
+          <Link to="/product">VIEW</Link>
+        </VideoContent>
+      </BodySection>
+
+      <BodySection ref={refSlide2}>
+        <VideoShowCase>
+          <video src={lv} autoPlay muted loop controls={true}></video>
         </VideoShowCase>
         <VideoContent>
           <h1 className="section__content__title">NEW IN</h1>
@@ -86,23 +98,23 @@ export const LandingPage = (): JSX.Element => {
         </VideoContent>
       </BodySection>
 
-      <section className="section" ref={refSlide2}>
-        <div className="section__image section__image--a"></div>
-        <div className="section__content" ref={revealRef1}>
-          <h1 className="section__content__title">COLLECTION</h1>
+      <BodySection ref={refSlide3}>
+        <VideoShowCase>
+          <video
+            src={show}
+            autoPlay
+            muted
+            loop
+            controls
+            style={{ pointerEvents: "unset" }}
+          ></video>
+        </VideoShowCase>
+        <VideoContent>
+          <h1 className="section__content__title">NEW IN</h1>
           <h3>Explore latest collection of the season curated for you</h3>
           <Link to="/product">VIEW</Link>
-        </div>
-      </section>
-
-      <section className="section" ref={refSlide3}>
-        <div className="section__image section__image--b"></div>
-        <div className="section__content" ref={revealRef2}>
-          <h1 className="section__content__title">SPECIAL PRICES</h1>
-          <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/product">VIEW</Link>
-        </div>
-      </section>
+        </VideoContent>
+      </BodySection>
     </>
   );
 };

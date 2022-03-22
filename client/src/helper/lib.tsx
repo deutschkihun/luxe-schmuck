@@ -20,11 +20,11 @@ export const VideoShowCase = styled.section`
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
   position: absolute;
+  transform: translateY(-50%) translateX(-50%);
+  filter: blur(0);
 
   .video {
     min-width: 100%;
