@@ -6,7 +6,6 @@ import { LandingPage } from "./pages/LandingPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { CartPage } from "./pages/CartPage";
 import { LoginPage } from "./pages/LoginPage";
-import { NewletterPage } from "./pages/NewletterPage";
 import { AboutPage } from "./pages/AboutPage";
 import { ErrorPage } from "./pages/ErrorPage";
 import { ProductLandingPage } from "./pages/ProductLandingPage";
@@ -46,7 +45,6 @@ function App(): JSX.Element {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/cart" component={CartPage} />
-        <Route exact path="/newletter" component={NewletterPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/product" component={ProductLandingPage} />
         <Route exact path="/product/:id" component={ProductDetailPage} />
