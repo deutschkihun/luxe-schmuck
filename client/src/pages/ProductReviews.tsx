@@ -114,7 +114,7 @@ export const ProductReviews = (props: Props): JSX.Element => {
             )}
           </ReviewContainer>
           <Title style={{ borderBottom: "none" }}>Reviews</Title>
-          {product.reviews.length === 0 ? (
+          {product?.reviews?.length === 0 ? (
             <Warning style={{ textAlign: "center" }}>
               There is no review. Please leave your reviews.
             </Warning>
@@ -129,7 +129,7 @@ export const ProductReviews = (props: Props): JSX.Element => {
                 </tr>
               </thead>
               <tbody>
-                {product.reviews.map((review, index) => (
+                {product?.reviews?.map((review, index) => (
                   <tr key={index}>
                     <td>{review.email}</td>
                     <td>{review.rating}</td>

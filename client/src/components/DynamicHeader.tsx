@@ -15,6 +15,7 @@ import {
   MenubarLogo,
   DropdowLogo,
   DynamicHeaderSection,
+  TransactionsLogo,
 } from "../helper/lib";
 import { RootState } from "../store";
 import { MenuDropdown, ProfileDropdown } from "./Dropdown";
@@ -83,22 +84,40 @@ export const DynamicHeader = (): JSX.Element => {
         </MenubarLogo>
 
         {userInfo ? (
-          <CartLogo href="/cart">
-            <i
-              onMouseOver={() => {
-                setHover(true);
-              }}
-              onMouseLeave={() => {
-                setHover(false);
-              }}
-              style={{
-                ...style.normal,
-                ...(hover ? style.hover : null),
-              }}
-              className="fa fa-shopping-cart"
-              aria-hidden="true"
-            />
-          </CartLogo>
+          <>
+            <TransactionsLogo href="/transactions">
+              <i
+                onMouseOver={() => {
+                  setHover(true);
+                }}
+                onMouseLeave={() => {
+                  setHover(false);
+                }}
+                style={{
+                  ...style.normal,
+                  ...(hover ? style.hover : null),
+                }}
+                className="fa fa-table"
+                aria-hidden="true"
+              ></i>
+            </TransactionsLogo>
+            <CartLogo href="/cart">
+              <i
+                onMouseOver={() => {
+                  setHover(true);
+                }}
+                onMouseLeave={() => {
+                  setHover(false);
+                }}
+                style={{
+                  ...style.normal,
+                  ...(hover ? style.hover : null),
+                }}
+                className="fa fa-shopping-cart"
+                aria-hidden="true"
+              />
+            </CartLogo>
+          </>
         ) : (
           <CartLogo href="/about">
             <i

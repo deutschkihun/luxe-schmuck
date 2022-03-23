@@ -32,7 +32,7 @@ export interface ProductProps {
   numReviews?: number;
   description?: string;
   countInStock?: number;
-  reviews: ProductReviewProps;
+  reviews?: ProductReviewProps;
   error?: string;
 }
 
@@ -93,17 +93,6 @@ export type InputProps<T> = {
   defaultValue?: string | number;
 };
 
-export interface MatchParams {
-  match: {
-    params: {
-      pageNumber: number;
-      category: string;
-      keyword: string;
-      id: string;
-    };
-  };
-}
-
 export interface UserListProps {
   error?: string | undefined;
   users?: [
@@ -115,4 +104,22 @@ export interface UserListProps {
       isAdmin?: boolean;
     }
   ];
+}
+
+export interface OrderProp {
+  name?: string;
+  qty?: number;
+  price?: number;
+  products?: ProductsProps;
+}
+
+export type OrderProps = OrderProp[];
+
+export interface CartProp {
+  _id: string;
+  productname: string;
+  qty: number;
+  price: number;
+  countInStock: number;
+  image: number;
 }

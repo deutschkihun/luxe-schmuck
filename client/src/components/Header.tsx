@@ -15,6 +15,7 @@ import {
   MenuContainer4,
   MenubarLogo,
   DropdowLogo,
+  TransactionsLogo,
 } from "../helper/lib";
 import { RootState } from "../store";
 import { MenuDropdown, ProfileDropdown } from "./Dropdown";
@@ -43,9 +44,15 @@ export const Header = (): JSX.Element => {
         </MenubarLogo>
 
         {userInfo ? (
-          <CartLogo href="/cart">
-            <i className="fa fa-shopping-cart" aria-hidden="true" />
-          </CartLogo>
+          <>
+            <TransactionsLogo href="/transactions">
+              <i className="fa fa-table" aria-hidden="true"></i>
+            </TransactionsLogo>
+
+            <CartLogo href="/cart">
+              <i className="fa fa-shopping-cart" aria-hidden="true" />
+            </CartLogo>
+          </>
         ) : (
           <CartLogo href="/about">
             <i className="fa fa-info" aria-hidden="true"></i>

@@ -159,6 +159,14 @@ export const MenubarLogo = styled.a`
   font-size: 25px;
 `;
 
+export const TransactionsLogo = styled.a`
+  cursor: pointer;
+  grid-column: 9 / 10;
+  color: black;
+  font-size: 25px;
+  padding: 1rem;
+`;
+
 export const CartLogo = styled.a`
   cursor: pointer;
   grid-column: 10 / 11;

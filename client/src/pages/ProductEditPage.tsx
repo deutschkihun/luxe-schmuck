@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails, updateProduct } from "../actions/productActions";
 import { PRODUCT_UPDATE_RESET } from "../actions/types";
-import { IFormInputs, MatchParams } from "../helper/interface";
-import { useHistory } from "react-router";
+import { IFormInputs } from "../helper/interface";
+import { useHistory, useRouteMatch } from "react-router";
 import { mixRex, multipartConfig, numRex } from "../helper/utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LoadingView } from "../components/LoadingView";
@@ -18,8 +18,9 @@ import {
 import { Form, SubmitButton, SubmitInput, Warning } from "../helper/lib";
 import { RootState } from "../store";
 
-export const ProductEditPage = (props: MatchParams): JSX.Element => {
-  const productId = props.match.params.id;
+export const ProductEditPage = (): JSX.Element => {
+  const match = useRouteMatch<{ id: string }>();
+
   const history = useHistory();
   const [image, setImage] = useState<string>("");
   const [imageMsg, setImageMsg] = useState<string>("");
@@ -39,10 +40,10 @@ export const ProductEditPage = (props: MatchParams): JSX.Element => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       history.push("/admin/productlist");
-    } else if (product?._id !== productId) {
-      dispatch(listProductDetails(productId));
+    } else if (product?._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id));
     }
-  }, [dispatch, history, productId, product, successUpdate]);
+  }, [dispatch, history, match.params.id, product, successUpdate]);
 
   const uploadFileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files as FileList;
@@ -70,7 +71,7 @@ export const ProductEditPage = (props: MatchParams): JSX.Element => {
 
   useEffect(() => {
     if (body) {
-      body._id = productId;
+      body._id = match.params.id;
       if (image) {
         body.image = image;
         dispatch(updateProduct(body));

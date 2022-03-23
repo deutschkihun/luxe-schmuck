@@ -14,7 +14,6 @@ import { ForgotEmailPage } from "./pages/ForgotEmailPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { SuccessPage } from "./pages/SuccessPage";
 import { ProfilePage } from "./pages/ProfilePage";
-import { MyOrderPage } from "./pages/MyOrderPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import UserListPage from "./pages/UserListPage";
 import { ProductListPage } from "./pages/ProductListPage";
@@ -23,6 +22,8 @@ import { ProductCreatePage } from "./pages/ProductCreatePage";
 import { ProductEditPage } from "./pages/ProductEditPage";
 import { ProductDetailPage } from "./pages/ProductDetail";
 import { LoadingView } from "./components/LoadingView";
+import { OrderPage } from "./pages/OrderPage";
+import { TransactionsPage } from "./pages/TransactionsPage";
 
 function App(): JSX.Element {
   return (
@@ -50,6 +51,7 @@ function App(): JSX.Element {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/order/:id" component={OrderPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/cart" component={CartPage} />
           <Route exact path="/about" component={AboutPage} />
@@ -61,7 +63,7 @@ function App(): JSX.Element {
           <Route exact path="/reset/password" component={ResetPasswordPage} />
           <Route exact path="/success" component={SuccessPage} />
           <Route exact path="/profile" component={ProfilePage} />
-          <Route exact path="/myorder" component={MyOrderPage} />
+          <Route exact path="/transactions" component={TransactionsPage} />
           {/* admin */}
           <Route exact path="/admin/userlist" component={UserListPage} />
           <Route path="/admin/productlist" component={ProductListPage} />

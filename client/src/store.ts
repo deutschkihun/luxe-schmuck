@@ -20,6 +20,7 @@ import {
   productUpdateReducer,
   productReviewCreateReducer,
 } from "./reducer/productReducer";
+import { cartReducer } from "./reducer/cartReducer";
 
 export const rootReducer = combineReducers({
   userLogin: userloginReducer,
@@ -37,6 +38,7 @@ export const rootReducer = combineReducers({
   productDetails: productDetailsReducer,
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
+  cart: cartReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -49,14 +51,9 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo") as string)
   : null;
 
-const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
-  ? JSON.parse(localStorage.getItem("shippingAddress") as string)
-  : {};
-
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
-    shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
 };

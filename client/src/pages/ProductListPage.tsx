@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts, deleteProduct } from "../actions/productActions";
-import { MatchParams } from "../helper/interface";
 import { RootState } from "../store";
 import { LoadingView } from "../components/LoadingView";
 import {
@@ -13,9 +12,8 @@ import {
 } from "../helper/lib";
 import { deleteData } from "../helper/message";
 
-export const ProductListPage = (props: MatchParams): JSX.Element => {
+export const ProductListPage = (): JSX.Element => {
   const history = useHistory();
-  const pageNumber = props.match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
@@ -34,7 +32,7 @@ export const ProductListPage = (props: MatchParams): JSX.Element => {
     }
 
     dispatch(listProducts());
-  }, [dispatch, history, userInfo, successDelete, pageNumber]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id: string) => {
     if (window.confirm(deleteData)) {
