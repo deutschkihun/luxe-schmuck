@@ -3,6 +3,9 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { SubmitButton, Title } from "../helper/lib";
 import { ProductProps } from "../helper/interface";
 import { ProductReviews } from "./ProductReviews";
+import { LoginMsg } from "../helper/message";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 interface Props {
   product: ProductProps;
@@ -13,9 +16,17 @@ export const ProductInfo = (props: Props): JSX.Element => {
   const [qty, setQty] = useState(1);
   const match = useRouteMatch<{ id: string }>();
   const history = useHistory();
+  const userLogin = useSelector((state: RootState) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    if (userInfo) {
+      history.push(`/cart/${match.params.id}?qty=${qty}`);
+    } else {
+      if (window.confirm(LoginMsg)) {
+        history.push("/login");
+      }
+    }
   };
   return (
     <>

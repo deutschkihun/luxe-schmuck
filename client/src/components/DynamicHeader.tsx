@@ -82,22 +82,41 @@ export const DynamicHeader = (): JSX.Element => {
           <MenuDropdown />
         </MenubarLogo>
 
-        <CartLogo href="/cart">
-          <i
-            onMouseOver={() => {
-              setHover(true);
-            }}
-            onMouseLeave={() => {
-              setHover(false);
-            }}
-            style={{
-              ...style.normal,
-              ...(hover ? style.hover : null),
-            }}
-            className="fa fa-shopping-cart"
-            aria-hidden="true"
-          />
-        </CartLogo>
+        {userInfo ? (
+          <CartLogo href="/cart">
+            <i
+              onMouseOver={() => {
+                setHover(true);
+              }}
+              onMouseLeave={() => {
+                setHover(false);
+              }}
+              style={{
+                ...style.normal,
+                ...(hover ? style.hover : null),
+              }}
+              className="fa fa-shopping-cart"
+              aria-hidden="true"
+            />
+          </CartLogo>
+        ) : (
+          <CartLogo href="/about">
+            <i
+              onMouseOver={() => {
+                setHover(true);
+              }}
+              onMouseLeave={() => {
+                setHover(false);
+              }}
+              style={{
+                ...style.normal,
+                ...(hover ? style.hover : null),
+              }}
+              className="fa fa-info"
+              aria-hidden="true"
+            ></i>
+          </CartLogo>
+        )}
       </Grid>
       <Grid
         onMouseOver={() => {

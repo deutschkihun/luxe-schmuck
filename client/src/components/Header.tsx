@@ -42,9 +42,15 @@ export const Header = (): JSX.Element => {
           <MenuDropdown />
         </MenubarLogo>
 
-        <CartLogo href="/cart">
-          <i className="fa fa-shopping-cart" aria-hidden="true" />
-        </CartLogo>
+        {userInfo ? (
+          <CartLogo href="/cart">
+            <i className="fa fa-shopping-cart" aria-hidden="true" />
+          </CartLogo>
+        ) : (
+          <CartLogo href="/about">
+            <i className="fa fa-info" aria-hidden="true"></i>
+          </CartLogo>
+        )}
       </Grid>
       <Grid>
         <MenuContainer1 className="menu-toggle">

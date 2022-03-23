@@ -11,3 +11,5 @@ export const deleteData =
   "The deleted data cannot be recovered. Do you still want to continue?";
 export const badRequest = "Request failed with status code 400";
 export const alreadyReviewed = "already reviewed";
+export const LoginMsg =
+  "This service is only available after you login in, do you want to do this ?";

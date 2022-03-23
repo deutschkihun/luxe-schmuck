@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -22,69 +22,77 @@ import { OrderListPage } from "./pages/OrderListPage";
 import { ProductCreatePage } from "./pages/ProductCreatePage";
 import { ProductEditPage } from "./pages/ProductEditPage";
 import { ProductDetailPage } from "./pages/ProductDetail";
+import { LoadingView } from "./components/LoadingView";
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <Route
-        path="/"
-        render={({ location }) =>
-          location.pathname !== "/" &&
-          location.pathname !== "/login" &&
-          location.pathname !== "/register" &&
-          location.pathname !== "/profile" &&
-          location.pathname !== "/success" &&
-          location.pathname !== "/forgot" &&
-          location.pathname !== "/forgot/password" &&
-          location.pathname !== "/reset/password" &&
-          location.pathname !== "/forgot/email" && <Header />
+    <>
+      <Suspense
+        fallback={
+          <LoadingView title={"Loading ..."} body={"please wait a moment"} />
         }
-      />
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/cart" component={CartPage} />
-        <Route exact path="/about" component={AboutPage} />
-        <Route exact path="/product" component={ProductLandingPage} />
-        <Route exact path="/product/:id" component={ProductDetailPage} />
-        <Route exact path="/forgot" component={ForgotPage} />
-        <Route exact path="/forgot/email" component={ForgotEmailPage} />
-        <Route exact path="/forgot/password" component={ForgotPasswordPage} />
-        <Route exact path="/reset/password" component={ResetPasswordPage} />
-        <Route exact path="/success" component={SuccessPage} />
-        <Route exact path="/profile" component={ProfilePage} />
-        <Route exact path="/myorder" component={MyOrderPage} />
-        {/* admin */}
-        <Route exact path="/admin/userlist" component={UserListPage} />
-        <Route path="/admin/productlist" component={ProductListPage} />
+      ></Suspense>
+      <Router>
         <Route
-          exact
-          path="/admin/product/create"
-          component={ProductCreatePage}
+          path="/"
+          render={({ location }) =>
+            location.pathname !== "/" &&
+            location.pathname !== "/login" &&
+            location.pathname !== "/register" &&
+            location.pathname !== "/profile" &&
+            location.pathname !== "/success" &&
+            location.pathname !== "/forgot" &&
+            location.pathname !== "/forgot/password" &&
+            location.pathname !== "/reset/password" &&
+            location.pathname !== "/forgot/email" && <Header />
+          }
         />
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/cart" component={CartPage} />
+          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/product" component={ProductLandingPage} />
+          <Route exact path="/product/:id" component={ProductDetailPage} />
+          <Route exact path="/forgot" component={ForgotPage} />
+          <Route exact path="/forgot/email" component={ForgotEmailPage} />
+          <Route exact path="/forgot/password" component={ForgotPasswordPage} />
+          <Route exact path="/reset/password" component={ResetPasswordPage} />
+          <Route exact path="/success" component={SuccessPage} />
+          <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/myorder" component={MyOrderPage} />
+          {/* admin */}
+          <Route exact path="/admin/userlist" component={UserListPage} />
+          <Route path="/admin/productlist" component={ProductListPage} />
+          <Route
+            exact
+            path="/admin/product/create"
+            component={ProductCreatePage}
+          />
+          <Route
+            exact
+            path="/admin/product/:id/edit"
+            component={ProductEditPage}
+          />
+          <Route exact path="/admin/orderlist" component={OrderListPage} />
+          <Route path="*" component={ErrorPage} />
+        </Switch>
         <Route
-          exact
-          path="/admin/product/:id/edit"
-          component={ProductEditPage}
+          path="/"
+          render={({ location }) =>
+            location.pathname !== "/login" &&
+            location.pathname !== "/register" &&
+            location.pathname !== "/profile" &&
+            location.pathname !== "/success" &&
+            location.pathname !== "/forgot" &&
+            location.pathname !== "/forgot/password" &&
+            location.pathname !== "/reset/password" &&
+            location.pathname !== "/forgot/email" && <Footer />
+          }
         />
-        <Route exact path="/admin/orderlist" component={OrderListPage} />
-        <Route path="*" component={ErrorPage} />
-      </Switch>
-      <Route
-        path="/"
-        render={({ location }) =>
-          location.pathname !== "/login" &&
-          location.pathname !== "/register" &&
-          location.pathname !== "/profile" &&
-          location.pathname !== "/success" &&
-          location.pathname !== "/forgot" &&
-          location.pathname !== "/forgot/password" &&
-          location.pathname !== "/reset/password" &&
-          location.pathname !== "/forgot/email" && <Footer />
-        }
-      />
-    </Router>
+      </Router>
+    </>
   );
 }
 
