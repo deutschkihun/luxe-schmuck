@@ -52,7 +52,7 @@ export const VideoContent = styled.div`
   position: relative;
   align-items: center;
   text-align: center;
-  color: $white-color;
+  color: white;
   z-index: 10;
   margin-top: -5%;
   display: flex;
@@ -64,14 +64,18 @@ export const VideoContent = styled.div`
 
   a {
     width: 100px;
-    color: $white-color;
+    color: white;
     padding: 10px 0;
     margin-top: 1rem;
-    border: 2px solid $white-color;
+    border: 2px solid white;
   }
 `;
 
 export const HeaderSection = styled.header``;
+
+export const DynamicHeaderSection = styled.header`
+  height: 0px;
+`;
 
 export const BodySection = styled.section`
   position: relative;
@@ -80,12 +84,15 @@ export const BodySection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: -1;
+  margin-top: -1rem;
 `;
 
 export const Grid = styled.div`
-  max-width: 1440px;
+  max-width: 1920px;
   margin: auto;
   display: grid;
+  z-index: 2;
   grid-template-columns: repeat(10, 1fr);
   grid-row-gap: 0px;
   justify-items: center;
@@ -193,6 +200,7 @@ export const Listing = styled.li`
   text-decoration: none;
   display: inline-block;
   margin-right: 40px;
+  color: black;
 `;
 
 export const FooterSection = styled.footer`

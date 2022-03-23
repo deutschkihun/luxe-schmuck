@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -11,6 +10,7 @@ import {
 import show from "../video/show.mp4";
 import lv from "../video/lv.mp4";
 import watch from "../video/watch.mp4";
+import { DynamicHeader } from "../components/DynamicHeader";
 
 // register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -61,7 +61,7 @@ export const LandingPage = (): JSX.Element => {
           autoAlpha: 0,
         },
         {
-          duration: 3,
+          duration: 1,
           autoAlpha: 1,
           ease: "none",
           scrollTrigger: {
@@ -76,25 +76,44 @@ export const LandingPage = (): JSX.Element => {
 
   return (
     <>
+      <DynamicHeader />
       <BodySection ref={refSlide1}>
         <VideoShowCase>
-          <video src={watch} autoPlay muted loop controls={true}></video>
+          <video
+            src={watch}
+            autoPlay
+            muted
+            loop
+            style={{ width: "1920px", maxWidth: "1920px" }}
+          ></video>
         </VideoShowCase>
         <VideoContent>
-          <SubTitle>NEW IN</SubTitle>
-          <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/product">VIEW</Link>
+          <SubTitle style={{ color: "white", fontSize: "3rem" }}>
+            WHAT IS NEW
+          </SubTitle>
+          <SubTitle style={{ color: "white", fontSize: "1.5rem" }}>
+            Experience luxury products that you can only see on LUXE SCHUMCK.
+          </SubTitle>
         </VideoContent>
       </BodySection>
 
       <BodySection ref={refSlide2}>
         <VideoShowCase>
-          <video src={lv} autoPlay muted loop controls={true}></video>
+          <video
+            src={lv}
+            autoPlay
+            muted
+            loop
+            style={{ width: "1920px", maxWidth: "1920px" }}
+          ></video>
         </VideoShowCase>
         <VideoContent>
-          <h1 className="section__content__title">NEW IN</h1>
-          <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/product">VIEW</Link>
+          <SubTitle style={{ color: "white", fontSize: "3rem" }}>
+            FOR WOMEN
+          </SubTitle>
+          <SubTitle style={{ color: "white", fontSize: "1.5rem" }}>
+            Explore LUXE SCHMUCK&apos;s WOMEN products.
+          </SubTitle>
         </VideoContent>
       </BodySection>
 
@@ -105,14 +124,16 @@ export const LandingPage = (): JSX.Element => {
             autoPlay
             muted
             loop
-            controls
-            style={{ pointerEvents: "unset" }}
+            style={{ width: "1920px", maxWidth: "1920px" }}
           ></video>
         </VideoShowCase>
         <VideoContent>
-          <h1 className="section__content__title">NEW IN</h1>
-          <h3>Explore latest collection of the season curated for you</h3>
-          <Link to="/product">VIEW</Link>
+          <SubTitle style={{ color: "white", fontSize: "3rem" }}>
+            FOR MEN
+          </SubTitle>
+          <SubTitle style={{ color: "white", fontSize: "1.5rem" }}>
+            Explore LUXE SCHMUCK&apos;s MEN products.
+          </SubTitle>
         </VideoContent>
       </BodySection>
     </>

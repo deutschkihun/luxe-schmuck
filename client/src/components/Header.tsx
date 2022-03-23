@@ -32,7 +32,7 @@ export const Header = (): JSX.Element => {
           </DropdowLogo>
         ) : (
           <UserLogo href="/login">
-            <i className="fa fa-user" aria-hidden="true"></i>
+            <i className="fa fa-user" aria-hidden="true" />
           </UserLogo>
         )}
         <MenuLogo className="logo-toggle" href="/">
@@ -43,7 +43,7 @@ export const Header = (): JSX.Element => {
         </MenubarLogo>
 
         <CartLogo href="/cart">
-          <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+          <i className="fa fa-shopping-cart" aria-hidden="true" />
         </CartLogo>
       </Grid>
       <Grid>
