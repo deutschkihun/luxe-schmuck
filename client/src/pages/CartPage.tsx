@@ -5,7 +5,6 @@ import { RootState } from "../store";
 
 export const CartPage = (): JSX.Element => {
   const cartItems = useSelector((state: RootState) => state.cart);
-  console.log("cartItems", cartItems);
 
   return (
     <>

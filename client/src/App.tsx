@@ -17,12 +17,10 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import UserListPage from "./pages/UserListPage";
 import { ProductListPage } from "./pages/ProductListPage";
-import { OrderListPage } from "./pages/OrderListPage";
 import { ProductCreatePage } from "./pages/ProductCreatePage";
 import { ProductEditPage } from "./pages/ProductEditPage";
 import { ProductDetailPage } from "./pages/ProductDetail";
 import { LoadingView } from "./components/LoadingView";
-import { OrderPage } from "./pages/OrderPage";
 import { TransactionsPage } from "./pages/TransactionsPage";
 
 function App(): JSX.Element {
@@ -51,7 +49,6 @@ function App(): JSX.Element {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/order/:id" component={OrderPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/cart" component={CartPage} />
           <Route exact path="/about" component={AboutPage} />
@@ -77,7 +74,6 @@ function App(): JSX.Element {
             path="/admin/product/:id/edit"
             component={ProductEditPage}
           />
-          <Route exact path="/admin/orderlist" component={OrderListPage} />
           <Route path="*" component={ErrorPage} />
         </Switch>
         <Route
