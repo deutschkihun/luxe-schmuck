@@ -8,6 +8,7 @@ import { ProductImage } from "./ProductImage";
 import { ProductInfo } from "./ProductInfo";
 import { useRouteMatch } from "react-router";
 import { listProductDetails } from "../actions/productActions";
+import { failToLoad } from "../helper/message";
 
 export const ProductDetailPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export const ProductDetailPage = (): JSX.Element => {
           </SingleProductContainer>
         </>
       ) : (
-        <Warning>{"fewfew"}</Warning>
+        <Warning>{failToLoad}</Warning>
       )}
     </>
   );

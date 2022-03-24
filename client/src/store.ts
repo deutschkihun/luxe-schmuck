@@ -43,18 +43,11 @@ export const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const cartItemsFromStorage = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems") as string)
-  : [];
-
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo") as string)
   : null;
 
 const initialState = {
-  cart: {
-    cartItems: cartItemsFromStorage,
-  },
   userLogin: { userInfo: userInfoFromStorage },
 };
 

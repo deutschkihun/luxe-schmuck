@@ -250,7 +250,6 @@ export const createProductReview =
     } catch (error) {
       let message = "";
       if (error instanceof Error) {
-        console.log(error);
         if (error.message == unauthorized) {
           await dispatch(logoutUser());
           message = error.message;

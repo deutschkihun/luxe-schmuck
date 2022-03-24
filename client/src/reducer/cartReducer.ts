@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 import {
   CART_ADD_ITEM_SUCCESS,
-  CART_REMOVE_ITEM,
   CART_CLEAR_ITEMS,
   CART_REQUEST,
 } from "../actions/types";
@@ -26,20 +25,24 @@ export const cartReducer = (
 } => {
   switch (action.type) {
     case CART_REQUEST:
-      return { loading: true, cartItems: [] };
+      return { ...state, loading: true };
     case CART_ADD_ITEM_SUCCESS:
       const item = action.payload;
-      console.log(item, state);
+      //console.log(state);
+      //state = { ...state, ...state["cartItems"]["items"].push([item]) };
+      //const newState = { ...state, cartItems: [{ ...state }, { ...item }] };
+      //console.log(state);
       return {
+        ...state,
         loading: false,
       };
-    /*const existItem = state.cartItems.find(
+    /*const existItem = newState.cartItems.find(
         (x) => x.productname === item?.productname
       );
       if (existItem) {
         return {
           ...state,
-          cartItems: state.cartItems.map((x) =>
+          cartItems: newState.cartItems.map((x) =>
             x.productname === existItem.productname ? item : x
           ),
           loading: false,
@@ -47,20 +50,12 @@ export const cartReducer = (
       } else {
         return {
           ...state,
-          cartItems: [...state.cartItems, item],
+          cartItems: [...newState.cartItems, item],
           loading: false,
         };
       }*/
-    /*case CART_REMOVE_ITEM:
-      return {
-        ...state,
-        cartItems: state.cartItems.filter((x) => x.id !== action.payload._id),
-      };
     case CART_CLEAR_ITEMS:
-      return {
-        ...state,
-        cartItems: [],
-      };*/
+      return {};
     default:
       return state;
   }

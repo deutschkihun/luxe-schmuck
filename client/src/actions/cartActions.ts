@@ -11,7 +11,6 @@ export const addToCart =
       type: CART_REQUEST,
     });
     const { data } = await axios.get(`/api/v1/products/${id}`);
-    console.log(data);
     dispatch({
       type: CART_ADD_ITEM_SUCCESS,
       payload: {
@@ -24,5 +23,5 @@ export const addToCart =
       },
     });
 
-    localStorage.setItem("cartItems", JSON.stringify(data));
+    //localStorage.setItem("cartItems", JSON.stringify(getState().cart));
   };
