@@ -21,18 +21,10 @@ export const addToCart =
       dispatch({
         type: CART_REQUEST,
       });
-      const { data } = await axios.get(`/api/v1/products/${id}`);
-      dispatch({
-        type: CART_ADD_ITEM_SUCCESS,
-        payload: {
-          _id: data._id,
-          productname: data.productname,
-          image: data.image,
-          price: data.price,
-          countInStock: data.countInStock,
-          qty: qty,
-        },
-      });
+
+      //const { data } = await axios.get(`/api/v1/products/${id}`);
+
+      dispatch({ type: CART_ADD_ITEM_SUCCESS });
     } catch (error) {
       let message = "";
       if (error instanceof Error) {
@@ -49,6 +41,4 @@ export const addToCart =
         error: message,
       });
     }
-
-    //localStorage.setItem("cartItems", JSON.stringify(getState().cart));
   };
