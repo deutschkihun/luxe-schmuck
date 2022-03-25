@@ -43,6 +43,10 @@ export const ProductReviews = (props: Props): JSX.Element => {
   const userLogin = useSelector((state: RootState) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const reviewdUser = () => {
+    return product?.reviews?.find((review) => review.email == userInfo?.email);
+  };
+
   useEffect(() => {
     if (successProductReview) {
       console.log(rating, comment);
@@ -81,7 +85,7 @@ export const ProductReviews = (props: Props): JSX.Element => {
           <ReviewContainer>
             <Title style={{ borderBottom: "none" }}>Create new reviews</Title>
             {errorProductReview && <Warning>{errorProductReview}</Warning>}
-            {userInfo ? (
+            {!reviewdUser() && userInfo ? (
               <form style={{ maxWidth: "none" }} onSubmit={submitHandler}>
                 <Message>Rating</Message>
                 <select
@@ -104,6 +108,10 @@ export const ProductReviews = (props: Props): JSX.Element => {
                   SUBMIT
                 </Button>
               </form>
+            ) : reviewdUser() ? (
+              <Warning>
+                You already reviewed here. Thank you for your reviewing
+              </Warning>
             ) : (
               <Warning>
                 Login required

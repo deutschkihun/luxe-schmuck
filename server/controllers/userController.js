@@ -157,14 +157,6 @@ const getCartItem = asyncHandler(async (req,res) => {
 }) 
 
 const deleteCartItem = asyncHandler(async (req,res) => {
-  console.log(req.params)
-
-  const deleteCartItem = await User.findOneAndDelete(
-    {_id:req.params.userid},
-    {'cart._id': req.params.itemid}
-  )
-
-  console.log(deleteCartItem)
 
 }) 
 
