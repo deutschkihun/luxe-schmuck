@@ -109,6 +109,13 @@ export const AboutPage = (): JSX.Element => {
           Login-Sys boilerplate
         </SubmitButton>
       </Wrapper>
+      <Wrapper>
+        <SubTitle>References</SubTitle>
+        <Message>
+          The images and videos used in LUXE SCHMUCK refer to the sources of
+          Louis Vutton, Tiffany and Bulgari.
+        </Message>
+      </Wrapper>
     </>
   );
 };

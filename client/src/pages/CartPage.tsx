@@ -19,11 +19,11 @@ export const CartPage = (): JSX.Element => {
     dispatch(getCart(userInfo?._id as string));
   }, []);
 
-  const deleteHandler = (id: string) => {
+  /*const deleteHandler = (id: string) => {
     if (window.confirm(deleteData)) {
       dispatch(deleteCartItem(id));
     }
-  };
+  };*/
 
   const totalPrice = cartItem?.reduce((total, item) => {
     total += item.qty * item.price;
@@ -60,7 +60,7 @@ export const CartPage = (): JSX.Element => {
                   <td>
                     <button
                       className="btn"
-                      onClick={() => deleteHandler(item._id as string)}
+                      //onClick={() => deleteHandler(item._id as string)}
                     >
                       <i className="fas fa-trash"></i>
                     </button>
