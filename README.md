@@ -1,4 +1,4 @@
-## Project URL
+## About LUXE SCHMUCK
 
 https://luxeschmuck.herokuapp.com/
 
