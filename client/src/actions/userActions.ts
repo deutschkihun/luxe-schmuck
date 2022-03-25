@@ -177,7 +177,7 @@ export const updateUserProfile =
         userLogin: { userInfo },
       } = getState();
 
-      const { data } = await axios.put(`/api/v1/users/profile`, user, {
+      const { data } = await axios.patch(`/api/v1/users/profile`, user, {
         ...jsonConfig,
         ...tokenConfig(userInfo.token as string),
       });

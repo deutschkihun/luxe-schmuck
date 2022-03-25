@@ -11,7 +11,9 @@ import {
   findPW,
   resetPW,
   getUserById,
-  deleteUser
+  deleteUser,
+  getCartItem,
+  deleteCartItem
 } from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -20,9 +22,12 @@ router.post('/login', authUser);
 router
   .route('/profile')
   .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+  .patch(protect, updateUserProfile);
 
 router.patch('/cart/profile',updateCartinUserProfile)
+router.get('/cart/profile/:id',getCartItem)
+
+router.delete('/:userid/cart/profile/:itemid',deleteCartItem);
 
 router.post('/findemail',findEmail)
 router.post('/findpw',findPW)

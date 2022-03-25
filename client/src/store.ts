@@ -20,7 +20,7 @@ import {
   productUpdateReducer,
   productReviewCreateReducer,
 } from "./reducer/productReducer";
-import { cartReducer } from "./reducer/cartReducer";
+import { cartReducer, getCartItem } from "./reducer/cartReducer";
 
 export const rootReducer = combineReducers({
   userLogin: userloginReducer,
@@ -39,6 +39,7 @@ export const rootReducer = combineReducers({
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   cart: cartReducer,
+  getCart: getCartItem,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

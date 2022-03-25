@@ -1,44 +1,48 @@
 import {
+  CART_ADD_ITEM_FAIL,
   CART_ADD_ITEM_SUCCESS,
-  CART_CLEAR_ITEMS,
+  CART_GET_ITEM_FAIL,
+  CART_GET_ITEM_SUCCESS,
   CART_REQUEST,
 } from "../actions/types";
 import { CartProp } from "../helper/interface";
 
 export const cartReducer = (
   state = {},
-  action: { type: string; payload: CartProp }
+  action: { type: string; success: boolean; error: string }
 ): {
   loading?: boolean;
+  success?: boolean;
+  error?: string;
 } => {
   switch (action.type) {
     case CART_REQUEST:
-      return { ...state, loading: true };
+      return { loading: true };
     case CART_ADD_ITEM_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-      };
-    /*const existItem = newState.cartItems.find(
-        (x) => x.productname === item?.productname
-      );
-      if (existItem) {
-        return {
-          ...state,
-          cartItems: newState.cartItems.map((x) =>
-            x.productname === existItem.productname ? item : x
-          ),
-          loading: false,
-        };
-      } else {
-        return {
-          ...state,
-          cartItems: [...newState.cartItems, item],
-          loading: false,
-        };
-      }*/
-    case CART_CLEAR_ITEMS:
-      return {};
+      return { loading: false, success: true };
+    case CART_ADD_ITEM_FAIL:
+      return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};
+
+export const getCartItem = (
+  state = {},
+  action: { type: string; payload: Array<CartProp>; error: string }
+): {
+  loading?: boolean;
+  cartItem?: Array<CartProp>;
+  error?: string;
+} => {
+  switch (action.type) {
+    case CART_REQUEST:
+      return { loading: true };
+    case CART_GET_ITEM_SUCCESS:
+      console.log(action.payload);
+      return { loading: false, cartItem: action.payload };
+    case CART_GET_ITEM_FAIL:
+      return { loading: false, error: action.error };
     default:
       return state;
   }

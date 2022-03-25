@@ -85,12 +85,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       lastname,
       password,
       email,
-    },{
-        new:true,
-        runValidators:true,
     })
 
-    console.log(updatedUser)
   if (updatedUser) {
     res.json({
       _id: updatedUser._id,
@@ -99,7 +95,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
-      cart: cart
     });
   } else {
     res.status(404);
@@ -107,41 +102,74 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// @description   Get all users
+// @route         GET /api/users
+// @access        Private
 const updateCartinUserProfile = asyncHandler(async (req,res) => {
   let {cart:cartItem} = await req.body
   const user = await User.findById(req.body.user._id);
-  const updatedqty = user.cart.map( async (item) => {
+  const existAlready = await user.cart.find((item) => {
     if(item.product == cartItem.product) {
-      await User.findOneAndUpdate({_id:req.body.user._id},{
-       cart: {
-         product: cartItem.product,
-         productname: cartItem.productname,
-         image: cartItem.image,
-         price: cartItem.price,
-         countInStock: cartItem.countInStock,
-         qty: cartItem.qty + item.qty
-       }
-      })
+      return item
     } 
   })
 
-  console.log(updatedqty)
+  if(existAlready) {
+    const updatedqty = await User.findOneAndUpdate(
+        {_id:req.body.user._id,},
+        { $set: { "cart.$[elem].qty": cartItem.qty + existAlready.qty}},
+        { arrayFilters: [{"elem.product":{$eq:existAlready.product}}]}
+      )
 
-  /*else {
-    await User.findOneAndUpdate({_id:req.body.user._id},{
-       "$push": { "cart": cartItem }
-     })
-  }*/
+     if(updatedqty) {
+      res.json({
+        cart: user.cart
+      });
+     } else {
+      res.status(404);
+      throw new Error('User not found');
+     }
+  } else {
+    const addNewCartItem = await User.findOneAndUpdate({_id:req.body.user._id},{
+      "$push": { "cart": cartItem }
+    })
 
-  if(updatedqty) {
-    res.json({
-      cart: user.cart
-    });
+    if(addNewCartItem) {
+      res.json({
+        cart: user.cart
+      });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  }
+})
+
+
+const getCartItem = asyncHandler(async (req,res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if(user) {
+    res.json(user.cart)
   } else {
     res.status(404);
     throw new Error('User not found');
   }
-})
+}) 
+
+const deleteCartItem = asyncHandler(async (req,res) => {
+  console.log(req.params)
+
+  const deleteCartItem = await User.findOneAndDelete(
+    {_id:req.params.userid},
+    {'cart._id': req.params.itemid}
+  )
+
+  console.log(deleteCartItem)
+
+}) 
+
+
+
 
 // @description   Get all users
 // @route         GET /api/users
@@ -293,5 +321,7 @@ export {
   updateUser,
   findEmail,
   findPW,
-  resetPW
+  resetPW,
+  getCartItem,
+  deleteCartItem
 };
