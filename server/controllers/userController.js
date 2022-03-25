@@ -84,12 +84,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       firstname,
       lastname,
       password,
-      email
+      email,
     },{
         new:true,
         runValidators:true,
     })
 
+    console.log(updatedUser)
   if (updatedUser) {
     res.json({
       _id: updatedUser._id,
@@ -98,12 +99,49 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
+      cart: cart
     });
   } else {
     res.status(404);
     throw new Error('User not found');
   }
 });
+
+const updateCartinUserProfile = asyncHandler(async (req,res) => {
+  let {cart:cartItem} = await req.body
+  const user = await User.findById(req.body.user._id);
+  const updatedqty = user.cart.map( async (item) => {
+    if(item.product == cartItem.product) {
+      await User.findOneAndUpdate({_id:req.body.user._id},{
+       cart: {
+         product: cartItem.product,
+         productname: cartItem.productname,
+         image: cartItem.image,
+         price: cartItem.price,
+         countInStock: cartItem.countInStock,
+         qty: cartItem.qty + item.qty
+       }
+      })
+    } 
+  })
+
+  console.log(updatedqty)
+
+  /*else {
+    await User.findOneAndUpdate({_id:req.body.user._id},{
+       "$push": { "cart": cartItem }
+     })
+  }*/
+
+  if(updatedqty) {
+    res.json({
+      cart: user.cart
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+})
 
 // @description   Get all users
 // @route         GET /api/users
@@ -248,6 +286,7 @@ export {
   registerUser,
   getUserProfile,
   updateUserProfile,
+  updateCartinUserProfile,
   getUsers,
   deleteUser,
   getUserById,

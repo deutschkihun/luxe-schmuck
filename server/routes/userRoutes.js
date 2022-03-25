@@ -6,6 +6,7 @@ import {
   getUsers,
   getUserProfile,
   updateUserProfile,
+  updateCartinUserProfile,
   findEmail,
   findPW,
   resetPW,
@@ -20,6 +21,8 @@ router
   .route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
+
+router.patch('/cart/profile',updateCartinUserProfile)
 
 router.post('/findemail',findEmail)
 router.post('/findpw',findPW)

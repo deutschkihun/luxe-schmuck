@@ -22,7 +22,7 @@ export const ProductInfo = (props: Props): JSX.Element => {
 
   const addToCartHandler = () => {
     if (userInfo) {
-      dispatch(addToCart(product._id as string, qty));
+      dispatch(addToCart(userInfo, product, qty));
     } else {
       if (window.confirm(LoginMsg)) {
         history.push("/login");

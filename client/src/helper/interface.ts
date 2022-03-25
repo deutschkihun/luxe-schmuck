@@ -105,3 +105,12 @@ export interface UserListProps {
     }
   ];
 }
+
+export interface CartProp {
+  _id: string;
+  productname: string;
+  qty: number;
+  price: number;
+  countInStock: number;
+  image: number;
+}

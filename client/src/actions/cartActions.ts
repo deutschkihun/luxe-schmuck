@@ -1,6 +1,7 @@
 import axios from "axios";
-import { CartProp } from "../helper/interface";
+import { CartProp, IFormInputs, ProductProps } from "../helper/interface";
 import { failToUpdate, unauthorized } from "../helper/message";
+import { jsonConfig, tokenConfig } from "../helper/utils";
 import {
   CART_ADD_ITEM_FAIL,
   CART_ADD_ITEM_SUCCESS,
@@ -9,7 +10,7 @@ import {
 import { logoutUser } from "./userActions";
 
 export const addToCart =
-  (id: string, qty: number) =>
+  (user: IFormInputs, product: ProductProps, qty: number) =>
   async (
     dispatch: (
       arg0:
@@ -22,9 +23,27 @@ export const addToCart =
         type: CART_REQUEST,
       });
 
-      //const { data } = await axios.get(`/api/v1/products/${id}`);
+      console.log("here", user, product, qty);
 
-      dispatch({ type: CART_ADD_ITEM_SUCCESS });
+      const cartItem = {
+        product: product._id,
+        productname: product.productname,
+        image: product.image,
+        price: product.price,
+        countInStock: product.countInStock,
+        qty,
+      };
+
+      const { data } = await axios.patch(
+        `/api/v1/users/cart/profile`,
+        { user, cart: cartItem },
+        {
+          ...jsonConfig,
+          ...tokenConfig(user.token as string),
+        }
+      );
+
+      dispatch({ type: CART_ADD_ITEM_SUCCESS, payload: data });
     } catch (error) {
       let message = "";
       if (error instanceof Error) {
