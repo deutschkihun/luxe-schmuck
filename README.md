@@ -40,9 +40,13 @@ PW=
 ADMIN_PW=
 ```
 MONGO_URI: you can get this in mongodb
+
 JWT_SECRET: jsonwebtoken secret key
+
 ID = ID for smtp server 
+
 PW = PW for smtp server
+
 ADMIN_PW = admin user password 
 
 4. Run project
