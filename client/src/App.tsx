@@ -81,7 +81,9 @@ function App(): JSX.Element {
           render={({ location }) =>
             location.pathname !== "/login" &&
             location.pathname !== "/register" &&
+            location.pathname !== "/cart" &&
             location.pathname !== "/profile" &&
+            location.pathname !== "/transactions" &&
             location.pathname !== "/success" &&
             location.pathname !== "/forgot" &&
             location.pathname !== "/forgot/password" &&
